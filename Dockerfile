@@ -27,8 +27,13 @@ WORKDIR /usr/src/app
 
 # 빌드 파일 및 의존성 복사
 COPY --from=builder /usr/src/app/package*.json ./
-COPY --from=builder /usr/src/app/.next ./.next
 COPY --from=builder /usr/src/app/node_modules ./node_modules
+
+# NODE_ENV가 production일 경우에만 .next 복사
+RUN if [ "$NODE_ENV" = "production" ]; \
+    then cp -r /usr/src/app/.next ./.next; \
+    else echo "Skipping copying .next in development"; \
+    fi
 
 # 포트 노출
 EXPOSE 3000
