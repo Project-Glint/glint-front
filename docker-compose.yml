@@ -1,10 +1,12 @@
-version: '3'
+version: '3.8'
+
 services:
-  app:
+  nextjs:
     build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - '3000:3000'
+      context: .
     volumes:
       - ./:/usr/src/app
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.local
