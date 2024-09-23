@@ -1,6 +1,10 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Image from 'next/image';
+import styles from './page.module.css';
 
+/**
+ * App HOME
+ * @return {JSX}
+ */
 export default function Home() {
   return (
     <div className={styles.page}>
@@ -18,6 +22,7 @@ export default function Home() {
             Get started by editing <code>app/page.tsx</code>.
           </li>
           <li>Save and see your changes instantly.</li>
+          <li>enjoy our playground.</li>
         </ol>
 
         <div className={styles.ctas}>

@@ -6,4 +6,4 @@ export type buttonVariant =
   | 'lgPink'
   | 'mdWhite'
   | 'underline'
-  | 'icon';
+  | 'icon'

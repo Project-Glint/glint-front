@@ -1,7 +1,11 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "next/typescript",
-    "plugin:storybook/recommended"
-  ]
+    "next",
+    "google",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
 }

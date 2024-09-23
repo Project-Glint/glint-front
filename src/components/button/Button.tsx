@@ -1,13 +1,13 @@
-"use client";
-import { buttonVariant } from "types";
-import * as S from "./Button.styled";
+'use client'
+import { buttonVariant } from 'types'
+import * as S from './Button.styled'
 
 interface ButtonProps {
-  className?: string;
-  children?: React.ReactNode;
-  variant?: buttonVariant;
-  disabled?: boolean;
-  onClick?: () => void;
+  className?: string
+  children?: React.ReactNode
+  variant?: buttonVariant
+  disabled?: boolean
+  onClick?: () => void
 }
 
 const Button = ({
@@ -26,7 +26,7 @@ const Button = ({
     >
       {children}
     </S.Button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button
