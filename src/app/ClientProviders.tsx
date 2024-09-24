@@ -1,0 +1,22 @@
+'use client';
+
+import { Global } from '@emotion/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RecoilRoot } from 'recoil';
+import { globalStyle } from 'styles';
+
+const ClientProviders = ({ children }: { children: React.ReactNode }) => {
+  const queryClient = new QueryClient();
+
+  return (
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        {/* TODO: ThemeProvider 추가 */}
+        <Global styles={globalStyle} />
+        {children}
+      </QueryClientProvider>
+    </RecoilRoot>
+  );
+};
+
+export default ClientProviders;

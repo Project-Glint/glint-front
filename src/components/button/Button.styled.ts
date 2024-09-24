@@ -1,6 +1,6 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { buttonVariant } from 'types'
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { buttonVariant } from 'types';
 
 export const Button = styled.button<{ variant?: buttonVariant }>`
   ${({ variant }) => css`
@@ -26,4 +26,4 @@ export const Button = styled.button<{ variant?: buttonVariant }>`
       : '#ffffff'};
     text-decoration: ${variant === 'underline' && 'underline'};
   `}
-`
+`;
