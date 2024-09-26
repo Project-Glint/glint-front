@@ -2,28 +2,16 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { buttonVariant } from 'types';
 
+// TODO: 디자인 시스템 나오면 수정
 export const Button = styled.button<{ variant?: buttonVariant }>`
   ${({ variant }) => css`
-    height: ${variant === 'smPink'
-      ? '40px'
-      : variant === 'underline' || variant === 'icon'
-        ? 'fit-content'
-        : variant === 'xsPink' || variant === 'xsWhite'
-          ? '34px'
-          : '56px'};
+    padding: 10px;
     border-radius: 8px;
-    width: ${variant === 'lgPink'
-      ? '320px'
-      : variant === 'mdPink' || variant === 'mdWhite' || variant === 'xsWhite'
-        ? '140px'
-        : variant === 'smPink'
-          ? '59px'
-          : 'fit-content'};
-    color: ${variant === 'underline' ||
-    variant === 'mdWhite' ||
-    variant === 'xsWhite'
-      ? '#000000'
-      : '#ffffff'};
-    text-decoration: ${variant === 'underline' && 'underline'};
+    cursor: pointer;
+    border: 1px solid #000;
+
+    &:disabled {
+      color: #cccccc;
+    }
   `}
 `;
