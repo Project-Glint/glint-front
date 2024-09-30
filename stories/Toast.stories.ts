@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Toast } from 'components/toast';
+import { Toast } from 'components';
 
 const meta: Meta<typeof Toast> = {
   title: 'Components/Toast',

@@ -14,7 +14,6 @@ export const TabsList = styled(Tabs.List)`
 `;
 
 export const TabsTrigger = styled(Tabs.Trigger)`
-  all: unset;
   font-family: inherit;
   background-color: white;
   padding: 0 20px;
@@ -50,7 +49,6 @@ export const TabsTrigger = styled(Tabs.Trigger)`
 `;
 
 export const TabsContent = styled(Tabs.Content)`
-  all: unset;
   flex-grow: 1;
   padding: 20px;
   background-color: white;
