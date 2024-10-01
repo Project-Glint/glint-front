@@ -1,4 +1,5 @@
 'use client';
+
 /**
  * App HOME
  * @return {JSX}
