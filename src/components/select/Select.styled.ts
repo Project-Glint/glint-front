@@ -12,6 +12,7 @@ export const Trigger = styled(Select.Trigger)`
   height: 35px;
   gap: 5px;
   background-color: white;
+  border: 1px solid black;
 
   &:hover {
     background-color: gray;

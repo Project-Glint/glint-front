@@ -21,6 +21,7 @@ export const RadioItem = styled(RadioGroupItem)`
   width: 25px;
   height: 25px;
   border-radius: 100%;
+  border: 1px solid black;
 `;
 
 export const RadioIndicator = styled(RadioGroupIndicator)`
