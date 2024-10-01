@@ -28,27 +28,3 @@ export const Default: Story = {
     disabled: false,
   },
 };
-
-// export const XsPink: Story = {
-//   args: {
-//     children: 'Xs Pink Button',
-//     variant: 'xsPink',
-//     disabled: false,
-//   },
-// };
-
-// export const Underline: Story = {
-//   args: {
-//     children: 'Underline Button',
-//     variant: 'underline',
-//     disabled: false,
-//   },
-// };
-
-// export const IconButton: Story = {
-//   args: {
-//     children: 'Icon Button',
-//     variant: 'icon',
-//     disabled: false,
-//   },
-// };
