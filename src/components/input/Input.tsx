@@ -4,12 +4,6 @@ import * as S from './Input.styled';
 
 interface InputProps {
   className?: string;
-  type?: 'text';
-  value?: string;
-  maxLength?: number;
-  placeholder?: string;
-  disabled?: boolean;
-  autoComplete?: 'on' | 'off';
   hasError?: boolean;
   handleFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -21,17 +15,12 @@ const Input = React.forwardRef(
   (
     {
       className,
-      type,
-      value,
-      maxLength,
-      placeholder,
-      disabled,
-      autoComplete,
       hasError,
       handleFocus,
       handleBlur,
       handleChange,
       handleKeyDown,
+      ...rest
     }: InputProps,
     ref: React.ForwardedRef<HTMLInputElement | null>
   ) => {
@@ -39,17 +28,12 @@ const Input = React.forwardRef(
       <S.Input
         className={className}
         ref={ref}
-        type={type}
-        value={value}
-        maxLength={maxLength}
-        placeholder={placeholder}
-        disabled={disabled}
-        autoComplete={autoComplete}
         hasError={hasError}
         onFocus={handleFocus}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
+        {...rest}
       />
     );
   }
