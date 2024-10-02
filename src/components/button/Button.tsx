@@ -1,13 +1,13 @@
-'use client';
+// 'use client';
 import { buttonVariant } from 'types';
 import * as S from './Button.styled';
 
 interface ButtonProps {
-  className?: string;
   children?: React.ReactNode;
+  className?: string;
   variant?: buttonVariant;
   disabled?: boolean;
-  onClick?: () => void;
+  handleClick?: () => void;
 }
 
 const Button = ({
@@ -15,14 +15,14 @@ const Button = ({
   children,
   variant,
   disabled,
-  onClick,
+  handleClick,
 }: ButtonProps) => {
   return (
     <S.Button
       className={className}
       variant={variant}
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {children}
     </S.Button>

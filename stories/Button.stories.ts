@@ -11,19 +11,10 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: [
-        'xsPink',
-        'xsWhite',
-        'smPink',
-        'mdPink',
-        'lgPink',
-        'mdWhite',
-        'underline',
-        'icon',
-      ],
+      options: ['default', 'icon'],
     },
     disabled: { control: 'boolean' },
-    onClick: { action: 'clicked' },
+    handleClick: { action: 'clicked' },
   },
 };
 
@@ -32,32 +23,8 @@ type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   args: {
+    variant: 'default',
     children: 'Button',
-    variant: 'mdPink',
-    disabled: false,
-  },
-};
-
-export const XsPink: Story = {
-  args: {
-    children: 'Xs Pink Button',
-    variant: 'xsPink',
-    disabled: false,
-  },
-};
-
-export const Underline: Story = {
-  args: {
-    children: 'Underline Button',
-    variant: 'underline',
-    disabled: false,
-  },
-};
-
-export const IconButton: Story = {
-  args: {
-    children: 'Icon Button',
-    variant: 'icon',
     disabled: false,
   },
 };
