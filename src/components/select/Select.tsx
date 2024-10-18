@@ -1,25 +1,34 @@
 import React from 'react';
 import * as Selects from '@radix-ui/react-select';
-
+import { Control, useController } from 'react-hook-form';
 import * as S from './Select.styled';
-const Select = () => {
+
+interface SelectProps {
+  control: Control<any>;
+  name: string;
+  placeholder?: string;
+  selectList: readonly { key: string; label: string }[];
+}
+
+const Select = ({ control, name, placeholder, selectList }: SelectProps) => {
+  const { field } = useController({ name, control });
   return (
-    <Selects.Root>
+    <Selects.Root onValueChange={field.onChange} value={field.value}>
       <S.Trigger>
-        <Selects.Value placeholder="Select" />
+        <Selects.Value placeholder={placeholder} />
         <Selects.Icon></Selects.Icon>
       </S.Trigger>
 
       <Selects.Portal>
-        <S.Content>
+        <S.Content position="popper" sideOffset={0} align="start">
           <S.Viewport>
             <Selects.Group>
               <S.Label>Fruits</S.Label>
-              <SelectItem value="1">1</SelectItem>
-              <SelectItem value="2">2</SelectItem>
-              <SelectItem value="3">3</SelectItem>
-              <SelectItem value="4">4</SelectItem>
-              <SelectItem value="5">5</SelectItem>
+              {selectList.map((item) => (
+                <SelectItem value={item.key} key={item.key}>
+                  {item.label}
+                </SelectItem>
+              ))}
             </Selects.Group>
           </S.Viewport>
         </S.Content>
