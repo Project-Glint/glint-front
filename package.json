@@ -32,6 +32,7 @@
     "next": "15.0.0-rc.0",
     "react": "19.0.0-rc-e4953922-20240919",
     "react-dom": "19.0.0-rc-e4953922-20240919",
+    "react-hook-form": "^7.53.0",
     "zustand": "5.0.0-rc.2"
   },
   "devDependencies": {

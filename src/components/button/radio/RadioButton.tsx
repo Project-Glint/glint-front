@@ -1,23 +1,39 @@
+import { Control, useController } from 'react-hook-form';
 import * as S from './RadioButton.styled';
 
-const RadioButton = () => {
+interface RadioButtonProps {
+  className?: string;
+  name: string;
+  radioList: readonly { key: string; label: string }[];
+  control: Control<any>;
+}
+const RadioButton = ({
+  className,
+  name,
+  radioList,
+  control,
+}: RadioButtonProps) => {
+  const { field } = useController({
+    name,
+    control,
+  });
+
   return (
-    <form>
-      <S.RadioRoot defaultValue="1">
-        <S.RadioWrapper>
-          <S.RadioItem value="1" id="r1">
+    <S.RadioRoot
+      onValueChange={field.onChange}
+      value={field.value}
+      className={className}
+      name={name}
+    >
+      {radioList.map((radio) => (
+        <S.RadioWrapper key={radio.key}>
+          <S.RadioItem value={radio.key} id={radio.key}>
             <S.RadioIndicator />
           </S.RadioItem>
-          <S.Label htmlFor="r1">1</S.Label>
+          <S.Label htmlFor={radio.key}>{radio.label}</S.Label>
         </S.RadioWrapper>
-        <S.RadioWrapper>
-          <S.RadioItem value="2" id="r2">
-            <S.RadioIndicator />
-          </S.RadioItem>
-          <S.Label htmlFor="r2">2</S.Label>
-        </S.RadioWrapper>
-      </S.RadioRoot>
-    </form>
+      ))}
+    </S.RadioRoot>
   );
 };
 export default RadioButton;
