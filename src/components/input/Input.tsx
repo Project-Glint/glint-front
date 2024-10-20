@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as S from './Input.styled';
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   hasError?: boolean;
   handleFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;

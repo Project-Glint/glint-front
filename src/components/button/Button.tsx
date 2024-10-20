@@ -2,28 +2,14 @@
 import { buttonVariant } from 'types';
 import * as S from './Button.styled';
 
-interface ButtonProps {
-  children?: React.ReactNode;
-  className?: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: buttonVariant;
-  disabled?: boolean;
   handleClick?: () => void;
 }
 
-const Button = ({
-  className,
-  children,
-  variant,
-  disabled,
-  handleClick,
-}: ButtonProps) => {
+const Button = ({ children, variant, handleClick, ...rest }: ButtonProps) => {
   return (
-    <S.Button
-      className={className}
-      variant={variant}
-      disabled={disabled}
-      onClick={handleClick}
-    >
+    <S.Button variant={variant} onClick={handleClick} {...rest}>
       {children}
     </S.Button>
   );
