@@ -1,7 +1,8 @@
 import React from 'react';
 import * as S from './Textarea.styled';
 
-interface TextareaProps {
+interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   handleChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;

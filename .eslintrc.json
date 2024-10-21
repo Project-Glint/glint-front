@@ -11,6 +11,8 @@
       {
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "require-jsdoc": "off",
+    "valid-jsdoc": "off"
   }
 }
