@@ -1,2 +1,2 @@
 export { default as TextController } from './TextController';
-export { default as TextareaController } from './TextAreaController';
+export { default as TextareaController } from './TextareaController';
