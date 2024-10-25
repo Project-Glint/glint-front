@@ -36,7 +36,7 @@ const SortableImage = ({ url, id, index, onDelete }: SortableImageType) => {
     useSortable({
       id,
       transition: {
-        duration: 10, // 트랜지션 시간을 더 줄입니다.
+        duration: 10,
         easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
       },
     });
@@ -101,8 +101,6 @@ const ImageUpload = ({
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
-    // active: 드래그 가능 요소, over: 드래그 하고 둘곳?
-
     const { active, over } = event;
 
     if (!over || active.id === over.id) {
