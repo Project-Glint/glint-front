@@ -1,13 +1,30 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import * as S from './Organization.styled';
-import { TextController, TextareaController } from 'components/controller';
-import { Button } from 'components/button';
+import {
+  Button,
+  RadioButton,
+  Select,
+  Tag,
+  TextController,
+  TextareaController,
+  ImageUpload,
+} from 'components';
+import { GENDER_RADIOS } from 'assets';
 
 interface FormData {
   companyName: string;
   jobTitle: string;
   description: string;
+  select: string; // TODO: name 변경
+  gender: (typeof GENDER_RADIOS)[number]['key'] | null;
+  profile: File[];
+  keyword: string[];
 }
+
+const selectList = [
+  { key: 'male', label: '남자' },
+  { key: 'female', label: '여자' },
+];
 
 export default function Organization() {
   const { handleSubmit, control } = useForm<FormData>({
@@ -15,6 +32,10 @@ export default function Organization() {
       companyName: '',
       jobTitle: '',
       description: '',
+      select: '',
+      gender: null,
+      profile: [],
+      keyword: [],
     },
   });
 
@@ -55,6 +76,31 @@ export default function Organization() {
               control={control}
               placeholder="직업 관련 설명해주세요."
             />
+          </S.InputBox>
+          <S.InputBox>
+            <S.Label>성별</S.Label>
+            <RadioButton
+              control={control}
+              radioList={GENDER_RADIOS}
+              name="gender"
+            />
+          </S.InputBox>
+          <S.InputBox>
+            <S.Label>선택</S.Label>
+            <Select
+              control={control}
+              name="select"
+              placeholder="Select Gender"
+              selectList={selectList}
+            />
+          </S.InputBox>
+          <S.InputBox>
+            <S.Label>키워드</S.Label>
+            <Tag control={control} name="keyword" />
+          </S.InputBox>
+          <S.InputBox>
+            <S.Label>프로필</S.Label>
+            <ImageUpload name="profile" control={control} imageLength={6} />
           </S.InputBox>
         </S.ContentBox>
         <Button type="submit">저장</Button>
