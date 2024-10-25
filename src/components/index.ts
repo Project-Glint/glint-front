@@ -10,3 +10,4 @@ export * from './toast';
 export * from './toggle';
 export * from './tag';
 export * from './controller';
+export * from './imageUpload';
