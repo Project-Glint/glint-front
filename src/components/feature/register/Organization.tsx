@@ -39,7 +39,7 @@ export default function Organization() {
     },
   });
 
-  const onSumbit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
 
@@ -48,7 +48,7 @@ export default function Organization() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSumbit, onErrors)}>
+    <form onSubmit={handleSubmit(onSubmit, onErrors)}>
       <S.Container>
         <S.ContentBox>
           <S.InputBox>
