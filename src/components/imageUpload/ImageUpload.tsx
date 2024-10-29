@@ -1,12 +1,12 @@
 import { Control, useController } from 'react-hook-form';
 import * as S from './ImageUpload.styled';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import {
   closestCenter,
   DndContext,
   DragEndEvent,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -56,7 +56,9 @@ const SortableImage = ({ url, id, index, onDelete }: SortableImageType) => {
       {...listeners}
     >
       <S.PreviewImage src={url} alt={`profile ${index}`} />
-      <S.DeleteButton onClick={onDelete}>X</S.DeleteButton>
+      <S.DeleteButton type="button" onClick={onDelete}>
+        X
+      </S.DeleteButton>
     </S.PreviewImageWrapper>
   );
 };
@@ -91,6 +93,7 @@ const ImageUpload = ({
     const newFiles = e.target.files ? Array.from(e.target.files) : [];
     const updatedFiles = [...(field.value || []), ...newFiles];
     field.onChange(updatedFiles);
+    updatePreviews(updatedFiles);
   };
 
   const handleFileDelete = (index: number) => {
@@ -116,17 +119,15 @@ const ImageUpload = ({
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
-  useEffect(() => {
-    if (field.value?.length) {
-      updatePreviews(field.value);
-    }
-  }, [field.value]);
 
   return (
     <S.ImageContainer>
