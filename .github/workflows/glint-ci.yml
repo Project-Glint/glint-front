@@ -2,9 +2,9 @@ name: Glint_FE-CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       matrix:
         node-version: [20.x]
         pnpm-version: [9.x]
-        
+
     steps:
       # 1. Github 레포지토리에서 코드 체크아웃
       - name: Checkout Code
@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-       # Next.js 캐시 설정 - build 시간 단축을 위해 .next/cache 디렉토리를 캐싱
+        # Next.js 캐시 설정 - build 시간 단축을 위해 .next/cache 디렉토리를 캐싱
       - name: Setup Next.js cache
         uses: actions/cache@v3
         with:
@@ -57,7 +57,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
-      # 6. 의존성 설치 - pnpm을 사용하여 프로젝트 의존성 설치 
+      # 6. 의존성 설치 - pnpm을 사용하여 프로젝트 의존성 설치
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -98,12 +98,12 @@ jobs:
         with:
           version: ${{ matrix.pnpm-version }}
           run_install: false
-      
+
       - name: Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-        
+
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
@@ -130,5 +130,5 @@ jobs:
             git pull
             pnpm install --frozen-lockfile
             pnpm build
-            # pm2 restart glint-front || pm2 start pnpm --name "glint-front" -- start  # PM2 프로세스가 없을 경우 대비
+            pm2 restart "pnpm start" || pm2 start "pnpm start"
             echo "Deploy Finish as $(date)"
