@@ -130,5 +130,12 @@ jobs:
             git pull
             pnpm install --frozen-lockfile
             pnpm build
+            if ! command -v pm2 &> /dev/null
+            then
+                echo "pm2 is not installed. Installing pm2..."
+                npm install -g pm2
+            else
+                echo "pm2 is already installed."
+            fi
             pm2 restart "pnpm start" || pm2 start "pnpm start"
             echo "Deploy Finish as $(date)"
