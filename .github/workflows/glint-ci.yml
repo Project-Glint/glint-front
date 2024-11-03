@@ -130,7 +130,7 @@ jobs:
 
             if [ ! -d ".git" ]; then
                 echo "Directory is not a Git repository. Cloning repository..."
-                git clone https://github.com/Project-Glint/glint-front.git .
+                git clone https://github.com/Project-Glint/glint-front.git
             else
                 echo "Directory is a Git repository. Pulling latest changes..."
                 git pull origin main
