@@ -127,9 +127,18 @@ jobs:
             set -e
             echo "Deploy Start!"
             cd /home/ubuntu/glint
-            git pull
+
+            if [ ! -d ".git" ]; then
+                echo "Directory is not a Git repository. Cloning repository..."
+                git clone https://github.com/Project-Glint/glint-front.git .
+            else
+                echo "Directory is a Git repository. Pulling latest changes..."
+                git pull origin main
+            fi
+
             pnpm install --frozen-lockfile
             pnpm build
+
             if ! command -v pm2 &> /dev/null
             then
                 echo "pm2 is not installed. Installing pm2..."
@@ -137,5 +146,6 @@ jobs:
             else
                 echo "pm2 is already installed."
             fi
+
             pm2 restart "pnpm start" || pm2 start "pnpm start"
             echo "Deploy Finish as $(date)"
