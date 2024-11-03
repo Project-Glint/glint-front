@@ -1,0 +1,141 @@
+name: Glint_FE-CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        pnpm-version: [9.x]
+
+    steps:
+      # 1. Github 레포지토리에서 코드 체크아웃
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Node.js 설정
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 3. pnpm 설치
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
+      # 4. pnpm store 경로 설정 - pnpm 캐싱을 위한 store 경로 설정
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      # 5. pnpm 캐시 설정 - 반복 설치 시 설치 시간을 절약하기 위해 pnpm 캐시 사용
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+        # Next.js 캐시 설정 - build 시간 단축을 위해 .next/cache 디렉토리를 캐싱
+      - name: Setup Next.js cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+
+      # 6. 의존성 설치 - pnpm을 사용하여 프로젝트 의존성 설치
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 7. 코드 린트 검사 - ESLint를 사용해 코드 스타일 검사
+      - name: Lint
+        run: pnpm lint
+
+      # 8. Typescript 타입 검사 - 타입 오류가 없는지 확인
+      - name: Type check
+        run: pnpm tsc --noEmit
+
+      # 9. Next.js 빌드 - 애플리케이션 빌드 확인
+      - name: Build
+        run: pnpm build
+        # env:
+        #   NODE_ENV: production
+        #   # Next.js 관련 환경변수들
+        #   NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+        #   NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+        #   # 기타 필요한 환경변수들
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 7. EC2에 배포 - SSH를 통해 EC2에 연결하고 코드 배포 수행
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script_stop: true # 에러 발생 시 스크립트 중단
+          script: |
+            set -e
+            echo "Deploy Start!"
+            cd /home/ubuntu/glint
+            git pull
+            pnpm install --frozen-lockfile
+            pnpm build
+            if ! command -v pm2 &> /dev/null
+            then
+                echo "pm2 is not installed. Installing pm2..."
+                npm install -g pm2
+            else
+                echo "pm2 is already installed."
+            fi
+            pm2 restart "pnpm start" || pm2 start "pnpm start"
+            echo "Deploy Finish as $(date)"
