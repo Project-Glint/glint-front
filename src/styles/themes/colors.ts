@@ -61,6 +61,10 @@ export const colors = {
   info70: '#1C7ED6',
   info80: '#1971C2',
   info90: '#1864AB',
+  default: '#4C6EF5',
+  hover: '#4263EB',
+  active: '#3B5BDB',
+  disabled: '#E9ECEF',
 } as const;
 
 export type Colors = typeof colors;
