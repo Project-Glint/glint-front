@@ -1,11 +1,18 @@
 import * as S from './Tabs.styled';
 
-const Tabs = () => {
+interface TabsProps {
+  className?: string;
+  tabList: readonly { key: string; label: string }[];
+}
+const Tabs = ({ className, tabList }: TabsProps) => {
   return (
-    <S.TabsRoot>
+    <S.TabsRoot defaultValue={tabList[0].key}>
       <S.TabsList>
-        <S.TabsTrigger value="dog">Dog</S.TabsTrigger>
-        <S.TabsTrigger value="cat">Cat</S.TabsTrigger>
+        {tabList.map((tab) => (
+          <S.TabsTrigger key={tab.key} value={tab.key}>
+            {tab.label}
+          </S.TabsTrigger>
+        ))}
       </S.TabsList>
     </S.TabsRoot>
   );
