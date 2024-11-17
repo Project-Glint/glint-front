@@ -72,9 +72,13 @@ const Tag = ({ name, control, initialTags = [] }: TagProps) => {
       />
       {tagList?.map((tag: string, index: number) => (
         <Badge
-          label={tag}
+          items={{
+            key: tag,
+            label: tag,
+            icon: <button onClick={() => handleDelete(index)}>X</button>,
+          }}
           key={index}
-          icon={<button onClick={() => handleDelete(index)}>X</button>}
+          isClickable={false}
         />
       ))}
     </S.TagContainer>
