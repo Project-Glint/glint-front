@@ -1,34 +1,44 @@
-import { badgeVariant } from 'types';
 import * as S from './Badge.styled';
 
+interface BadgeItem {
+  key: string;
+  label: string;
+  icon?: React.ReactNode;
+}
 interface BadgeProps {
   className?: string;
-  label: string;
-  variant?: badgeVariant;
-  icon?: React.ReactNode;
-  isSelected?: boolean;
-  handleClick?: (e: React.MouseEvent) => void;
+  items: BadgeItem | BadgeItem[];
+  isMultiple?: boolean;
+  isClickable?: boolean;
+  selectedKeys?: string[];
+  handleClick?: (key: string) => void;
 }
 
 const Badge = ({
   className,
-  label,
-  variant,
-  icon,
-  isSelected,
+  items,
+  isMultiple,
+  isClickable,
+  selectedKeys,
   handleClick,
 }: BadgeProps) => {
-  return (
+  const renderBadge = (item: BadgeItem) => (
     <S.Badge
+      key={item.key}
       className={className}
-      variant={variant}
-      isSelected={isSelected}
-      isClickable={!!handleClick}
-      onClick={handleClick}
+      isSelected={selectedKeys?.includes(item.key)}
+      isClickable={isClickable}
+      onClick={() => isClickable && handleClick && handleClick(item.key)}
+      type="button"
     >
-      {label}
-      {icon && icon}
+      {item.label}
+      {item.icon && item.icon}
     </S.Badge>
+  );
+  return (
+    <S.BadgeWrapper>
+      {Array.isArray(items) ? items.map(renderBadge) : renderBadge(items)}
+    </S.BadgeWrapper>
   );
 };
 
