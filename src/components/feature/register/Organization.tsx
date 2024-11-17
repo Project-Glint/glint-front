@@ -103,7 +103,9 @@ export default function Organization() {
             <ImageUpload name="profile" control={control} imageLength={6} />
           </S.InputBox>
         </S.ContentBox>
-        <Button type="submit">저장</Button>
+        <Button type="submit" outline={false} size="lg">
+          저장
+        </Button>
       </S.Container>
     </form>
   );
