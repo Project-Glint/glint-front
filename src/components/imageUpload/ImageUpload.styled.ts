@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const ImageContainer = styled.div`
@@ -59,21 +60,24 @@ export const DeleteButton = styled.button`
 `;
 
 export const AddImageLabel = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px dashed #ccc;
-  cursor: pointer;
-  aspect-ratio: 1;
-  width: 100%;
-  border-radius: 0.5rem;
+  ${({ theme }) => css`
+    ${theme.shadows.strong}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+    aspect-ratio: 1;
+    width: 100%;
+    border-radius: 0.5rem;
 
-  &:hover {
-    border-color: #999;
-  }
+    &:hover {
+      border-color: #999;
+    }
 
-  span {
-    font-size: 24px;
-    color: #666;
-  }
+    span {
+      font-size: 24px;
+      color: #666;
+    }
+  `}
 `;

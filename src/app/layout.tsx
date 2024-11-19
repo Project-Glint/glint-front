@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import ClientProviders from './ClientProviders';
+
+const pretendard = localFont({
+  src: '../assets/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
+});
 
 export const metadata: Metadata = {
   title: 'Glint',
@@ -16,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={pretendard.variable}>
+      <body className={pretendard.className}>
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
