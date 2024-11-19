@@ -1,6 +1,8 @@
+import { SerializedStyles } from '@emotion/react';
 import * as S from './Layout.styled';
 
 interface Props {
+  css?: SerializedStyles;
   children?: React.ReactNode;
 }
 

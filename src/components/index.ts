@@ -11,3 +11,4 @@ export * from './toggle';
 export * from './tag';
 export * from './controller';
 export * from './imageUpload';
+export * from './layout';
