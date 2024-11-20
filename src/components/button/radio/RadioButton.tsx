@@ -28,7 +28,7 @@ const RadioButton = ({
       {radioList.map((radio) => (
         <S.RadioWrapper key={radio.key}>
           <S.RadioItem value={radio.key} id={radio.key}>
-            <S.RadioIndicator />
+            <S.RadioIndicator forceMount />
           </S.RadioItem>
           <S.Label htmlFor={radio.key}>{radio.label}</S.Label>
         </S.RadioWrapper>

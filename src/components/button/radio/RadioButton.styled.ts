@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import {
   RadioGroup,
@@ -17,29 +18,35 @@ export const RadioWrapper = styled.div`
 `;
 
 export const RadioItem = styled(RadioGroupItem)`
-  background-color: white;
-  width: 25px;
-  height: 25px;
-  border-radius: 100%;
-  border: 1px solid black;
+  ${({ theme }) => css`
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 1px solid ${theme.colors.gray40};
+    background-color: ${theme.colors.gray0};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &[data-state='checked'] {
+      border-color: ${theme.colors.primary60};
+      background-color: ${theme.colors.primary60};
+    }
+  `}
 `;
 
 export const RadioIndicator = styled(RadioGroupIndicator)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  position: relative;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 11px;
-    height: 11px;
+  ${({ theme }) => css`
+    width: 8.33px;
+    height: 8.33px;
     border-radius: 50%;
-    background-color: black;
-  }
+    background-color: ${theme.colors.gray40};
+    display: block;
+
+    &[data-state='checked'] {
+      background-color: ${theme.colors.gray0};
+    }
+  `}
 `;
 
 export const Label = styled.label`
