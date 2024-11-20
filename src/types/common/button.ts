@@ -1,2 +1,5 @@
-// TODO: 디자인 시스템 나오면 수정
-export type buttonVariant = 'default' | 'icon';
+export type buttonVariant = 'default' | 'pressed';
+
+export type buttonSize = 'sm' | 'md' | 'lg';
+
+export type buttonColor = 'primary' | 'danger' | 'warning' | 'success' | 'info';

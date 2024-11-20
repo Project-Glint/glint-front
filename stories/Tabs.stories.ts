@@ -7,6 +7,7 @@ const meta: Meta<typeof Tabs> = {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -14,5 +15,10 @@ export default meta;
 type Story = StoryObj<typeof Tabs>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    tabList: [
+      { key: 'officeWorker', label: '직장인' },
+      { key: 'student', label: '대학생' },
+    ],
+  },
 };

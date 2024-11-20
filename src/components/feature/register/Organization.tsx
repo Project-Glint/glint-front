@@ -8,8 +8,11 @@ import {
   TextController,
   TextareaController,
   ImageUpload,
+  Tabs,
+  Badge,
 } from 'components';
 import { GENDER_RADIOS } from 'assets';
+import { useState } from 'react';
 
 interface FormData {
   companyName: string;
@@ -26,7 +29,13 @@ const selectList = [
   { key: 'female', label: '여자' },
 ];
 
+const tabList = [
+  { key: 'officeWorker', label: '직장인' },
+  { key: 'student', label: '대학생' },
+];
+
 export default function Organization() {
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const { handleSubmit, control } = useForm<FormData>({
     defaultValues: {
       companyName: '',
@@ -38,6 +47,15 @@ export default function Organization() {
       keyword: [],
     },
   });
+  const onClickBadge = (key: string, isMultiple: boolean) => {
+    if (isMultiple) {
+      setSelectedKeys((prev) =>
+        prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+      );
+    } else {
+      setSelectedKeys((prev) => (prev.includes(key) ? [] : [key]));
+    }
+  };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
@@ -86,6 +104,26 @@ export default function Organization() {
             />
           </S.InputBox>
           <S.InputBox>
+            <S.Label>직업</S.Label>
+            <Tabs tabList={tabList} />
+          </S.InputBox>
+          <S.InputBox>
+            <S.Label>흡연</S.Label>
+            <Badge
+              items={[
+                { key: '1', label: '111' },
+                { key: '2', label: '222' },
+                { key: '3', label: '333' },
+                { key: '4', label: '444' },
+                { key: '5', label: '555' },
+                { key: '6', label: '666' },
+              ]}
+              isClickable={true}
+              selectedKeys={selectedKeys}
+              handleClick={(key) => onClickBadge(key, false)}
+            />
+          </S.InputBox>
+          <S.InputBox>
             <S.Label>선택</S.Label>
             <Select
               control={control}
@@ -103,7 +141,9 @@ export default function Organization() {
             <ImageUpload name="profile" control={control} imageLength={6} />
           </S.InputBox>
         </S.ContentBox>
-        <Button type="submit">저장</Button>
+        <Button type="submit" outline={false} size="lg">
+          저장
+        </Button>
       </S.Container>
     </form>
   );
