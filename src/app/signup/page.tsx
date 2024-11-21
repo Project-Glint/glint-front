@@ -4,7 +4,13 @@ import { DefaultLayout, SignupFooter } from 'components';
 import { useState } from 'react';
 import * as S from './page.styled';
 import { signupTitle } from 'assets';
-import { SignupJob } from './containers';
+import {
+  SignupJob,
+  SignupAuth,
+  SignupNicknameHeight,
+  SignupGender,
+  SignupCharacter,
+} from './containers';
 import { useForm } from 'react-hook-form';
 import { SignupForm } from 'types';
 
@@ -23,23 +29,19 @@ const Signup = () => {
       authCode: 0,
       authImage: null,
       nickname: '',
-      gender: 'MALE',
-      birth: {
-        year: 0,
-        month: 0,
-        date: 0,
-      },
+      gender: '',
+      birthdate: '',
       height: 0,
-      weight: '',
-      drinking: '',
-      smoking: '',
+      bodyType: '',
+      drinkingType: '',
+      smokingType: '',
       religion: '',
-      residence: '',
-      activityArea: '',
-      keyword: '',
-      goal: '',
-      liking: '',
-      theoryOfLove: 's',
+      residenceRegion: '',
+      activityRegion: '',
+      hashtags: '',
+      lifeGoal: '',
+      preference: '',
+      loveStyle: '',
       profile: null,
     },
   });
@@ -48,15 +50,60 @@ const Signup = () => {
     page === 1
       ? !!watch('companyName') && !!watch('job')
       : page === 2
-        ? !!watch('email')
-        : false;
+        ? !!watch('email') || !!watch('authImage')
+        : page === 3
+          ? !!watch('nickname')
+          : page === 4
+            ? !!watch('gender')
+            : true;
   const currentTitleData = signupTitle.find((item) => item.id === page);
 
   const renderPage = (page: number) => {
     switch (page) {
       case 1:
+        return <SignupJob control={control} watch={watch} />;
+      case 2:
+        return <SignupAuth control={control} watch={watch} />;
+      case 3:
         return (
-          <SignupJob control={control} setValue={setValue} watch={watch} />
+          <SignupNicknameHeight
+            control={control}
+            watch={watch}
+            type="nickname"
+          />
+        );
+      case 4:
+        return <SignupGender control={control} watch={watch} />;
+      case 6:
+        return (
+          <SignupNicknameHeight control={control} watch={watch} type="height" />
+        );
+      case 7:
+        return (
+          <SignupCharacter
+            control={control}
+            watch={watch}
+            type="bodyType"
+            setValue={setValue}
+          />
+        );
+      case 8:
+        return (
+          <SignupCharacter
+            control={control}
+            watch={watch}
+            type="smokingDrinking"
+            setValue={setValue}
+          />
+        );
+      case 9:
+        return (
+          <SignupCharacter
+            control={control}
+            watch={watch}
+            type="religion"
+            setValue={setValue}
+          />
         );
     }
   };
