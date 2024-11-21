@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 import { colors } from 'styles';
 import { buttonColor, buttonSize, buttonVariant } from 'types';
@@ -50,16 +50,23 @@ export const Button = styled.button<{
   outline?: boolean;
   size?: buttonSize;
   color: buttonColor;
+  css?: SerializedStyles;
 }>`
-  ${({ variant = 'default', outline = false, size = 'md', color, theme }) => {
+  ${({
+    variant = 'default',
+    outline = false,
+    size = 'md',
+    color,
+    theme,
+    css: customCss,
+  }) => {
     const sizeStyle = SIZE_STYLES[size];
 
     return css`
       ${theme.fonts[sizeStyle.font]};
       padding: ${sizeStyle.padding};
       height: ${sizeStyle.height};
-      // TODO: width 디자인 시스템 설정
-      // width: fit-content;
+      width: 100%;
       border-radius: 12px;
       cursor: pointer;
       color: ${outline
@@ -73,6 +80,7 @@ export const Button = styled.button<{
       border: ${outline && variant === 'default'
         ? `1px solid ${theme.colors.gray30}`
         : 'none'};
+      ${customCss}
 
       &:disabled {
         cursor: not-allowed;

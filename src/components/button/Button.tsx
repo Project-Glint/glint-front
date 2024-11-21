@@ -19,6 +19,7 @@ const Button = ({
   size,
   color = 'primary',
   handleClick,
+  css,
   ...rest
 }: ButtonProps) => {
   return (
@@ -28,6 +29,7 @@ const Button = ({
       size={size}
       color={color}
       onClick={handleClick}
+      css={css}
       {...rest}
     >
       {children}
