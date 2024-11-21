@@ -1,4 +1,4 @@
-import { Button } from 'components/button';
+import { Button } from 'components';
 import * as S from './SignupFooter.styled';
 
 interface SignupFooterProps {
@@ -18,7 +18,6 @@ const SignupFooter = ({
     <S.Footer>
       {page === 1 ? (
         <Button
-          css={S.lgButton}
           size="lg"
           onClick={handleClickNext}
           disabled={!isNextButtonEnabled}
@@ -27,11 +26,10 @@ const SignupFooter = ({
         </Button>
       ) : (
         <S.ButtonWrapper>
-          <Button css={S.mdButton} size="lg" onClick={handleClickPrev}>
+          <Button size="lg" outline onClick={handleClickPrev}>
             이전
           </Button>
           <Button
-            css={S.mdButton}
             size="lg"
             onClick={handleClickNext}
             disabled={!isNextButtonEnabled}

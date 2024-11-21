@@ -1,16 +1,28 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 export const Footer = styled.div`
-  height: 64px;
   width: 100%;
+  height: 64px;
   position: fixed;
   bottom: 0;
-  text-align: center;
-`;
+  justify-content: center;
+  /* 기본 모바일 스타일 */
+  max-width: 480px;
+  padding: 0 16px;
 
-export const lgButton = css`
-  width: 328px;
-  text-align: center;
+  /* 태블릿 크기 이상일 때 */
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  /* 데스크탑 크기 이상일 때 */
+  @media (min-width: 1024px) {
+    max-width: 960px;
+  }
+
+  /* 대형 데스크탑 크기 이상일 때 */
+  @media (min-width: 1440px) {
+    max-width: 1200px;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -18,8 +30,4 @@ export const ButtonWrapper = styled.div`
   flex-direction: row;
   gap: 12px;
   justify-content: center;
-`;
-export const mdButton = css`
-  width: 158px;
-  text-align: center;
 `;
