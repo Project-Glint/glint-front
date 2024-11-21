@@ -145,3 +145,8 @@ export const jobTabList = [
   { key: 'worker', label: '직장인' },
   { key: 'student', label: '대학생' },
 ];
+
+export const authTabList = [
+  { key: 'email', label: '이메일 인증' },
+  { key: 'image', label: '이미지 인증' },
+];
