@@ -150,3 +150,32 @@ export const authTabList = [
   { key: 'email', label: '이메일 인증' },
   { key: 'image', label: '이미지 인증' },
 ];
+
+export const bodyTypeList = [
+  { key: 'SLENDER', label: '마른' },
+  { key: 'SLIM_ATHLETIC', label: '슬림탄탄' },
+  { key: 'AVERAGE', label: '보통' },
+  { key: 'SLIM_MUSCULAR', label: '살짝 근육' },
+  { key: 'MUSCULAR', label: '근육질' },
+  { key: 'CHUBBY', label: '통통' },
+];
+
+export const smokingTypeList = [
+  { key: 'SMOKER', label: '흡연' },
+  { key: 'NON_SMOKER', label: '비흡연' },
+];
+
+export const drinkingTypeList = [
+  { key: 'NON_DRINKER', label: '전혀 마시지 않음' },
+  { key: 'OCCASIONAL', label: '가끔 마심' },
+  { key: 'ENJOYS_DRINKING', label: '종종 마시는 편' },
+  { key: 'LOVES_DRINKING', label: '애주가' },
+];
+
+export const religionList = [
+  { key: 'NONE', label: '무교' },
+  { key: 'PROTESTANT', label: '기독교' },
+  { key: 'CATHOLIC', label: '천주교' },
+  { key: 'BUDDHIST', label: '불교' },
+  { key: 'OTHER', label: '기타' },
+];

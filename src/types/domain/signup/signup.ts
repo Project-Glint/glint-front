@@ -9,22 +9,18 @@ export interface SignupForm {
   authCode: number;
   authImage: File | string | null;
   nickname: string;
-  gender: (typeof GENDER_RADIOS)[number]['key'] | null;
-  birth: {
-    year: number;
-    month: number;
-    date: number;
-  };
+  gender: (typeof GENDER_RADIOS)[number]['key'] | '';
+  birthdate: string;
   height: number;
-  weight: string;
-  drinking: string;
-  smoking: string;
+  bodyType: string;
+  drinkingType: string;
+  smokingType: string;
   religion: string;
-  residence: string;
-  activityArea: string;
-  keyword: string | string[];
-  goal: string;
-  liking: string;
-  theoryOfLove: string;
+  residenceRegion: string;
+  activityRegion: string;
+  hashtags: string | string[];
+  lifeGoal: string;
+  preference: string;
+  loveStyle: string;
   profile: File[] | null;
 }
