@@ -8,3 +8,9 @@ export interface CompanyInfo {
   companyId: number;
   companyName: string;
 }
+
+export interface WorkThroughStep {
+  id: number;
+  email: string;
+  workThroughStep: string;
+}

@@ -1,4 +1,4 @@
-import { CommonResp, CompanyInfo } from 'types/api/register';
+import { CommonResp, CompanyInfo, WorkThroughStep } from 'types/api/register';
 import { httpClient } from './axios';
 
 /**
@@ -22,6 +22,17 @@ export async function searchCompanyName(companyName: string) {
 export async function searchCompanyId(companyId: number) {
   const response = await httpClient.get<CommonResp<CompanyInfo>>(
     `/api/v1/company/${companyId}`
+  );
+  return response.data;
+}
+
+/**
+ * @summary 유저 work-through step 조회
+ * @request GET:/api/v1/user/work-through/step
+ */
+export async function getWorkThroughStep() {
+  const response = await httpClient.get<CommonResp<WorkThroughStep>>(
+    `/api/v1/user/work-through/step`
   );
   return response.data;
 }

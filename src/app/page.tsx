@@ -6,6 +6,7 @@ import {
   useSearchCompanyId,
 } from 'hooks/queries/register';
 import { CompanyInfo } from 'types/api/register';
+import { getWorkThroughStep } from 'api/register';
 
 interface Result {
   companyNameResult: CompanyInfo[];
@@ -43,6 +44,7 @@ export default function Home() {
         setResult((prev) => ({ ...prev, companyIdResult: response.data }));
       },
     });
+    getWorkThroughStep();
   };
   return (
     <div>
