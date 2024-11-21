@@ -9,7 +9,7 @@ export interface SignupForm {
   authCode: number;
   authImage: File | string | null;
   nickname: string;
-  gender: (typeof GENDER_RADIOS)[number]['key'];
+  gender: (typeof GENDER_RADIOS)[number]['key'] | null;
   birth: {
     year: number;
     month: number;
