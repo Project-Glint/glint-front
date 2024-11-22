@@ -1,4 +1,4 @@
-import { CommonResp, CompanyInfo, WorkThroughStep } from 'types/api/register';
+import { CommonResp, CompanyInfo, WorkThroughStep } from 'types/api/signup';
 import { httpClient } from './axios';
 
 /**

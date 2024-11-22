@@ -13,7 +13,7 @@ export default function LoginCallback() {
     if (accessToken && refreshToken) {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      router.push('/register');
+      router.push('/signup');
     }
   }, []);
 

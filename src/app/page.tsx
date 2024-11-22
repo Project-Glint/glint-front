@@ -5,7 +5,7 @@ import {
   useSearchCompanyName,
   useSearchCompanyId,
 } from 'hooks/queries/register';
-import { CompanyInfo } from 'types/api/register';
+import { CompanyInfo } from 'types/api/signup';
 import { getWorkThroughStep } from 'api/register';
 
 interface Result {
