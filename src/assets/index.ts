@@ -1,2 +1,2 @@
-// export * from './icons';
 export * from './statics';
+export * from './icons';

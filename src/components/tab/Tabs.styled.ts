@@ -5,7 +5,6 @@ import * as Tabs from '@radix-ui/react-tabs';
 export const TabsRoot = styled(Tabs.Root)`
   display: flex;
   flex-direction: column;
-  width: 328px;
 `;
 
 export const TabsList = styled(Tabs.List)`

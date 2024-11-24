@@ -1,6 +1,7 @@
 // 'use client';
 import { buttonColor, buttonSize, buttonVariant } from 'types';
 import * as S from './Button.styled';
+import { SerializedStyles } from '@emotion/react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: buttonVariant;
@@ -8,6 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: buttonSize;
   color?: buttonColor;
   handleClick?: () => void;
+  css?: SerializedStyles;
 }
 
 const Button = ({
@@ -17,6 +19,7 @@ const Button = ({
   size,
   color = 'primary',
   handleClick,
+  css,
   ...rest
 }: ButtonProps) => {
   return (
@@ -26,6 +29,7 @@ const Button = ({
       size={size}
       color={color}
       onClick={handleClick}
+      css={css}
       {...rest}
     >
       {children}

@@ -4,7 +4,8 @@ import styled from '@emotion/styled';
 export const DefaultLayout = styled.section`
   ${({ theme }) => css`
     width: 100%;
-    padding: 16px;
+    padding-top: 44px;
+    position: relative;
 
     /* 기본 모바일 스타일 */
     max-width: 480px;
