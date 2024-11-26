@@ -1,18 +1,21 @@
 import { jobTabList } from 'assets';
-import { Tabs, TextController } from 'components';
+import { SignupFooter, Tabs, TextController } from 'components';
 import * as S from './SignupJob.styled';
-import { Control, UseFormWatch } from 'react-hook-form';
-import { SignupForm } from 'types';
+import { useFormContext } from 'react-hook-form';
 import { useState } from 'react';
+import { SignupForm } from 'types';
 
 interface SignupJobProps {
-  control: Control<any>;
-  watch: UseFormWatch<SignupForm>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  MAX_PAGE: number;
 }
 
-const SignupJob = ({ control, watch }: SignupJobProps) => {
+const SignupJob = ({ page, setPage, MAX_PAGE }: SignupJobProps) => {
   // TODO: 전역관리로 수정
   const [activeTab, setActiveTab] = useState<string>(jobTabList[0].key);
+  const { control, watch, handleSubmit } = useFormContext<SignupForm>();
+  const isNextButtonEnabled = !!watch('companyName') && !!watch('job');
 
   const handleTabChange = (key: string) => {
     setActiveTab(key);
@@ -20,6 +23,17 @@ const SignupJob = ({ control, watch }: SignupJobProps) => {
 
   const renderContent = (worker: string, student: string) => {
     return activeTab === 'worker' ? worker : student;
+  };
+
+  const handleClickNext = (data: SignupForm) => {
+    console.log('data', data);
+    if (isNextButtonEnabled) {
+      setPage(page + 1);
+    }
+  };
+
+  const handleClickPrev = () => {
+    setPage(page - 1);
   };
   return (
     <>
@@ -72,6 +86,13 @@ const SignupJob = ({ control, watch }: SignupJobProps) => {
           cancelIcon
         />
       </S.InputWrapper>
+      <SignupFooter
+        page={page}
+        maxPage={MAX_PAGE}
+        isNextButtonEnabled={isNextButtonEnabled}
+        handleClickNext={handleSubmit(handleClickNext)}
+        handleClickPrev={handleClickPrev}
+      />
     </>
   );
 };

@@ -1,22 +1,37 @@
-import { TextController } from 'components';
+import { SignupFooter, TextController } from 'components';
 import * as S from './SignupNicknameHeight.styled';
-import { Control, UseFormWatch } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { SignupForm } from 'types';
 
 interface SignupNicknameHeightProps {
-  control: Control<any>;
-  watch: UseFormWatch<SignupForm>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  MAX_PAGE: number;
   type: 'nickname' | 'height';
 }
 
 const SignupNicknameHeight = ({
+  page,
+  setPage,
+  MAX_PAGE,
   type,
-  control,
-  watch,
 }: SignupNicknameHeightProps) => {
+  const { control, watch, handleSubmit } = useFormContext<SignupForm>();
+  const isNextButtonEnabled = !!watch('nickname');
   const renderContent = (nickname: string, height: string) => {
     return type === 'nickname' ? nickname : height;
   };
+  const handleClickNext = (data: SignupForm) => {
+    console.log('data', data);
+    if (isNextButtonEnabled) {
+      setPage(page + 1);
+    }
+  };
+
+  const handleClickPrev = () => {
+    setPage(page - 1);
+  };
+
   return (
     <>
       <S.InputWrapper>
@@ -32,6 +47,13 @@ const SignupNicknameHeight = ({
           )}
         />
       </S.InputWrapper>
+      <SignupFooter
+        page={page}
+        maxPage={MAX_PAGE}
+        isNextButtonEnabled={isNextButtonEnabled}
+        handleClickNext={handleSubmit(handleClickNext)}
+        handleClickPrev={handleClickPrev}
+      />
     </>
   );
 };

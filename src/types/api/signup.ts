@@ -14,3 +14,13 @@ export interface WorkThroughStep {
   email: string;
   workThroughStep: string;
 }
+
+export type CertType = 'ACADEMIC' | 'WORKER';
+
+export interface OccupationReq {
+  certType: CertType;
+  universityId?: number;
+  departmentId?: number;
+  companyId?: number;
+  occupation?: string;
+}

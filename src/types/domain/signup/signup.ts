@@ -10,7 +10,9 @@ export interface SignupForm {
   authImage: File | string | null;
   nickname: string;
   gender: (typeof GENDER_RADIOS)[number]['key'] | '';
-  birthdate: string;
+  year: number | string;
+  month: number | string;
+  day: number | string;
   height: number;
   bodyType: string;
   drinkingType: string;

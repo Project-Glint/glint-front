@@ -1,4 +1,9 @@
-import { CommonResp, CompanyInfo, WorkThroughStep } from 'types/api/signup';
+import {
+  CommonResp,
+  CompanyInfo,
+  OccupationReq,
+  WorkThroughStep,
+} from 'types/api/signup';
 import { httpClient } from './axios';
 
 /**
@@ -32,7 +37,19 @@ export async function searchCompanyId(companyId: number) {
  */
 export async function getWorkThroughStep() {
   const response = await httpClient.get<CommonResp<WorkThroughStep>>(
-    `/api/v1/user/work-through/step`
+    `/api/v1/user/work-through-step`
+  );
+  return response.data;
+}
+
+/**
+ * @summary 유저 Occupation 저장
+ * @request POST:/api/v1/work-through/occupation
+ */
+export async function saveOccupation(payload: OccupationReq) {
+  const response = await httpClient.post(
+    `/api/v1/work-through/occupation`,
+    payload
   );
   return response.data;
 }

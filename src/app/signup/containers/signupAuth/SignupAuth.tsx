@@ -1,21 +1,34 @@
 import { authTabList, AddFileIcon } from 'assets';
-import { Button, Tabs, TextController } from 'components';
+import { Button, SignupFooter, Tabs, TextController } from 'components';
 import { useState } from 'react';
-import { Control, UseFormWatch } from 'react-hook-form';
-import { SignupForm } from 'types';
+import { useFormContext } from 'react-hook-form';
 import * as S from './SignupAuth.styled';
+import { SignupForm } from 'types';
 
 interface SignupAuthProps {
-  control: Control<any>;
-  watch: UseFormWatch<SignupForm>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  MAX_PAGE: number;
 }
 
-const SignupAuth = ({ control, watch }: SignupAuthProps) => {
+const SignupAuth = ({ page, setPage, MAX_PAGE }: SignupAuthProps) => {
   // TODO: 전역관리로 수정
   const [activeTab, setActiveTab] = useState<string>(authTabList[0].key);
-
+  const { control, watch, handleSubmit } = useFormContext<SignupForm>();
   const handleTabChange = (key: string) => {
     setActiveTab(key);
+  };
+  const isNextButtonEnabled = !!watch('email') || !!watch('authImage');
+
+  const handleClickNext = (data: SignupForm) => {
+    console.log('data', data);
+    if (isNextButtonEnabled) {
+      setPage(page + 1);
+    }
+  };
+
+  const handleClickPrev = () => {
+    setPage(page - 1);
   };
 
   return (
@@ -72,6 +85,13 @@ const SignupAuth = ({ control, watch }: SignupAuthProps) => {
           </S.WithButtonWrapper>
         </>
       )}
+      <SignupFooter
+        page={page}
+        maxPage={MAX_PAGE}
+        isNextButtonEnabled={isNextButtonEnabled}
+        handleClickNext={handleSubmit(handleClickNext)}
+        handleClickPrev={handleClickPrev}
+      />
     </>
   );
 };

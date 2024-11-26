@@ -35,6 +35,19 @@ const globalStyle = css`
   input {
     resize: none;
     outline: 0;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  /* 추가적으로 숫자 입력의 스핀 버튼 제거 */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number']::-moz-inner-spin-button {
+    -moz-appearance: none;
   }
   a {
     text-decoration: none;

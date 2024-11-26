@@ -1,5 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { searchCompanyId, searchCompanyName } from 'api/register';
+import {
+  saveOccupation,
+  searchCompanyId,
+  searchCompanyName,
+} from 'api/register';
 
 /**
  * @summary 기업명 이름 검색
@@ -18,5 +22,15 @@ export function useSearchCompanyName() {
 export function useSearchCompanyId() {
   return useMutation({
     mutationFn: searchCompanyId,
+  });
+}
+
+/**
+ * @summary 유저 Occupation 저장
+ * @request POST:/api/v1/work-through/occupation
+ */
+export function useSaveOccupation() {
+  return useMutation({
+    mutationFn: saveOccupation,
   });
 }
