@@ -10,8 +10,10 @@ interface SignupBirthProps {
 }
 
 const SignupBirth = ({ page, setPage, MAX_PAGE }: SignupBirthProps) => {
-  const { control, getValues, handleSubmit } = useFormContext<SignupForm>();
-  const isNextButtonEnabled = true;
+  const { control, watch, getValues, handleSubmit } =
+    useFormContext<SignupForm>();
+  const isNextButtonEnabled =
+    !!watch('year') && !!watch('month') && !!watch('day');
   const handleClickNext = (data: SignupForm) => {
     console.log('data', data);
     if (isNextButtonEnabled) {

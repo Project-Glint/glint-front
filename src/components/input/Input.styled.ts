@@ -23,7 +23,7 @@ export const Input = styled.input<{ hasError?: boolean }>`
     color: ${theme.colors.gray60};
     border: 0;
     border-radius: 12px;
-    border: 1px solid ${hasError ? 'red' : theme.colors.gray5};
+    border: 1px solid ${hasError ? theme.colors.danger70 : theme.colors.gray5};
     padding: 6px 16px;
     padding-right: 40px;
 
