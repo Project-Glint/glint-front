@@ -10,9 +10,13 @@ export const BadgeWrapper = styled.div`
 export const Badge = styled.button<{
   isSelected?: boolean;
   isClickable?: boolean;
+  icon?: boolean;
 }>`
-  ${({ isSelected, isClickable, theme }) => css`
+  ${({ isSelected, isClickable, icon, theme }) => css`
     ${theme.fonts.body_14_M};
+    display: flex;
+    align-items: center;
+    gap: ${icon ? '4px' : 0};
     padding: 8px 12px;
     border-radius: 19px;
     cursor: pointer;

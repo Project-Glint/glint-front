@@ -11,6 +11,7 @@ import {
   SignupGender,
   SignupCharacter,
   SignupBirth,
+  SignupKeyword,
 } from './containers';
 import { useForm, FormProvider } from 'react-hook-form';
 import { SignupForm } from 'types';
@@ -36,7 +37,7 @@ const defaultValue = {
   religion: '',
   residenceRegion: '',
   activityRegion: '',
-  hashtags: '',
+  hashtags: [],
   lifeGoal: '',
   preference: '',
   loveStyle: '',
@@ -117,6 +118,12 @@ const Signup = () => {
             type="religion"
           />
         );
+      case 10:
+      case 11:
+        return (
+          <SignupKeyword page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
+        );
+      case 12:
     }
   };
 

@@ -28,6 +28,7 @@ const Badge = ({
       className={className}
       isSelected={selectedKeys?.includes(item.key)}
       isClickable={isClickable}
+      icon={!!item.icon}
       onClick={() => isClickable && handleClick && handleClick(item.key)}
       type="button"
     >
