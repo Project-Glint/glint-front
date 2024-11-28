@@ -4,13 +4,13 @@ import { RadioButton, SignupFooter } from 'components';
 import { FemaleIcon, GENDER_RADIOS, MaleIcon } from 'assets';
 import { SignupForm } from 'types';
 
-interface SignupGender {
+interface SignupGenderProps {
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   MAX_PAGE: number;
 }
 
-const SignupGender = ({ page, setPage, MAX_PAGE }: SignupGender) => {
+const SignupGender = ({ page, setPage, MAX_PAGE }: SignupGenderProps) => {
   const { control, watch, handleSubmit } = useFormContext<SignupForm>();
   const gender = watch('gender');
   const isNextButtonEnabled = !!watch('gender');
