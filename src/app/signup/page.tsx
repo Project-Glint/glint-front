@@ -11,6 +11,7 @@ import {
   SignupGender,
   SignupCharacter,
   SignupBirth,
+  SignupProfile,
 } from './containers';
 import { useForm, FormProvider } from 'react-hook-form';
 import { SignupForm } from 'types';
@@ -116,6 +117,10 @@ const Signup = () => {
             MAX_PAGE={MAX_PAGE}
             type="religion"
           />
+        );
+      case 13:
+        return (
+          <SignupProfile page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
         );
     }
   };
