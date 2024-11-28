@@ -62,8 +62,8 @@ export const Icon = styled.div`
 
 export const HelperText = styled.div<{ hasError?: boolean }>`
   ${({ hasError, theme }) => css`
+    ${theme.fonts.body_12_M}
     margin-top: 4px;
-    font-size: 12px;
     color: ${hasError ? theme.colors.danger80 : theme.colors.gray40};
   `}
 `;

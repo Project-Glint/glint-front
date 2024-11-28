@@ -1,3 +1,4 @@
+import React from 'react';
 import { Controller, Control, RegisterOptions } from 'react-hook-form';
 import { Textarea } from 'components/input';
 
@@ -8,6 +9,9 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   handleChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
   handleBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+  handleKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  hasError?: boolean;
+  showCharacterCount?: boolean;
 }
 
 export default function TextareaController({
@@ -17,6 +21,8 @@ export default function TextareaController({
   handleChange,
   handleBlur,
   handleFocus,
+  hasError,
+  showCharacterCount,
   ...rest
 }: Props) {
   return (
@@ -24,12 +30,22 @@ export default function TextareaController({
       name={name}
       control={control}
       rules={rules}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <Textarea
           {...field}
-          handleBlur={handleBlur}
-          handleChange={handleChange}
+          value={field.value || ''}
+          handleChange={(e) => {
+            field.onChange(e);
+            handleChange?.(e);
+          }}
+          handleBlur={(e) => {
+            field.onBlur();
+            handleBlur?.(e);
+          }}
           handleFocus={handleFocus}
+          hasError={hasError || !!fieldState.error}
+          helperText={fieldState.error?.message}
+          showCharacterCount={showCharacterCount}
           {...rest}
         />
       )}

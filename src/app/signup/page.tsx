@@ -16,6 +16,7 @@ import {
 import { useForm, FormProvider } from 'react-hook-form';
 import { SignupForm } from 'types';
 import { useSearchParams } from 'next/navigation';
+import { SignupSelfIntroduce } from './containers/signupSelfIntroduce';
 
 const defaultValue = {
   companyName: '',
@@ -124,6 +125,13 @@ const Signup = () => {
           <SignupKeyword page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
         );
       case 12:
+        return (
+          <SignupSelfIntroduce
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
+          />
+        );
     }
   };
 
