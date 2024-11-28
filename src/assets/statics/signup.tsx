@@ -141,6 +141,23 @@ export const signupTitle = [
   },
 ];
 
+export const stepList = [
+  'OCCUPATION',
+  'CERTIFY',
+  'NICKNAME',
+  'GENDER',
+  'BIRTHDATE',
+  'HEIGHT',
+  'BODY_TYPE',
+  'DRINKING_SMOKING_TYPE',
+  'RELIGION',
+  'REGION',
+  'HASHTAG',
+  'SELF_INTRODUCTION',
+  'PROFILE_IMAGE',
+  'COMPLETE',
+];
+
 export const jobTabList = [
   { key: 'worker', label: '직장인' },
   { key: 'student', label: '대학생' },

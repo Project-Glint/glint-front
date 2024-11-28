@@ -10,6 +10,10 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   hasError?: boolean;
+  cancelIcon?: boolean;
+  onCancelClick?: () => void;
+  timer?: boolean;
+  timerDuration?: number;
 }
 
 export default function TextController({
@@ -21,6 +25,10 @@ export default function TextController({
   handleChange,
   handleKeyDown,
   hasError,
+  cancelIcon,
+  onCancelClick,
+  timer,
+  timerDuration,
   ...rest
 }: Props) {
   return (
@@ -28,22 +36,34 @@ export default function TextController({
       name={name}
       control={control}
       rules={rules}
-      render={({ field, fieldState }) => (
-        <Input
-          {...field}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
-          handleChange={(e) => {
-            field.onChange(e);
-            if (handleChange) {
-              handleChange(e);
-            }
-          }}
-          handleKeyDown={handleKeyDown}
-          hasError={hasError || !!fieldState.error}
-          {...rest}
-        />
-      )}
+      render={({ field, fieldState }) => {
+        return (
+          <Input
+            {...field}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
+            handleChange={(e) => {
+              field.onChange(e);
+              if (handleChange) {
+                handleChange(e);
+              }
+            }}
+            handleKeyDown={handleKeyDown}
+            hasError={hasError || !!fieldState.error}
+            helperText={fieldState.error?.message}
+            cancelIcon={cancelIcon}
+            onCancelClick={() => {
+              field.onChange('');
+              if (onCancelClick) {
+                onCancelClick();
+              }
+            }}
+            timer={timer}
+            timerDuration={timerDuration}
+            {...rest}
+          />
+        );
+      }}
     />
   );
 }

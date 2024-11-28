@@ -1,122 +1,123 @@
 'use client';
 
-import { DefaultLayout, SignupFooter } from 'components';
+import { DefaultLayout } from 'components';
 import { useState } from 'react';
 import * as S from './page.styled';
-import { signupTitle } from 'assets';
+import { signupTitle, stepList } from 'assets';
 import {
   SignupJob,
   SignupAuth,
   SignupNicknameHeight,
   SignupGender,
   SignupCharacter,
+  SignupBirth,
 } from './containers';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { SignupForm } from 'types';
+import { useSearchParams } from 'next/navigation';
+
+const defaultValue = {
+  companyName: '',
+  job: '',
+  university: '',
+  major: '',
+  email: '',
+  authCode: 0,
+  authImage: null,
+  nickname: '',
+  gender: '',
+  year: '',
+  month: '',
+  day: '',
+  height: 0,
+  bodyType: '',
+  drinkingType: '',
+  smokingType: '',
+  religion: '',
+  residenceRegion: '',
+  activityRegion: '',
+  hashtags: '',
+  lifeGoal: '',
+  preference: '',
+  loveStyle: '',
+  profile: null,
+};
 
 const Signup = () => {
-  const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  const step = searchParams.get('step');
+  const stepPage = stepList.indexOf(step || '');
+  const targetPage = stepPage !== -1 ? stepPage + 1 : 1;
+  const [page, setPage] = useState(targetPage);
 
   const MAX_PAGE = 13;
 
-  const { control, handleSubmit, watch, setValue } = useForm<SignupForm>({
-    defaultValues: {
-      companyName: '',
-      job: '',
-      university: '',
-      major: '',
-      email: '',
-      authCode: 0,
-      authImage: null,
-      nickname: '',
-      gender: '',
-      birthdate: '',
-      height: 0,
-      bodyType: '',
-      drinkingType: '',
-      smokingType: '',
-      religion: '',
-      residenceRegion: '',
-      activityRegion: '',
-      hashtags: '',
-      lifeGoal: '',
-      preference: '',
-      loveStyle: '',
-      profile: null,
-    },
+  const methods = useForm<SignupForm>({
+    defaultValues: defaultValue,
   });
 
-  const isNextButtonEnabled =
-    page === 1
-      ? !!watch('companyName') && !!watch('job')
-      : page === 2
-        ? !!watch('email') || !!watch('authImage')
-        : page === 3
-          ? !!watch('nickname')
-          : page === 4
-            ? !!watch('gender')
-            : true;
   const currentTitleData = signupTitle.find((item) => item.id === page);
 
   const renderPage = (page: number) => {
     switch (page) {
       case 1:
-        return <SignupJob control={control} watch={watch} />;
+        return <SignupJob page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />;
       case 2:
-        return <SignupAuth control={control} watch={watch} />;
+        return <SignupAuth page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />;
       case 3:
         return (
           <SignupNicknameHeight
-            control={control}
-            watch={watch}
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
             type="nickname"
           />
         );
       case 4:
-        return <SignupGender control={control} watch={watch} />;
+        return (
+          <SignupGender page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
+        );
+      case 5:
+        return (
+          <SignupBirth page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
+        );
       case 6:
         return (
-          <SignupNicknameHeight control={control} watch={watch} type="height" />
+          <SignupNicknameHeight
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
+            type="height"
+          />
         );
       case 7:
         return (
           <SignupCharacter
-            control={control}
-            watch={watch}
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
             type="bodyType"
-            setValue={setValue}
           />
         );
       case 8:
         return (
           <SignupCharacter
-            control={control}
-            watch={watch}
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
             type="smokingDrinking"
-            setValue={setValue}
           />
         );
       case 9:
         return (
           <SignupCharacter
-            control={control}
-            watch={watch}
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
             type="religion"
-            setValue={setValue}
           />
         );
     }
-  };
-
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
-    if (isNextButtonEnabled) {
-      setPage(page + 1);
-    }
-  };
-
-  const handleClickPrev = () => {
-    setPage(page - 1);
   };
 
   return (
@@ -130,14 +131,9 @@ const Signup = () => {
           <S.SubTitle>{currentTitleData.subTitle}</S.SubTitle>
         )}
       </S.TitleWrapper>
-      <S.ContentWrapper>{renderPage(page)}</S.ContentWrapper>
-      <SignupFooter
-        page={page}
-        maxPage={MAX_PAGE}
-        isNextButtonEnabled={isNextButtonEnabled}
-        handleClickNext={handleSubmit(handleClickNext)}
-        handleClickPrev={handleClickPrev}
-      />
+      <FormProvider {...methods}>
+        <S.ContentWrapper>{renderPage(page)}</S.ContentWrapper>
+      </FormProvider>
     </DefaultLayout>
   );
 };
