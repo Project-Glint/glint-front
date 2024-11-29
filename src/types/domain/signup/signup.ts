@@ -20,7 +20,7 @@ export interface SignupForm {
   religion: string;
   residenceRegion: string;
   activityRegion: string;
-  hashtags: string | string[];
+  hashtags: string[];
   lifeGoal: string;
   preference: string;
   loveStyle: string;

@@ -13,10 +13,12 @@ import {
   SignupBirth,
   SignupProfile,
   SignupRegion,
+  SignupKeyword,
 } from './containers';
 import { useForm, FormProvider } from 'react-hook-form';
 import { SignupForm } from 'types';
 import { useSearchParams } from 'next/navigation';
+import { SignupSelfIntroduce } from './containers/signupSelfIntroduce';
 
 const defaultValue = {
   companyName: '',
@@ -38,7 +40,7 @@ const defaultValue = {
   religion: '',
   residenceRegion: '',
   activityRegion: '',
-  hashtags: '',
+  hashtags: [],
   lifeGoal: '',
   preference: '',
   loveStyle: '',
@@ -122,6 +124,18 @@ const Signup = () => {
       case 10:
         return (
           <SignupRegion page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
+        );
+      case 11:
+        return (
+          <SignupKeyword page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
+        );
+      case 12:
+        return (
+          <SignupSelfIntroduce
+            page={page}
+            setPage={setPage}
+            MAX_PAGE={MAX_PAGE}
+          />
         );
       case 13:
         return (

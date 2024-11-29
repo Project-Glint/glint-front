@@ -6,3 +6,4 @@ export * from './signupCharacter';
 export * from './signupBirth';
 export * from './signupProfile';
 export * from './signupRegion';
+export * from './signupKeyword';
