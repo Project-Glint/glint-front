@@ -2,7 +2,7 @@ import { SerializedStyles } from '@emotion/react';
 import { BottomBaseModal } from '../baseModal';
 import * as S from './RegionModal.styled';
 import { useGetRegionCity, useGetRegionState } from 'hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 
 interface RegionModalProps {
@@ -22,6 +22,11 @@ const RegionModal = ({
   const [cityId, setCityId] = useState<number>();
   const { data: states } = useGetRegionState();
   const { data: cities } = useGetRegionCity(stateId);
+  useEffect(() => {
+    if (cities) {
+      setCityId(cities?.data[0]?.regionId);
+    }
+  }, [stateId, cities]);
 
   // TODO: id인지, name인지 확인
   const handleRegionSelect = (cityName: string) => {
@@ -29,6 +34,7 @@ const RegionModal = ({
       onSelect(cityName);
     }
   };
+
   return (
     <BottomBaseModal css={css} buttonName={buttonName} title={title}>
       <S.RegionContainer>

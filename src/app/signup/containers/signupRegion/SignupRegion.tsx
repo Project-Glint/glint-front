@@ -34,7 +34,6 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
       icon: <WhiteXIcon />,
     };
   };
-  console.log('residence', residenceRegion);
   return (
     <>
       <S.InputBadgeWrapper>
@@ -54,6 +53,7 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
             key={residenceRegion}
             isClickable
             selectedKeys={[residenceRegion]}
+            handleClick={() => setValue('residenceRegion', '')}
           />
         )}
       </S.InputBadgeWrapper>
@@ -74,6 +74,7 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
             key={activityRegion}
             isClickable
             selectedKeys={[activityRegion]}
+            handleClick={() => setValue('activityRegion', '')}
           />
         )}
       </S.InputBadgeWrapper>

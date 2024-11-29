@@ -33,7 +33,6 @@ export const ModalOverlay = styled(DialogOverlay)`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   inset: 0;
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
 export const ModalContainer = styled(DialogContent)`
@@ -47,7 +46,6 @@ export const ModalContainer = styled(DialogContent)`
     bottom: 0;
     min-height: 666px;
     width: 100%;
-    animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
   `}
 `;
 
