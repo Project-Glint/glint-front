@@ -10,6 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: buttonColor;
   handleClick?: () => void;
   css?: SerializedStyles;
+  className?: string;
 }
 
 const Button = ({
@@ -20,6 +21,7 @@ const Button = ({
   color = 'primary',
   handleClick,
   css,
+  className,
   ...rest
 }: ButtonProps) => {
   return (
@@ -30,6 +32,7 @@ const Button = ({
       color={color}
       onClick={handleClick}
       css={css}
+      className={className}
       {...rest}
     >
       {children}

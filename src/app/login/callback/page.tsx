@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getWorkThroughStep } from 'api/register';
+import { getWorkThroughStep } from 'api/signup';
 
 export default function LoginCallback() {
   const searchParams = useSearchParams();

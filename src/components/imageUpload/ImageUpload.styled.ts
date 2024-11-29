@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const ImageContainer = styled.div`
-  margin-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,52 +31,53 @@ export const PreviewImageWrapper = styled.div`
 `;
 
 export const PreviewImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem;
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid ${theme.colors.gray30};
+    border-radius: 12px;
+  `}
 `;
 
 export const DeleteButton = styled.button`
   position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  width: 24px;
-  height: 24px;
-  color: #f00;
-  background-color: #fff;
-  border-radius: 50%;
-  border: none;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
 
-  &:hover {
-    background-color: #f8f8f8;
-  }
+export const Badge = styled.div<{ type: string }>`
+  ${({ theme, type }) => css`
+    ${theme.fonts.caption_10_B};
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: ${type === '필수'
+      ? theme.colors.primary5
+      : theme.colors.primary70};
+    color: ${type === '필수' ? theme.colors.primary80 : theme.colors.gray0};
+    padding: 2px 8px;
+    border-radius: 100px;
+    align-content: center;
+  `}
 `;
 
 export const AddImageLabel = styled.label`
   ${({ theme }) => css`
-    ${theme.shadows.strong}
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px dashed #ccc;
+    border: 1px solid ${theme.colors.gray30};
     cursor: pointer;
     aspect-ratio: 1;
     width: 100%;
-    border-radius: 0.5rem;
-
-    &:hover {
-      border-color: #999;
-    }
-
-    span {
-      font-size: 24px;
-      color: #666;
-    }
+    border-radius: 12px;
   `}
 `;

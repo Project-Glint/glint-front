@@ -1,6 +1,6 @@
 import { Control, useController } from 'react-hook-form';
 import * as S from './ImageUpload.styled';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef } from 'react';
 import {
   closestCenter,
   DndContext,
@@ -16,12 +16,15 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
 } from '@dnd-kit/sortable';
+import { PlusIcon, WhiteXIcon } from 'assets';
 
 interface ImageUploadProps {
   name: string;
   control: Control<any>;
   rules?: object;
   imageLength: number;
+  previews: string[] | [];
+  setPreviews: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 type SortableImageType = {
@@ -48,6 +51,14 @@ const SortableImage = ({ url, id, index, onDelete }: SortableImageType) => {
     transition,
   };
 
+  const getBadgeType = (index: number) => {
+    if (index === 0) return '대표';
+    if (index === 1 || index === 2) return '필수';
+    return null;
+  };
+
+  const badgeType = getBadgeType(index);
+
   return (
     <S.PreviewImageWrapper
       ref={setNodeRef}
@@ -55,9 +66,10 @@ const SortableImage = ({ url, id, index, onDelete }: SortableImageType) => {
       {...attributes}
       {...listeners}
     >
+      {badgeType && <S.Badge type={badgeType}>{badgeType}</S.Badge>}
       <S.PreviewImage src={url} alt={`profile ${index}`} />
       <S.DeleteButton type="button" onClick={onDelete}>
-        X
+        <WhiteXIcon />
       </S.DeleteButton>
     </S.PreviewImageWrapper>
   );
@@ -68,6 +80,8 @@ const ImageUpload = ({
   control,
   rules,
   imageLength,
+  previews,
+  setPreviews,
 }: ImageUploadProps) => {
   const { field } = useController({
     name,
@@ -78,7 +92,7 @@ const ImageUpload = ({
       ...rules,
     },
   });
-  const [previews, setPreviews] = useState<string[]>([]);
+  // const [previews, setPreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const updatePreviews = (files: File[]) => {
@@ -159,11 +173,23 @@ const ImageUpload = ({
 
           {Array.from({
             length: Math.max(imageLength - previews.length, 0),
-          }).map((_, index) => (
-            <S.AddImageLabel key={`emptyImage-${index}`} htmlFor="imageInput">
-              <span>+</span>
-            </S.AddImageLabel>
-          ))}
+          }).map((_, index) => {
+            const slotIndex = previews.length + index;
+            const getBadgeType = (index: number) => {
+              if (index === 0) return '대표';
+              if (index === 1 || index === 2) return '필수';
+              return null;
+            };
+
+            const badgeType = getBadgeType(slotIndex);
+
+            return (
+              <S.AddImageLabel key={`emptyImage-${index}`} htmlFor="imageInput">
+                {badgeType && <S.Badge type={badgeType}>{badgeType}</S.Badge>}
+                <PlusIcon />
+              </S.AddImageLabel>
+            );
+          })}
         </S.PreviewGrid>
       </DndContext>
     </S.ImageContainer>

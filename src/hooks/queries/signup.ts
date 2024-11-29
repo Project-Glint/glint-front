@@ -1,9 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import {
-  saveOccupation,
-  searchCompanyId,
-  searchCompanyName,
-} from 'api/register';
+import { saveOccupation, searchCompanyId, searchCompanyName } from 'api/signup';
 
 /**
  * @summary 기업명 이름 검색

@@ -28,7 +28,7 @@ export const Input = styled.input<{ hasError?: boolean }>`
     padding-right: 40px;
 
     &::placeholder {
-      color: ${theme.colors.gray40};
+      color: ${theme.colors.gray60};
     }
   `}
 `;

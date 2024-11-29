@@ -11,6 +11,8 @@ import {
   SignupGender,
   SignupCharacter,
   SignupBirth,
+  SignupProfile,
+  SignupRegion,
   SignupKeyword,
 } from './containers';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -120,6 +122,9 @@ const Signup = () => {
           />
         );
       case 10:
+        return (
+          <SignupRegion page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
+        );
       case 11:
         return (
           <SignupKeyword page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
@@ -131,6 +136,10 @@ const Signup = () => {
             setPage={setPage}
             MAX_PAGE={MAX_PAGE}
           />
+        );
+      case 13:
+        return (
+          <SignupProfile page={page} setPage={setPage} MAX_PAGE={MAX_PAGE} />
         );
     }
   };

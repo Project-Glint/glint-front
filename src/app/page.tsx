@@ -1,12 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  useSearchCompanyName,
-  useSearchCompanyId,
-} from 'hooks/queries/register';
+import { useSearchCompanyName, useSearchCompanyId } from 'hooks/queries/signup';
 import { CompanyInfo } from 'types/api/signup';
-import { getWorkThroughStep } from 'api/register';
+import { getWorkThroughStep } from 'api/signup';
 
 interface Result {
   companyNameResult: CompanyInfo[];
