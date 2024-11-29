@@ -3,7 +3,7 @@ import * as S from './SignupKeywork.styled';
 import { SignupForm } from 'types';
 import { useFormContext } from 'react-hook-form';
 import { useState } from 'react';
-import { XCancelIcon } from 'assets';
+import { WhiteXIcon } from 'assets';
 
 interface SignupKeywordProps {
   page: number;
@@ -18,7 +18,7 @@ const SignupKeywork = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
   const hashTagList = hashTags?.map((tag) => ({
     key: tag,
     label: tag,
-    icon: <XCancelIcon />,
+    icon: <WhiteXIcon />,
   }));
   const [hashTag, setHashTag] = useState('');
   const isNextButtonEnabled = hashTagList?.length > 0;
