@@ -1,28 +1,50 @@
-import { GENDER_RADIOS } from 'assets';
-
 export interface SignupForm {
+  // OCCUPATION
+  certType: 'ACADEMIC' | 'WORKER' | string;
   companyName: string;
-  job: string;
-  university: string;
-  major: string;
-  email: string;
-  authCode: number;
-  authImage: File | string | null;
+  universityName: string;
+  departmentName: string;
+  // occupation: string;
+  // CERTIFY
+  // email: string;
+  // authImage
+  // NICKNAME
   nickname: string;
-  gender: (typeof GENDER_RADIOS)[number]['key'] | string;
+  // GENDER
+  gender: 'MALE' | 'FEMALE' | string;
+  // BIRTHDATE
   year: number | string;
   month: number | string;
   day: number | string;
+  // HEIGHT
   height: number;
-  bodyType: string;
-  drinkingType: string;
-  smokingType: string;
-  religion: string;
-  residenceRegion: string;
-  activityRegion: string;
+  // BODY_TYPE
+  bodyType:
+    | 'SLENDER'
+    | 'SLIM_ATHLETIC'
+    | 'AVERAGE'
+    | 'SLIM_MUSCULAR'
+    | 'MUSCULAR'
+    | 'CHUBBY'
+    | string;
+  // DRINKING_SMOKING_TYPE
+  smokingType: 'SMOKER' | 'NON_SMOKER' | string;
+  drinkingType:
+    | 'NON_DRINKER'
+    | 'OCCASIONAL'
+    | 'ENJOYS_DRINKING'
+    | 'LOVES_DRINKING'
+    | string;
+  // RELIGION
+  religion: 'NONE' | 'PROTESTANT' | 'CATHOLIC' | 'BUDDHIST' | 'OTHER' | string;
+  // REGION
+  residenceRegionName: string;
+  activityRegionName: string;
+  // HASHTAG
   hashtags: string[];
+  // SELF_INTRODUCTION
   lifeGoal: string;
   preference: string;
   loveStyle: string;
-  profile: File[] | null;
+  // PROFILE_IMAGE
 }

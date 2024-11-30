@@ -1,3 +1,5 @@
+import { UserData } from 'types';
+
 export const signupTitle = [
   {
     id: 1,
@@ -191,3 +193,92 @@ export const religionList = [
   { key: 'BUDDHIST', label: '불교' },
   { key: 'OTHER', label: '기타' },
 ];
+
+export const getSignupDefaultValues = (user: UserData | null) => {
+  const defaultValue = {
+    // OCCUPATION
+    certType: '',
+    universityId: 0,
+    departmentId: 0,
+    companyId: 0,
+    occupation: '',
+    // CERTIFY
+    email: '',
+    code: '',
+    // NICKNAME
+    nickname: '',
+    // GENDER
+    gender: '',
+    // BIRTHDATE
+    birthdate: '',
+    // HEIGHT
+    height: 0,
+    // BODY_TYPE
+    bodyType: '',
+    // DRINKING_SMOKING_TYPE
+    smokingType: '',
+    drinkingType: '',
+    // RELIGION
+    religion: '',
+    // REGION
+    residenceRegionId: 0,
+    residenceRegionName: '',
+    activityRegionId: 0,
+    activityRegionName: '',
+    // HASHTAG
+    hashtags: [],
+    // SELF_INTRODUCTION
+    lifeGoal: '',
+    preference: '',
+    loveStyle: '',
+    // PROFILE_IMAGE
+  };
+
+  if (!user) {
+    return defaultValue;
+  }
+  const birthdate = user?.userDetailResponseDto.birthdate ?? '';
+
+  let year = '';
+  let month = '';
+  let day = '';
+  if (birthdate) {
+    [year, month, day] = birthdate.split('-');
+  }
+
+  return {
+    ...defaultValue,
+    // certType
+    companyName: user?.userProfileResponseDto.company.companyName || '',
+    universityName:
+      user?.userProfileResponseDto.university.universityName || '',
+    departmentName:
+      user?.userProfileResponseDto.department.departmentName || '',
+    // occupation
+    // email
+    // auth images
+    nickname: user?.userDetailResponseDto.nickname || '',
+    gender: user?.userDetailResponseDto.gender || '',
+    year: year || '',
+    month: month || '',
+    day: day || '',
+    height: user?.userDetailResponseDto.height || 0,
+    bodyType: user?.userProfileResponseDto.bodyType || '',
+    smokingType: user?.userProfileResponseDto.smokingType || '',
+    drinkingType: user?.userProfileResponseDto.drinkingType || '',
+    religion: user?.userProfileResponseDto.religion || '',
+    residenceRegionName:
+      user?.userProfileResponseDto.residenceRegion?.parentName +
+        ' ' +
+        user?.userProfileResponseDto.residenceRegion?.name || '',
+    activityRegionName:
+      user?.userProfileResponseDto.activityRegion.parentName +
+        ' ' +
+        user?.userProfileResponseDto.activityRegion.name || '',
+    hashtags: user?.userProfileResponseDto.hashtags || [],
+    lifeGoal: user?.userProfileResponseDto.selfIntroduction?.lifeGoal || '',
+    preference: user?.userProfileResponseDto.selfIntroduction?.preference || '',
+    loveStyle: user?.userProfileResponseDto.selfIntroduction?.loveStyle || '',
+    // profile Images
+  };
+};

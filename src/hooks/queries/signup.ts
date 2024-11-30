@@ -1,5 +1,25 @@
 import { useMutation } from '@tanstack/react-query';
-import { saveOccupation, searchCompanyId, searchCompanyName } from 'api/signup';
+import {
+  postBirthdateAPI,
+  postBodyTypeAPI,
+  postGenderAPI,
+  postHeightAPI,
+  postNicknameAPI,
+  postReligionAPI,
+  postSmokingDrinkingTypeAPI,
+  saveOccupation,
+  searchCompanyId,
+  searchCompanyName,
+} from 'api/signup';
+import {
+  BirthdateReq,
+  BodyTypeReq,
+  GenderReq,
+  HeightReq,
+  NicknameReq,
+  ReligionReq,
+  SmokingDrinkingTypeReq,
+} from 'types';
 
 /**
  * @summary 기업명 이름 검색
@@ -30,3 +50,74 @@ export function useSaveOccupation() {
     mutationFn: saveOccupation,
   });
 }
+
+/**
+ * @summary 유저 nickname 저장
+ * @request POST:/api/v1/work-through/nickname
+ */
+export const usePostNickname = () => {
+  return useMutation({
+    mutationFn: (req: NicknameReq) => postNicknameAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 gender 저장
+ * @request POST:/api/v1/work-through/gender
+ */
+export const usePostGender = () => {
+  return useMutation({
+    mutationFn: (req: GenderReq) => postGenderAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 birthdate 저장
+ * @request POST:/api/v1/work-through/birthdate
+ */
+export const usePostBirthdate = () => {
+  return useMutation({
+    mutationFn: (req: BirthdateReq) => postBirthdateAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 height 저장
+ * @request POST:/api/v1/work-through/height
+ */
+export const usePostHeight = () => {
+  return useMutation({
+    mutationFn: (req: HeightReq) => postHeightAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 body-type 저장
+ * @request POST:/api/v1/work-through/body-type
+ */
+export const usePostBodyType = () => {
+  return useMutation({
+    mutationFn: (req: BodyTypeReq) => postBodyTypeAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 SmokingType & DrinkingType 저장
+ * @request POST:/api/v1/work-through/smoking-drinking-type
+ */
+export const usePostSmokingDrinkingType = () => {
+  return useMutation({
+    mutationFn: (req: SmokingDrinkingTypeReq) =>
+      postSmokingDrinkingTypeAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 Religion 저장
+ * @request POST:/api/v1/work-through/religion
+ */
+export const usePostReligion = () => {
+  return useMutation({
+    mutationFn: (req: ReligionReq) => postReligionAPI(req),
+  });
+};

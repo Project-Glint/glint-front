@@ -8,6 +8,11 @@ import {
   smokingTypeList,
 } from 'assets';
 import { SignupForm } from 'types';
+import {
+  usePostBodyType,
+  usePostReligion,
+  usePostSmokingDrinkingType,
+} from 'hooks';
 
 interface SignupCharacterProps {
   page: number;
@@ -22,16 +27,48 @@ const SignupCharacter = ({
   type,
 }: SignupCharacterProps) => {
   const { watch, setValue, handleSubmit } = useFormContext<SignupForm>();
+
   const bodyType = watch('bodyType');
   const smokingType = watch('smokingType');
   const drinkingType = watch('drinkingType');
   const religion = watch('religion');
-  const isNextButtonEnabled = true;
+  const isNextButtonEnabled =
+    !!bodyType || !!smokingType || !!drinkingType || !!religion;
 
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+  const { mutate: postBodyType } = usePostBodyType();
+  const { mutate: postSmokingDrinkingType } = usePostSmokingDrinkingType();
+  const { mutate: postReligion } = usePostReligion();
+
+  const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setPage(page + 1);
+      if (type === 'bodyType' && bodyType) {
+        postBodyType(
+          { bodyType: bodyType },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      } else if (type === 'smokingDrinking' && smokingType && drinkingType) {
+        postSmokingDrinkingType(
+          { smokingType: smokingType, drinkingType: drinkingType },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      } else if (type === 'religion' && religion) {
+        postReligion(
+          { religion: religion },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      }
     }
   };
 

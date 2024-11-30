@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { SignupForm } from 'types';
 import * as S from './SignupBirth.styled';
 import { SignupFooter, TextController } from 'components';
+import { usePostBirthdate } from 'hooks';
 
 interface SignupBirthProps {
   page: number;
@@ -12,12 +13,28 @@ interface SignupBirthProps {
 const SignupBirth = ({ page, setPage, MAX_PAGE }: SignupBirthProps) => {
   const { control, watch, getValues, handleSubmit } =
     useFormContext<SignupForm>();
-  const isNextButtonEnabled =
-    !!watch('year') && !!watch('month') && !!watch('day');
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+  const year = watch('year');
+  const month = watch('month');
+  const day = watch('day');
+  const birthdate = year + '-' + month + '-' + day;
+  const isNextButtonEnabled = !!year && !!month && !!day;
+
+  const { mutate: postBirthdate } = usePostBirthdate();
+
+  const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setPage(page + 1);
+      if (birthdate) {
+        postBirthdate(
+          {
+            birthdate: birthdate,
+          },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      }
     }
   };
 
