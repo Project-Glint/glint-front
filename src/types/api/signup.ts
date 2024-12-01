@@ -73,3 +73,13 @@ export interface RegionReq {
   activityRegionId: number;
   activityRegionName: string;
 }
+
+export interface HashtagsReq {
+  hashtags: string[];
+}
+
+export interface SelfIntroduceReq {
+  lifeGoal: string;
+  preference: string;
+  loveStyle: string;
+}

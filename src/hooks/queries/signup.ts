@@ -3,6 +3,7 @@ import {
   postBirthdateAPI,
   postBodyTypeAPI,
   postGenderAPI,
+  postHashtagsAPI,
   postHeightAPI,
   postNicknameAPI,
   postRegionAPI,
@@ -16,6 +17,7 @@ import {
   BirthdateReq,
   BodyTypeReq,
   GenderReq,
+  HashtagsReq,
   HeightReq,
   NicknameReq,
   RegionReq,
@@ -131,5 +133,15 @@ export const usePostReligion = () => {
 export const usePostRegion = () => {
   return useMutation({
     mutationFn: (req: RegionReq) => postRegionAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 hashtags 저장
+ * @request POST:/api/v1/work-through/hashtags
+ */
+export const usePostHashtags = () => {
+  return useMutation({
+    mutationFn: (req: HashtagsReq) => postHashtagsAPI(req),
   });
 };

@@ -4,6 +4,7 @@ import {
   CommonResp,
   CompanyInfo,
   GenderReq,
+  HashtagsReq,
   HeightReq,
   NicknameReq,
   OccupationReq,
@@ -142,6 +143,16 @@ export const postReligionAPI = async (req: ReligionReq) => {
  */
 export const postRegionAPI = async (req: RegionReq) => {
   const { data } = await httpClient.post(`${SIGNUP_API}/region`, req);
+
+  return data;
+};
+
+/**
+ * @summary 유저 hashtags 저장
+ * @request POST:/api/v1/work-through/hashtags
+ */
+export const postHashtagsAPI = async (req: HashtagsReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/hashtags`, req);
 
   return data;
 };
