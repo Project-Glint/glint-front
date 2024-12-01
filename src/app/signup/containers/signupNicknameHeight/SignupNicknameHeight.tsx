@@ -3,6 +3,7 @@ import * as S from './SignupNicknameHeight.styled';
 import { useFormContext } from 'react-hook-form';
 import { SignupForm } from 'types';
 import { usePostHeight, usePostNickname } from 'hooks';
+import useUserStore from 'store/userStore';
 
 interface SignupNicknameHeightProps {
   page: number;
@@ -24,6 +25,7 @@ const SignupNicknameHeight = ({
     setError,
     formState: { errors },
   } = useFormContext<SignupForm>();
+  const user = useUserStore((state) => state.user);
   const nickname = watch('nickname');
   const height = watch('height');
   const isNextButtonEnabled = !!nickname || !!height;
@@ -38,17 +40,23 @@ const SignupNicknameHeight = ({
   const handleClickNext = () => {
     if (isNextButtonEnabled) {
       if (type === 'nickname' && nickname) {
-        postNickname(
-          { nickname: nickname },
-          {
-            onSuccess: () => {
-              setPage(page + 1);
-            },
-            onError: () => {
-              setError('nickname', { message: '이미 사용 중인 닉네임이에요.' });
-            },
-          }
-        );
+        if (user?.userDetailResponseDto.nickname === nickname) {
+          setPage(page + 1);
+        } else {
+          postNickname(
+            { nickname: nickname },
+            {
+              onSuccess: () => {
+                setPage(page + 1);
+              },
+              onError: () => {
+                setError('nickname', {
+                  message: '이미 사용 중인 닉네임이에요.',
+                });
+              },
+            }
+          );
+        }
       } else if (type === 'height' && height) {
         postHeight(
           { height: height },
