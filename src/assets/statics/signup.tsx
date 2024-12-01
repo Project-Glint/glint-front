@@ -271,10 +271,13 @@ export const getSignupDefaultValues = (user: UserData | null) => {
       user?.userProfileResponseDto.residenceRegion?.parentName +
         ' ' +
         user?.userProfileResponseDto.residenceRegion?.name || '',
+    residenceRegionId:
+      user?.userProfileResponseDto.residenceRegion.regionId || 0,
     activityRegionName:
       user?.userProfileResponseDto.activityRegion.parentName +
         ' ' +
         user?.userProfileResponseDto.activityRegion.name || '',
+    activityRegionId: user?.userProfileResponseDto.activityRegion.regionId || 0,
     hashtags: user?.userProfileResponseDto.hashtags || [],
     lifeGoal: user?.userProfileResponseDto.selfIntroduction?.lifeGoal || '',
     preference: user?.userProfileResponseDto.selfIntroduction?.preference || '',

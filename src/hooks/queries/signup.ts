@@ -5,6 +5,7 @@ import {
   postGenderAPI,
   postHeightAPI,
   postNicknameAPI,
+  postRegionAPI,
   postReligionAPI,
   postSmokingDrinkingTypeAPI,
   saveOccupation,
@@ -17,6 +18,7 @@ import {
   GenderReq,
   HeightReq,
   NicknameReq,
+  RegionReq,
   ReligionReq,
   SmokingDrinkingTypeReq,
 } from 'types';
@@ -119,5 +121,15 @@ export const usePostSmokingDrinkingType = () => {
 export const usePostReligion = () => {
   return useMutation({
     mutationFn: (req: ReligionReq) => postReligionAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 region 저장
+ * @request POST:/api/v1/work-through/region
+ */
+export const usePostRegion = () => {
+  return useMutation({
+    mutationFn: (req: RegionReq) => postRegionAPI(req),
   });
 };

@@ -39,7 +39,9 @@ export interface SignupForm {
   religion: 'NONE' | 'PROTESTANT' | 'CATHOLIC' | 'BUDDHIST' | 'OTHER' | string;
   // REGION
   residenceRegionName: string;
+  residenceRegionId: number; // 추가
   activityRegionName: string;
+  activityRegionId: number; // 추가
   // HASHTAG
   hashtags: string[];
   // SELF_INTRODUCTION

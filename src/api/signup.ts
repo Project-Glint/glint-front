@@ -7,6 +7,7 @@ import {
   HeightReq,
   NicknameReq,
   OccupationReq,
+  RegionReq,
   ReligionReq,
   SmokingDrinkingTypeReq,
   WorkThroughStep,
@@ -131,6 +132,16 @@ export const postSmokingDrinkingTypeAPI = async (
  */
 export const postReligionAPI = async (req: ReligionReq) => {
   const { data } = await httpClient.post(`${SIGNUP_API}/religion`, req);
+
+  return data;
+};
+
+/**
+ * @summary 유저 region 저장
+ * @request POST:/api/v1/work-through/region
+ */
+export const postRegionAPI = async (req: RegionReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/region`, req);
 
   return data;
 };
