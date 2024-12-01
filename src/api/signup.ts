@@ -10,6 +10,7 @@ import {
   OccupationReq,
   RegionReq,
   ReligionReq,
+  SelfIntroduceReq,
   SmokingDrinkingTypeReq,
   WorkThroughStep,
 } from 'types/api/signup';
@@ -153,6 +154,19 @@ export const postRegionAPI = async (req: RegionReq) => {
  */
 export const postHashtagsAPI = async (req: HashtagsReq) => {
   const { data } = await httpClient.post(`${SIGNUP_API}/hashtags`, req);
+
+  return data;
+};
+
+/**
+ * @summary 유저 selfIntroduce 저장
+ * @request POST:/api/v1/work-through/self-introduction
+ */
+export const postSelfIntroduceAPI = async (req: SelfIntroduceReq) => {
+  const { data } = await httpClient.post(
+    `${SIGNUP_API}/self-introduction`,
+    req
+  );
 
   return data;
 };

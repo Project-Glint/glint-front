@@ -8,6 +8,7 @@ import {
   postNicknameAPI,
   postRegionAPI,
   postReligionAPI,
+  postSelfIntroduceAPI,
   postSmokingDrinkingTypeAPI,
   saveOccupation,
   searchCompanyId,
@@ -22,6 +23,7 @@ import {
   NicknameReq,
   RegionReq,
   ReligionReq,
+  SelfIntroduceReq,
   SmokingDrinkingTypeReq,
 } from 'types';
 
@@ -143,5 +145,15 @@ export const usePostRegion = () => {
 export const usePostHashtags = () => {
   return useMutation({
     mutationFn: (req: HashtagsReq) => postHashtagsAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 selfIntroduce 저장
+ * @request POST:/api/v1/work-through/self-introduction
+ */
+export const usePostSelfIntroduce = () => {
+  return useMutation({
+    mutationFn: (req: SelfIntroduceReq) => postSelfIntroduceAPI(req),
   });
 };
