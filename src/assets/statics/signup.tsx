@@ -248,14 +248,14 @@ export const getSignupDefaultValues = (user: UserData | null) => {
 
   return {
     ...defaultValue,
-    // certType
+    certType: user?.userProfileResponseDto.certType || '',
     companyName: user?.userProfileResponseDto.company.companyName || '',
     universityName:
       user?.userProfileResponseDto.university.universityName || '',
     departmentName:
       user?.userProfileResponseDto.department.departmentName || '',
-    // occupation
-    // email
+    occupation: user?.userProfileResponseDto.occupation || '',
+    email: user?.email || '',
     // auth images
     nickname: user?.userDetailResponseDto.nickname || '',
     gender: user?.userDetailResponseDto.gender || '',
@@ -282,6 +282,7 @@ export const getSignupDefaultValues = (user: UserData | null) => {
     lifeGoal: user?.userProfileResponseDto.selfIntroduction?.lifeGoal || '',
     preference: user?.userProfileResponseDto.selfIntroduction?.preference || '',
     loveStyle: user?.userProfileResponseDto.selfIntroduction?.loveStyle || '',
-    // profile Images
+    representativeProfileImage:
+      user?.userDetailResponseDto.representativeProfileImage || '',
   };
 };

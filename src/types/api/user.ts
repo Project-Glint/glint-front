@@ -6,12 +6,14 @@ interface userDetailResponseDto {
   birthdate: string | null;
   age: number | null;
   height: number | null;
-  profileImage: string | null;
+  representativeProfileImage: string | null;
 }
 
 interface UserProfileResponseDto {
   id: number;
   userId: number;
+  certType: string;
+  occupation: string;
   company: {
     companyId: number | null;
     companyName: string | null;
@@ -52,6 +54,7 @@ interface UserProfileResponseDto {
 }
 export interface UserData {
   userId: number;
+  email: string;
   workThroughStep: string;
   userDetailResponseDto: userDetailResponseDto;
   userProfileResponseDto: UserProfileResponseDto;
