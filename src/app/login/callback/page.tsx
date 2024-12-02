@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { getWorkThroughStep } from 'api/signup';
+import { getWorkThroughStepAPI } from 'api/signup';
 import useUserStore from 'store/userStore';
 import { getUserInfo } from 'api/user';
 
@@ -19,16 +19,17 @@ export default function LoginCallback() {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
       }
-      const response = await getWorkThroughStep();
+      const response = await getWorkThroughStepAPI();
       if (response.status !== 'success') {
         router.push('/login');
         return;
       }
       const data = response.data;
       if (data.workThroughStep === 'COMPLETE') {
-        router.push('/');
+        router.push('/main');
         return;
       }
+
       // userInfo
       if (data.id) {
         const info = await getUserInfo(data.id);
