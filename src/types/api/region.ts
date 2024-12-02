@@ -1,4 +1,4 @@
-export interface getRegionRes {
+export interface regionRes {
   regionId: number;
   name: string;
   parentId: number | null;
