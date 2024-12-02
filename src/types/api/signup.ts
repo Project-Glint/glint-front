@@ -83,3 +83,8 @@ export interface SelfIntroduceReq {
   preference: string;
   loveStyle: string;
 }
+
+export interface ProfileReq {
+  images: File[] | string[];
+  representativeImage: File | string;
+}

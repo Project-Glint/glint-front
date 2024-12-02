@@ -8,6 +8,7 @@ import {
   HeightReq,
   NicknameReq,
   OccupationReq,
+  ProfileReq,
   RegionReq,
   ReligionReq,
   SelfIntroduceReq,
@@ -17,6 +18,17 @@ import {
 import { httpClient } from './axios';
 
 const SIGNUP_API = '/api/v1/work-through';
+
+/**
+ * @summary 유저 work-through step 조회
+ * @request GET:/api/v1/user/work-through/step
+ */
+export async function getWorkThroughStepAPI() {
+  const response = await httpClient.get<CommonResp<WorkThroughStep>>(
+    `/api/v1/user/work-through-step`
+  );
+  return response.data;
+}
 
 /**
  * @summary 기업명 이름 검색
@@ -44,23 +56,13 @@ export async function searchCompanyId(companyId: number) {
 }
 
 /**
- * @summary 유저 work-through step 조회
- * @request GET:/api/v1/user/work-through/step
- */
-export async function getWorkThroughStep() {
-  const response = await httpClient.get<CommonResp<WorkThroughStep>>(
-    `/api/v1/user/work-through-step`
-  );
-  return response.data;
-}
-
-/**
  * @summary 유저 Occupation 저장
  * @request POST:/api/v1/work-through/occupation
  */
-export async function saveOccupation(payload: OccupationReq) {
-  const response = await httpClient.post(`${SIGNUP_API}/occupation`, payload);
-  return response.data;
+export async function postOccupationAPI(payload: OccupationReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/occupation`, payload);
+
+  return data;
 }
 
 /**
@@ -166,6 +168,35 @@ export const postSelfIntroduceAPI = async (req: SelfIntroduceReq) => {
   const { data } = await httpClient.post(
     `${SIGNUP_API}/self-introduction`,
     req
+  );
+
+  return data;
+};
+
+/**
+ * @summary 유저 Profile 저장
+ * @request POST:/api/v1/work-through/images/profile
+ */
+export const postProfileImageAPI = async ({
+  images,
+  representativeImage,
+}: ProfileReq) => {
+  const formData = new FormData();
+
+  images.forEach((image) => {
+    formData.append('images', image);
+  });
+
+  formData.append('representativeImage', representativeImage);
+
+  const { data } = await httpClient.post(
+    `${SIGNUP_API}/images/profile`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
   );
 
   return data;

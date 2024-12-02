@@ -3,6 +3,8 @@ import * as S from './SignupProfile.styled';
 import { SignupForm } from 'types';
 import { ImageUpload, SignupFooter } from 'components';
 import { useState } from 'react';
+import { usePostProfileImage } from 'hooks';
+// import { useRouter } from 'next/navigation';
 
 interface SignupProfileProps {
   page: number;
@@ -12,11 +14,31 @@ interface SignupProfileProps {
 
 const SignupProfile = ({ page, setPage, MAX_PAGE }: SignupProfileProps) => {
   const { control, watch, handleSubmit } = useFormContext<SignupForm>();
-  const [images, setImages] = useState<string[]>([]);
-  const isNextButtonEnabled = !!watch('profile') && images.length >= 3;
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+  const [previews, setPreviews] = useState<string[]>([]);
+  // const router = useRouter();
+
+  const images = watch('images');
+  const isNextButtonEnabled = previews.length >= 3;
+
+  const { mutate: postProfileImage } = usePostProfileImage();
+
+  const handleClickNext = () => {
+    if (isNextButtonEnabled) {
+      postProfileImage(
+        {
+          images: images?.slice(1),
+          representativeImage: images[0],
+        },
+        {
+          onSuccess: () => {
+            console.log('Signup Complete');
+            // router.push('/main');
+          },
+        }
+      );
+    }
   };
+
   const handleClickPrev = () => {
     setPage(page - 1);
   };
@@ -26,11 +48,11 @@ const SignupProfile = ({ page, setPage, MAX_PAGE }: SignupProfileProps) => {
       <S.Container>
         <S.ImageWrapper>
           <ImageUpload
-            name="profile"
+            name="images"
             control={control}
             imageLength={6}
-            previews={images}
-            setPreviews={setImages}
+            previews={previews}
+            setPreviews={setPreviews}
           />
           <S.Description>사진은 최소 3장 이상 업로드해 주세요.</S.Description>
         </S.ImageWrapper>

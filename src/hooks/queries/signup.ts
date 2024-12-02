@@ -10,9 +10,10 @@ import {
   postReligionAPI,
   postSelfIntroduceAPI,
   postSmokingDrinkingTypeAPI,
-  saveOccupation,
-  searchCompanyId,
+  postOccupationAPI,
+  postProfileImageAPI,
   searchCompanyName,
+  searchCompanyId,
 } from 'api/signup';
 import {
   BirthdateReq,
@@ -21,6 +22,7 @@ import {
   HashtagsReq,
   HeightReq,
   NicknameReq,
+  ProfileReq,
   RegionReq,
   ReligionReq,
   SelfIntroduceReq,
@@ -51,9 +53,9 @@ export function useSearchCompanyId() {
  * @summary 유저 Occupation 저장
  * @request POST:/api/v1/work-through/occupation
  */
-export function useSaveOccupation() {
+export function usePostOccupation() {
   return useMutation({
-    mutationFn: saveOccupation,
+    mutationFn: postOccupationAPI,
   });
 }
 
@@ -155,5 +157,15 @@ export const usePostHashtags = () => {
 export const usePostSelfIntroduce = () => {
   return useMutation({
     mutationFn: (req: SelfIntroduceReq) => postSelfIntroduceAPI(req),
+  });
+};
+
+/**
+ * @summary 유저 Profile 저장
+ * @request POST:/api/v1/work-through/images/profile
+ */
+export const usePostProfileImage = () => {
+  return useMutation({
+    mutationFn: (req: ProfileReq) => postProfileImageAPI(req),
   });
 };

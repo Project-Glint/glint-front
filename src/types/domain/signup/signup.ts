@@ -4,10 +4,9 @@ export interface SignupForm {
   companyName: string;
   universityName: string;
   departmentName: string;
-  // occupation: string;
+  occupation: string;
   // CERTIFY
-  // email: string;
-  // authImage
+  email: string;
   // NICKNAME
   nickname: string;
   // GENDER
@@ -49,4 +48,6 @@ export interface SignupForm {
   preference: string;
   loveStyle: string;
   // PROFILE_IMAGE
+  representativeImage: File | string;
+  images: File[] | string[];
 }
