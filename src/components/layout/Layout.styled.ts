@@ -6,6 +6,7 @@ export const DefaultLayout = styled.section`
     width: 100%;
     padding-top: 44px;
     position: relative;
+    padding-bottom: 80px;
 
     /* 기본 모바일 스타일 */
     max-width: 480px;
