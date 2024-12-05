@@ -2,6 +2,7 @@ import { SignupFooter, TextareaController } from 'components';
 import * as S from './SignupSelfIntroduce.styled';
 import { useFormContext } from 'react-hook-form';
 import { SignupForm } from 'types';
+import { usePostSelfIntroduce } from 'hooks';
 
 interface SignupSelfIntroduceProps {
   page: number;
@@ -15,12 +16,29 @@ const SignupSelfIntroduce = ({
   MAX_PAGE,
 }: SignupSelfIntroduceProps) => {
   const { control, watch, handleSubmit } = useFormContext<SignupForm>();
-  const isNextButtonEnabled =
-    !!watch('lifeGoal') && !!watch('preference') && !!watch('loveStyle');
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+  const lifeGoal = watch('lifeGoal');
+  const preference = watch('preference');
+  const loveStyle = watch('loveStyle');
+  const isNextButtonEnabled = !!lifeGoal && !!preference && !!loveStyle;
+
+  const { mutate: postSelfIntroduce } = usePostSelfIntroduce();
+
+  const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setPage(page + 1);
+      if (lifeGoal && preference && loveStyle) {
+        postSelfIntroduce(
+          {
+            lifeGoal: lifeGoal,
+            preference: preference,
+            loveStyle: loveStyle,
+          },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      }
     }
   };
 

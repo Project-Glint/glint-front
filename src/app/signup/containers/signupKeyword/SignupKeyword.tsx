@@ -1,9 +1,10 @@
 import { Badge, SignupFooter, TextController } from 'components';
-import * as S from './SignupKeywork.styled';
+import * as S from './SignupKeyword.styled';
 import { SignupForm } from 'types';
 import { useFormContext } from 'react-hook-form';
 import { useState } from 'react';
 import { WhiteXIcon } from 'assets';
+import { usePostHashtags } from 'hooks';
 
 interface SignupKeywordProps {
   page: number;
@@ -11,21 +12,32 @@ interface SignupKeywordProps {
   MAX_PAGE: number;
 }
 
-const SignupKeywork = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
+const SignupKeyword = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
   const { control, watch, getValues, handleSubmit, setValue } =
     useFormContext<SignupForm>();
+  const [hashTag, setHashTag] = useState('');
   const hashTags = watch('hashtags');
   const hashTagList = hashTags?.map((tag) => ({
     key: tag,
     label: tag,
     icon: <WhiteXIcon />,
   }));
-  const [hashTag, setHashTag] = useState('');
   const isNextButtonEnabled = hashTagList?.length > 0;
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+
+  const { mutate: postHashtags } = usePostHashtags();
+
+  const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setPage(page + 1);
+      if (hashTags.length > 0) {
+        postHashtags(
+          { hashtags: hashTags },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      }
     }
   };
 
@@ -88,4 +100,4 @@ const SignupKeywork = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
   );
 };
 
-export default SignupKeywork;
+export default SignupKeyword;

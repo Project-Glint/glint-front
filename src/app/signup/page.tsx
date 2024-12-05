@@ -1,9 +1,9 @@
 'use client';
 
 import { DefaultLayout } from 'components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './page.styled';
-import { signupTitle, stepList } from 'assets';
+import { getSignupDefaultValues, signupTitle, stepList } from 'assets';
 import {
   SignupJob,
   SignupAuth,
@@ -14,51 +14,37 @@ import {
   SignupProfile,
   SignupRegion,
   SignupKeyword,
+  SignupSelfIntroduce,
 } from './containers';
 import { useForm, FormProvider } from 'react-hook-form';
 import { SignupForm } from 'types';
 import { useSearchParams } from 'next/navigation';
-import { SignupSelfIntroduce } from './containers/signupSelfIntroduce';
-
-const defaultValue = {
-  companyName: '',
-  job: '',
-  university: '',
-  major: '',
-  email: '',
-  authCode: 0,
-  authImage: null,
-  nickname: '',
-  gender: '',
-  year: '',
-  month: '',
-  day: '',
-  height: 0,
-  bodyType: '',
-  drinkingType: '',
-  smokingType: '',
-  religion: '',
-  residenceRegion: '',
-  activityRegion: '',
-  hashtags: [],
-  lifeGoal: '',
-  preference: '',
-  loveStyle: '',
-  profile: null,
-};
+import useUserStore from 'store/userStore';
 
 const Signup = () => {
+  const user = useUserStore((state) => state.user);
   const searchParams = useSearchParams();
   const step = searchParams.get('step');
   const stepPage = stepList.indexOf(step || '');
   const targetPage = stepPage !== -1 ? stepPage + 1 : 1;
+  const defaultValues = getSignupDefaultValues(user);
+
   const [page, setPage] = useState(targetPage);
 
   const MAX_PAGE = 13;
 
   const methods = useForm<SignupForm>({
-    defaultValues: defaultValue,
+    defaultValues: defaultValues,
   });
+
+  const { reset } = methods;
+
+  // Zustand의 user 데이터를 감시하고, React Hook Form의 초기값을 재설정
+  useEffect(() => {
+    if (user) {
+      reset(defaultValues); // React Hook Form의 초기값 업데이트
+    }
+  }, [user, reset]);
 
   const currentTitleData = signupTitle.find((item) => item.id === page);
 

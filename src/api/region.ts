@@ -1,4 +1,4 @@
-import { CommonResp, getRegionRes } from 'types';
+import { CommonResp, regionRes } from 'types';
 import { httpClient } from './axios';
 
 /**
@@ -7,7 +7,7 @@ import { httpClient } from './axios';
  */
 export const getRegionStateAPI = async () => {
   const { data } =
-    await httpClient.get<CommonResp<getRegionRes[]>>(`/api/v1/region`);
+    await httpClient.get<CommonResp<regionRes[]>>(`/api/v1/region`);
   return data;
 };
 
@@ -16,7 +16,7 @@ export const getRegionStateAPI = async () => {
  * @request GET:/api/v1/region/{parentId}
  */
 export const getRegionCityAPI = async (parentId: number) => {
-  const { data } = await httpClient.get<CommonResp<getRegionRes[]>>(
+  const { data } = await httpClient.get<CommonResp<regionRes[]>>(
     `/api/v1/region/${parentId}`
   );
   return data;

@@ -87,12 +87,14 @@ const ImageUpload = ({
     name,
     control,
     rules: {
-      validate: (files: File[]) =>
-        files?.length >= 3 || '이미지를  3개 이상 등록해주세요.',
+      validate: (files: File[]) => {
+        if (files.length < 3) return '이미지를 3개 이상 등록해주세요.';
+        return true;
+      },
       ...rules,
     },
   });
-  // const [previews, setPreviews] = useState<string[]>([]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const updatePreviews = (files: File[]) => {

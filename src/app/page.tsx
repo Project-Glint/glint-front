@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSearchCompanyName, useSearchCompanyId } from 'hooks/queries/signup';
 import { CompanyInfo } from 'types/api/signup';
-import { getWorkThroughStep } from 'api/signup';
+import { getWorkThroughStepAPI } from 'api/signup';
 
 interface Result {
   companyNameResult: CompanyInfo[];
@@ -41,7 +41,7 @@ export default function Home() {
         setResult((prev) => ({ ...prev, companyIdResult: response.data }));
       },
     });
-    getWorkThroughStep();
+    getWorkThroughStepAPI();
   };
   return (
     <div>

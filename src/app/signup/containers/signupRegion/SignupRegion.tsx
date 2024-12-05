@@ -3,6 +3,7 @@ import { SignupForm } from 'types';
 import * as S from './SignupRegion.styled';
 import { Badge, RegionModal, SignupFooter } from 'components';
 import { WhiteXIcon } from 'assets';
+import { usePostRegion } from 'hooks';
 
 interface SignupRegionProps {
   page: number;
@@ -12,14 +13,38 @@ interface SignupRegionProps {
 
 const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
   const { watch, handleSubmit, setValue } = useFormContext<SignupForm>();
-  const residenceRegion = watch('residenceRegion');
-  const activityRegion = watch('activityRegion');
-  const isNextButtonEnabled =
-    !!watch('residenceRegion') && !!watch('activityRegion');
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+  const residenceRegionName = watch('residenceRegionName');
+  const activityRegionName = watch('activityRegionName');
+  const residenceRegionId = watch('residenceRegionId');
+  const activityRegionId = watch('activityRegionId');
+  const isNextButtonEnabled = !!residenceRegionName && !!activityRegionName;
+
+  const { mutate: postRegion } = usePostRegion();
+
+  const handleRegionSelect =
+    (fieldPrefix: 'residenceRegion' | 'activityRegion') =>
+    (name: string, id: number) => {
+      setValue(`${fieldPrefix}Name`, name);
+      setValue(`${fieldPrefix}Id`, id);
+    };
+
+  const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setPage(page + 1);
+      if (residenceRegionName && activityRegionName) {
+        postRegion(
+          {
+            residenceRegionId: residenceRegionId,
+            residenceRegionName: residenceRegionName,
+            activityRegionId: activityRegionId,
+            activityRegionName: activityRegionName,
+          },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      }
     }
   };
 
@@ -40,20 +65,20 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
         <S.InputWrapper>
           <S.InputLabel>거주지</S.InputLabel>
           <RegionModal
-            name="residenceRegion"
+            name="residenceRegionName"
             css={S.button}
             buttonName="선택하기"
             title="거주지를 선택해 주세요"
-            onSelect={(value) => setValue('residenceRegion', value)}
+            onSelect={handleRegionSelect('residenceRegion')}
           />
         </S.InputWrapper>
-        {residenceRegion && (
+        {residenceRegionName && (
           <Badge
-            items={badge(residenceRegion)}
-            key={residenceRegion}
+            items={badge(residenceRegionName)}
+            key={residenceRegionName}
             isClickable
-            selectedKeys={[residenceRegion]}
-            handleClick={() => setValue('residenceRegion', '')}
+            selectedKeys={[residenceRegionName]}
+            handleClick={() => setValue('residenceRegionName', '')}
           />
         )}
       </S.InputBadgeWrapper>
@@ -61,20 +86,20 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
         <S.InputWrapper>
           <S.InputLabel>활동 지역</S.InputLabel>
           <RegionModal
-            name="activityRegion"
+            name="activityRegionName"
             css={S.button}
             buttonName="선택하기"
             title="활동 지역을 선택해 주세요"
-            onSelect={(value) => setValue('activityRegion', value)}
+            onSelect={handleRegionSelect('activityRegion')}
           />
         </S.InputWrapper>
-        {activityRegion && (
+        {activityRegionName && (
           <Badge
-            items={badge(activityRegion)}
-            key={activityRegion}
+            items={badge(activityRegionName)}
+            key={activityRegionName}
             isClickable
-            selectedKeys={[activityRegion]}
-            handleClick={() => setValue('activityRegion', '')}
+            selectedKeys={[activityRegionName]}
+            handleClick={() => setValue('activityRegionName', '')}
           />
         )}
       </S.InputBadgeWrapper>

@@ -10,7 +10,7 @@ interface RegionModalProps {
   buttonName?: string;
   title?: string;
   name: string;
-  onSelect: (value: string) => void;
+  onSelect: (name: string, id: number) => void;
 }
 const RegionModal = ({
   css,
@@ -29,9 +29,9 @@ const RegionModal = ({
   }, [stateId, cities]);
 
   // TODO: id인지, name인지 확인
-  const handleRegionSelect = (cityName: string) => {
+  const handleRegionSelect = (name: string, id: number) => {
     if (onSelect) {
-      onSelect(cityName);
+      onSelect(name, id);
     }
   };
 
@@ -62,7 +62,10 @@ const RegionModal = ({
                   key={item.regionId}
                   onClick={() => {
                     setCityId(item.regionId);
-                    handleRegionSelect(item.parentName + ' ' + item.name);
+                    handleRegionSelect(
+                      item.parentName + ' ' + item.name,
+                      item.regionId
+                    );
                   }}
                   isSelected={item.regionId === cityId}
                 >

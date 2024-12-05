@@ -3,6 +3,7 @@ import * as S from './SignupGender.styled';
 import { RadioButton, SignupFooter } from 'components';
 import { FemaleIcon, GENDER_RADIOS, MaleIcon } from 'assets';
 import { SignupForm } from 'types';
+import { usePostGender } from 'hooks';
 
 interface SignupGenderProps {
   page: number;
@@ -13,12 +14,22 @@ interface SignupGenderProps {
 const SignupGender = ({ page, setPage, MAX_PAGE }: SignupGenderProps) => {
   const { control, watch, handleSubmit } = useFormContext<SignupForm>();
   const gender = watch('gender');
-  const isNextButtonEnabled = !!watch('gender');
+  const isNextButtonEnabled = !!gender;
 
-  const handleClickNext = (data: SignupForm) => {
-    console.log('data', data);
+  const { mutate: postGender } = usePostGender();
+
+  const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setPage(page + 1);
+      if (gender) {
+        postGender(
+          { gender: gender },
+          {
+            onSuccess: () => {
+              setPage(page + 1);
+            },
+          }
+        );
+      }
     }
   };
 

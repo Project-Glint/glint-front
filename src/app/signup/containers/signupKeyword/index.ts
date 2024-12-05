@@ -1,1 +1,1 @@
-export { default as SignupKeyword } from './SignupKeywork';
+export { default as SignupKeyword } from './SignupKeyword';
