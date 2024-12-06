@@ -13,3 +13,6 @@ export * from './controller';
 export * from './imageUpload';
 export * from './layout';
 export * from './modal';
+export * from './chip';
+export * from './profileCard';
+export * from './checkbox';
