@@ -8,3 +8,4 @@ export { default as BlackXIcon } from './ic_blackX.svg';
 export { default as HandlebarIcon } from './ic_handlebar.svg';
 export { default as SmallLineIcon } from './ic_smallLine.svg';
 export { default as CheckCircleIcon } from './ic_checkCircle.svg';
+export { default as LeftIcon } from './ic_Left.svg';
