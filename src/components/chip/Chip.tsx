@@ -34,15 +34,6 @@ const Chip = ({
     >
       {item.label}
       {icon && (
-        // <span
-        //   onClick={(e) => {
-        //     e.stopPropagation();
-        //     handleClick(item.key);
-        //   }}
-        //   style={{ cursor: 'pointer' }}
-        // >
-        //   {icon}
-        // </span>
         <S.Icon
           onClick={(e) => {
             e.stopPropagation();
