@@ -7,6 +7,18 @@ export interface CommonResp<T> {
 export interface CompanyInfo {
   companyId: number;
   companyName: string;
+  companyDomain: string;
+}
+
+export interface UniversityInfo {
+  universityId: number;
+  universityName: string;
+  universityDomain: string;
+}
+
+export interface DepartmentInfo {
+  departmentId: number;
+  departmentName: string;
 }
 
 export interface WorkThroughStep {
@@ -23,6 +35,21 @@ export interface OccupationReq {
   departmentId?: number;
   companyId?: number;
   occupation?: string;
+}
+
+export interface SendEmailReq {
+  certType: CertType;
+  email: string;
+}
+
+export interface CertifyCodeReq {
+  certType: CertType;
+  email: string;
+  code: string;
+}
+
+export interface CertifyImageReq {
+  certifyImage: File | string;
 }
 
 export interface NicknameReq {

@@ -12,8 +12,15 @@ import {
   postSmokingDrinkingTypeAPI,
   postOccupationAPI,
   postProfileImageAPI,
-  searchCompanyName,
-  searchCompanyId,
+  getCompanyNameAPI,
+  getCompanyIdAPI,
+  getUniversityNameAPI,
+  getUniversityIdAPI,
+  getDepartmentNameAPI,
+  getDepartmentIdAPI,
+  postSendEmail,
+  postCertifyCode,
+  postCertifyImage,
 } from 'api/signup';
 import {
   BirthdateReq,
@@ -33,9 +40,9 @@ import {
  * @summary 기업명 이름 검색
  * @request GET:/api/v1/company/name
  */
-export function useSearchCompanyName() {
+export function useGetCompanyName() {
   return useMutation({
-    mutationFn: searchCompanyName,
+    mutationFn: getCompanyNameAPI,
   });
 }
 
@@ -43,9 +50,49 @@ export function useSearchCompanyName() {
  * @summary 기업명 id 검색
  * @request GET:/api/v1/company/:id
  */
-export function useSearchCompanyId() {
+export function useGetCompanyId() {
   return useMutation({
-    mutationFn: searchCompanyId,
+    mutationFn: getCompanyIdAPI,
+  });
+}
+
+/**
+ * @summary 학교명 이름 검색
+ * @request GET:/api/v1/university/name
+ */
+export function useGetUniversityName() {
+  return useMutation({
+    mutationFn: getUniversityNameAPI,
+  });
+}
+
+/**
+ * @summary 학교명 id 검색
+ * @request GET:/api/v1/university/:id
+ */
+export function useGetUniversityId() {
+  return useMutation({
+    mutationFn: getUniversityIdAPI,
+  });
+}
+
+/**
+ * @summary 학과명 검색
+ * @request GET:/api/v1/department/name
+ */
+export function useGetDepartmentName() {
+  return useMutation({
+    mutationFn: getDepartmentNameAPI,
+  });
+}
+
+/**
+ * @summary 학과 id 검색
+ * @request GET:/api/v1/department/:id
+ */
+export function useGetDepartmentId() {
+  return useMutation({
+    mutationFn: getDepartmentIdAPI,
   });
 }
 
@@ -56,6 +103,36 @@ export function useSearchCompanyId() {
 export function usePostOccupation() {
   return useMutation({
     mutationFn: postOccupationAPI,
+  });
+}
+
+/**
+ * @summary 인증 이메일 발송
+ * @request POST:/api/v1/work-through/certify
+ */
+export function usePostSendEmail() {
+  return useMutation({
+    mutationFn: postSendEmail,
+  });
+}
+
+/**
+ * @summary 인증 이메일 코드 확인
+ * @request POST:/api/v1/work-through/certify/code
+ */
+export function usePostCertifyCode() {
+  return useMutation({
+    mutationFn: postCertifyCode,
+  });
+}
+
+/**
+ * @summary 인증 이미지 전송
+ * @request POST:/api/v1/work-through/certify/image
+ */
+export function usePostCertifyImage() {
+  return useMutation({
+    mutationFn: postCertifyImage,
   });
 }
 
