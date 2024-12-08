@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import * as S from './SignupCharacter.styled';
-import { Badge, SignupFooter } from 'components';
+import { Chip, SignupFooter } from 'components';
 import {
   bodyTypeList,
   drinkingTypeList,
@@ -96,7 +96,7 @@ const SignupCharacter = ({
     <>
       <S.InputWrapper>
         <S.InputLabel>{renderContent('')}</S.InputLabel>
-        <Badge
+        <Chip
           items={
             type === 'bodyType'
               ? bodyTypeList
@@ -104,7 +104,7 @@ const SignupCharacter = ({
                 ? drinkingTypeList
                 : religionList
           }
-          isClickable
+          size="lg"
           selectedKeys={
             type === 'bodyType'
               ? [bodyType]
@@ -118,10 +118,10 @@ const SignupCharacter = ({
       {type === 'smokingDrinking' && (
         <S.InputWrapper>
           <S.InputLabel>흡연</S.InputLabel>
-          <Badge
+          <Chip
             items={smokingTypeList}
-            isClickable
             selectedKeys={[smokingType]}
+            size="lg"
             handleClick={(key) => setValue('smokingType', key)}
           />
         </S.InputWrapper>

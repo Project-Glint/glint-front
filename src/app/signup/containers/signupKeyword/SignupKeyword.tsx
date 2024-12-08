@@ -1,9 +1,7 @@
-import { Badge, SignupFooter, TextController } from 'components';
+import { SignupFooter, Tag } from 'components';
 import * as S from './SignupKeyword.styled';
 import { SignupForm } from 'types';
 import { useFormContext } from 'react-hook-form';
-import { useState } from 'react';
-import { WhiteXIcon } from 'assets';
 import { usePostHashtags } from 'hooks';
 
 interface SignupKeywordProps {
@@ -13,14 +11,12 @@ interface SignupKeywordProps {
 }
 
 const SignupKeyword = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
-  const { control, watch, getValues, handleSubmit, setValue } =
+  const { control, watch, handleSubmit, setValue } =
     useFormContext<SignupForm>();
-  const [hashTag, setHashTag] = useState('');
   const hashTags = watch('hashtags');
   const hashTagList = hashTags?.map((tag) => ({
     key: tag,
     label: tag,
-    icon: <WhiteXIcon />,
   }));
   const isNextButtonEnabled = hashTagList?.length > 0;
 
@@ -45,24 +41,8 @@ const SignupKeyword = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
     setPage(page - 1);
   };
 
-  const clickEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const currentTags = getValues('hashtags');
-      if (
-        currentTags.includes(e.currentTarget.value) ||
-        currentTags.length > 10
-      ) {
-        return;
-      }
-      setValue('hashtags', [...currentTags, e.currentTarget.value]);
-      setHashTag('');
-    }
-  };
-
-  const clickBadge = (key: string) => {
-    const currentTags = getValues('hashtags');
-    const updatedTags = currentTags.filter((tag) => tag !== key);
-    setValue('hashtags', updatedTags);
+  const handleChange = (value: string[]) => {
+    setValue('hashtags', value);
   };
 
   return (
@@ -70,22 +50,11 @@ const SignupKeyword = ({ page, setPage, MAX_PAGE }: SignupKeywordProps) => {
       <S.Container>
         <S.InputLabel>나를 표현하는 키워드</S.InputLabel>
         <S.TextControllerBox>
-          <TextController
+          <Tag
             name="hashtag"
             control={control}
-            value={hashTag}
-            onChange={(e) => setHashTag(e.target.value)}
-            onKeyDown={clickEnter}
-            placeholder="키워드 입력 후 엔터를 쳐주세요."
-            cancelIcon
-            onCancelClick={() => setHashTag('')}
             maxLength={15}
-          />
-          <Badge
-            items={hashTagList}
-            isClickable
-            selectedKeys={hashTags}
-            handleClick={clickBadge}
+            handleChange={(value) => handleChange(value)}
           />
         </S.TextControllerBox>
       </S.Container>

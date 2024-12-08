@@ -6,3 +6,5 @@ export { default as PlusIcon } from './ic_plus.svg';
 export { default as WhiteXIcon } from './ic_whiteX.svg';
 export { default as BlackXIcon } from './ic_blackX.svg';
 export { default as HandlebarIcon } from './ic_handlebar.svg';
+export { default as SmallLineIcon } from './ic_smallLine.svg';
+export { default as CheckCircleIcon } from './ic_checkCircle.svg';
