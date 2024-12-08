@@ -160,7 +160,7 @@ const ImageUpload = ({
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
-        <S.PreviewGrid>
+        <S.PreviewGrid imageLength={imageLength}>
           <SortableContext items={previews.map((_, index) => index.toString())}>
             {previews.map((preview, index) => (
               <SortableImage
@@ -187,7 +187,9 @@ const ImageUpload = ({
 
             return (
               <S.AddImageLabel key={`emptyImage-${index}`} htmlFor="imageInput">
-                {badgeType && <S.Badge type={badgeType}>{badgeType}</S.Badge>}
+                {imageLength > 3 && badgeType && (
+                  <S.Badge type={badgeType}>{badgeType}</S.Badge>
+                )}
                 <PlusIcon />
               </S.AddImageLabel>
             );

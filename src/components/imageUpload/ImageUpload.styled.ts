@@ -11,12 +11,14 @@ export const Input = styled.input`
   display: none;
 `;
 
-export const PreviewGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 10px;
-  width: 500px;
+export const PreviewGrid = styled.div<{ imageLength: number }>`
+  ${({ imageLength }) => css`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: ${imageLength > 3 && '10px'};
+    width: 500px;
+  `}
 `;
 
 export const PreviewImageWrapper = styled.div`
