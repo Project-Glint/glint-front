@@ -88,7 +88,8 @@ const ImageUpload = ({
     control,
     rules: {
       validate: (files: File[]) => {
-        if (files.length < 3) return '이미지를 3개 이상 등록해주세요.';
+        if (imageLength > 3 && files.length < 3)
+          return '이미지를 3개 이상 등록해주세요.';
         return true;
       },
       ...rules,
