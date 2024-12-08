@@ -10,7 +10,7 @@ export const Footer = styled.div`
     justify-content: center;
     align-content: center;
     // TODO: 디자인 시스템 확인
-    // background-color: ${theme.colors.gray0};
+    background-color: ${theme.colors.gray0};
     /* 기본 모바일 스타일 */
     max-width: calc(480px - 32px);
     transform: translateX(-50%);
