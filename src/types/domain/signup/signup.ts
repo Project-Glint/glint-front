@@ -7,6 +7,8 @@ export interface SignupForm {
   occupation: string;
   // CERTIFY
   email: string;
+  authCode: string;
+  authImage: File | string;
   // NICKNAME
   nickname: string;
   // GENDER

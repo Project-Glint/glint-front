@@ -1,8 +1,11 @@
 import {
   BirthdateReq,
   BodyTypeReq,
+  CertifyCodeReq,
+  CertifyImageReq,
   CommonResp,
   CompanyInfo,
+  DepartmentInfo,
   GenderReq,
   HashtagsReq,
   HeightReq,
@@ -12,7 +15,9 @@ import {
   RegionReq,
   ReligionReq,
   SelfIntroduceReq,
+  SendEmailReq,
   SmokingDrinkingTypeReq,
+  UniversityInfo,
   WorkThroughStep,
 } from 'types/api/signup';
 import { httpClient } from './axios';
@@ -34,7 +39,7 @@ export async function getWorkThroughStepAPI() {
  * @summary 기업명 이름 검색
  * @request GET:/api/v1/company/name
  */
-export async function searchCompanyName(companyName: string) {
+export async function getCompanyNameAPI(companyName: string) {
   const response = await httpClient.get<CommonResp<CompanyInfo[]>>(
     `/api/v1/company/name`,
     {
@@ -48,9 +53,55 @@ export async function searchCompanyName(companyName: string) {
  * @summary 기업명 id 검색
  * @request GET:/api/v1/company/:id
  */
-export async function searchCompanyId(companyId: number) {
+export async function getCompanyIdAPI(companyId: number) {
   const response = await httpClient.get<CommonResp<CompanyInfo>>(
     `/api/v1/company/${companyId}`
+  );
+  return response.data;
+}
+
+/**
+ * @summary 학교명 이름 검색
+ * @request GET:/api/v1/university/name
+ */
+export async function getUniversityNameAPI(universityName: string) {
+  const response = await httpClient.get<CommonResp<UniversityInfo[]>>(
+    `/api/v1/university/name`,
+    { params: { universityName } }
+  );
+  return response.data;
+}
+
+/**
+ * @summary 학교명 id 검색
+ * @request GET:/api/v1/university/:id
+ */
+export async function getUniversityIdAPI(universityId: number) {
+  const response = await httpClient.get<CommonResp<UniversityInfo>>(
+    `/api/v1/university/${universityId}`
+  );
+  return response.data;
+}
+
+/**
+ * @summary 학과명 검색
+ * @request GET:/api/v1/department/name
+ */
+export async function getDepartmentNameAPI(departmentName: string) {
+  const response = await httpClient.get<CommonResp<DepartmentInfo[]>>(
+    `/api/v1/department/name`,
+    { params: { departmentName } }
+  );
+  return response.data;
+}
+
+/**
+ * @summary 학과 id 검색
+ * @request GET:/api/v1/department/:id
+ */
+export async function getDepartmentIdAPI(departmentId: number) {
+  const response = await httpClient.get<CommonResp<UniversityInfo>>(
+    `/api/v1/department/${departmentId}`
   );
   return response.data;
 }
@@ -62,6 +113,44 @@ export async function searchCompanyId(companyId: number) {
 export async function postOccupationAPI(payload: OccupationReq) {
   const { data } = await httpClient.post(`${SIGNUP_API}/occupation`, payload);
 
+  return data;
+}
+
+/**
+ * @summary 인증 이메일 발송
+ * @request POST:/api/v1/work-through/certify
+ */
+export async function postSendEmail(payload: SendEmailReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify`, payload);
+  return data;
+}
+
+/**
+ * @summary 인증 이메일 코드 확인
+ * @request POST:/api/v1/work-through/certify/code
+ */
+export async function postCertifyCode(payload: CertifyCodeReq) {
+  const response = await httpClient.post(`${SIGNUP_API}/certify/code`, payload);
+  return response;
+}
+
+/**
+ * @summary 인증 이미지 전송
+ * @request POST:/api/v1/work-through/certify/image
+ */
+export async function postCertifyImage(payload: CertifyImageReq) {
+  const formData = new FormData();
+  formData.append('certifyImage', payload.certifyImage);
+
+  const { data } = await httpClient.post(
+    `${SIGNUP_API}/certify/image`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
   return data;
 }
 
