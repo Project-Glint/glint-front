@@ -1,6 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Badge } from 'components';
-import { useState } from 'react';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
@@ -9,65 +8,85 @@ const meta: Meta<typeof Badge> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story, context) => {
-      const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-
-      const handleBadgeClick = (key: string) => {
-        if (context.args.isMultiple) {
-          setSelectedKeys((prev) =>
-            prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
-          );
-        } else {
-          setSelectedKeys((prev) => (prev.includes(key) ? [] : [key]));
-        }
-      };
-
-      return (
-        <Story
-          args={{
-            ...context.args,
-            selectedKeys,
-            handleClick: handleBadgeClick,
-          }}
-        />
-      );
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['NEW', 'NUMBER', 'DOT', 'CONTENT'],
+      table: {
+        type: { summary: 'NEW | NUMBER | DOT | CONTENT' },
+        defaultValue: { summary: 'CONTENT' },
+      },
     },
-  ],
-};
+    size: {
+      control: 'select',
+      options: ['md', 'lg'],
+    },
+    outline: {
+      control: 'boolean',
+    },
+    color: {
+      control: 'select',
+      options: ['RED', 'PRIMARY', 'LIGHT_PRIMARY', 'LIGHT_MONO', 'MONO'],
+    },
+    label: {
+      control: 'text',
+    },
+  },
+} satisfies Meta<typeof Badge>;
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const SingleBadge: Story = {
-  args: {
-    items: {
-      key: 'single',
-      label: 'Single Badge',
-    },
-    isClickable: true,
-  },
-};
-export const SingleClickBadges: Story = {
-  args: {
-    items: [
-      { key: 'badge1', label: '배지 1' },
-      { key: 'badge2', label: '배지 2' },
-      { key: 'badge3', label: '배지 3' },
-    ],
-    isMultiple: false,
-    isClickable: true,
-  },
+export const DotBadges: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '10px' }}>
+      <Badge type="DOT" color="PRIMARY" />
+      <Badge type="DOT" color="RED" />
+    </div>
+  ),
 };
 
-export const MultipleBadges: Story = {
-  args: {
-    items: [
-      { key: 'badge1', label: '배지 1' },
-      { key: 'badge2', label: '배지 2' },
-      { key: 'badge3', label: '배지 3' },
-    ],
-    isMultiple: true,
-    isClickable: true,
-  },
+export const NumberBadges: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '10px' }}>
+      <Badge type="NUMBER" color="PRIMARY" label="1" />
+      <Badge type="NUMBER" color="RED" label="1" />
+    </div>
+  ),
+};
+
+export const NewBadges: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '10px' }}>
+      <Badge type="NEW" color="PRIMARY" />
+      <Badge type="NEW" color="RED" />
+    </div>
+  ),
+};
+
+export const ContentBadges: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: '10px' }}>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Badge type="CONTENT" color="PRIMARY" size="lg" label="Label" />
+        <Badge type="CONTENT" color="LIGHT_PRIMARY" size="lg" label="Label" />
+        <Badge type="CONTENT" color="PRIMARY" size="lg" label="Label" outline />
+      </div>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Badge type="CONTENT" color="PRIMARY" size="md" label="Label" />
+        <Badge type="CONTENT" color="LIGHT_PRIMARY" size="md" label="Label" />
+        <Badge type="CONTENT" color="PRIMARY" size="md" label="Label" outline />
+      </div>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Badge type="CONTENT" color="MONO" size="lg" label="Label" />
+        <Badge type="CONTENT" color="LIGHT_MONO" size="lg" label="Label" />
+        <Badge type="CONTENT" color="MONO" size="lg" label="Label" outline />
+      </div>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <Badge type="CONTENT" color="MONO" size="md" label="Label" />
+        <Badge type="CONTENT" color="LIGHT_MONO" size="md" label="Label" />
+        <Badge type="CONTENT" color="MONO" size="md" label="Label" outline />
+      </div>
+    </div>
+  ),
 };

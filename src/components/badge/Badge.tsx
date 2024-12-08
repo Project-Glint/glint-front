@@ -1,45 +1,26 @@
 import * as S from './Badge.styled';
 
-interface BadgeItem {
-  key: string;
-  label: string;
-  icon?: React.ReactNode;
-}
 interface BadgeProps {
-  className?: string;
-  items: BadgeItem | BadgeItem[];
-  isMultiple?: boolean;
-  isClickable?: boolean;
-  selectedKeys?: string[];
-  handleClick?: (key: string) => void;
+  label?: string | number;
+  type: 'NEW' | 'NUMBER' | 'DOT' | 'CONTENT';
+  size?: 'md' | 'lg';
+  outline?: boolean;
+  color?: 'RED' | 'PRIMARY' | 'LIGHT_PRIMARY' | 'LIGHT_MONO' | 'MONO'; // PRIMARY = Indigo, Brand (default)
 }
 
-const Badge = ({
-  className,
-  items,
-  isMultiple,
-  isClickable,
-  selectedKeys,
-  handleClick,
-}: BadgeProps) => {
-  const renderBadge = (item: BadgeItem) => (
-    <S.Badge
-      key={item.key}
-      className={className}
-      isSelected={selectedKeys?.includes(item.key)}
-      isClickable={isClickable}
-      icon={!!item.icon}
-      onClick={() => isClickable && handleClick && handleClick(item.key)}
-      type="button"
-    >
-      {item.label}
-      {item.icon && item.icon}
-    </S.Badge>
-  );
+const Badge = ({ label, type, size, outline, color }: BadgeProps) => {
   return (
-    <S.BadgeWrapper>
-      {Array.isArray(items) ? items.map(renderBadge) : renderBadge(items)}
-    </S.BadgeWrapper>
+    <>
+      {type !== 'CONTENT' ? (
+        <S.Circle type={type} color={color}>
+          {type === 'NEW' ? 'N' : label}
+        </S.Circle>
+      ) : (
+        <S.Badge size={size} outline={outline} color={color}>
+          {label}
+        </S.Badge>
+      )}
+    </>
   );
 };
 
