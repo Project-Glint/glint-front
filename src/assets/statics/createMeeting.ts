@@ -1,4 +1,4 @@
-export const defaultValues = {
+export const createMeetingDefaultValues = {
   title: '',
   description: '',
   peopleNumber: 2,

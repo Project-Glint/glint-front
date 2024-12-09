@@ -9,13 +9,13 @@ import {
 } from './containers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CreateMeetingForm } from 'types';
-import { defaultValues } from 'assets';
+import { createMeetingDefaultValues } from 'assets';
 
 const CreateMeeting = () => {
   const [step, setStep] = useState(0);
 
   const methods = useForm<CreateMeetingForm>({
-    defaultValues: defaultValues,
+    defaultValues: createMeetingDefaultValues,
   });
 
   const renderPage = (step: number) => {
