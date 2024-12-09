@@ -9,3 +9,5 @@ export { default as HandlebarIcon } from './ic_handlebar.svg';
 export { default as SmallLineIcon } from './ic_smallLine.svg';
 export { default as CheckCircleIcon } from './ic_checkCircle.svg';
 export { default as LeftIcon } from './ic_Left.svg';
+export { default as ShareNetworkIcon } from './ic_shareNetwork.svg';
+export { default as DotsThreeVerticalIcon } from './ic_dotsThreeVertical.svg';
