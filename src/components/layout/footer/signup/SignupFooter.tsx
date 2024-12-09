@@ -1,5 +1,6 @@
 import { Button } from 'components';
 import * as S from './SignupFooter.styled';
+import { useEffect, useState } from 'react';
 
 interface SignupFooterProps {
   page: number;
@@ -14,8 +15,19 @@ const SignupFooter = ({
   handleClickNext,
   handleClickPrev,
 }: SignupFooterProps) => {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.screenY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <S.Footer>
+    <S.Footer hasScrolled={hasScrolled}>
       {page === 1 ? (
         <Button
           size="lg"
