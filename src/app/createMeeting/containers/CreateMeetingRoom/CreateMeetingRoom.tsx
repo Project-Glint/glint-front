@@ -1,6 +1,6 @@
 import {
   ButtonFooter,
-  ImageUpload,
+  Popover,
   RegionModal,
   Tabs,
   Tag,
@@ -10,8 +10,8 @@ import {
 import * as S from './CreateMeetingRoom.styled';
 import { useFormContext } from 'react-hook-form';
 import { CreateMeetingForm } from 'types';
-import { peopleNumberList } from 'assets';
-import { useState } from 'react';
+import { peopleNumberList, PlusIcon } from 'assets';
+import { useRef, useState } from 'react';
 
 interface CreateMeetingRoomProps {
   step: number;
@@ -25,19 +25,34 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
   const description = watch('description');
   const peopleNumber = watch('peopleNumber');
   const activityRegionName = watch('activityRegionName');
-  //   const activityRegionId = watch('activityRegionId');
-  //   const hashtags = watch('hashtags');
-  //   const representativeImage = watch('representativeImage');
+  // const activityRegionId = watch('activityRegionId');
+  // const hashtags = watch('hashtags');
+  // const representativeImage = watch('representativeImage');
   const isNextButtonEnabled =
     !!title && !!description && !!peopleNumber && !!activityRegionName;
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
-  const handleClickNext = () => {
-    debugger;
-    if (isNextButtonEnabled) {
-      setStep(step + 1);
+  const handleAlbumSelect = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setValue('representativeImage', file);
+      const fileURL = URL.createObjectURL(file);
+      setPreview(fileURL);
+      setPopoverOpen(false);
     }
+  };
+
+  const handleDefaultImageSelect = () => {
+    console.log('기본 이미지 선택');
+    setPopoverOpen(false);
+    setStep(999);
   };
 
   const handleRegionSelect =
@@ -45,6 +60,17 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
       setValue(`${fieldPrefix}Name`, name);
       setValue(`${fieldPrefix}Id`, id);
     };
+
+  const handleClickNext = () => {
+    if (isNextButtonEnabled) {
+      setStep(step + 1);
+    }
+  };
+
+  const popoverList = [
+    { label: '기본 이미지 선택', handleClick: handleDefaultImageSelect },
+    { label: '앨범에서 사진 선택', handleClick: handleAlbumSelect },
+  ];
   return (
     <>
       <S.Title>
@@ -121,12 +147,26 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
       </S.ContentWrapper>
       <S.ContentWrapper>
         <S.ContentTitle>대표 사진 선택</S.ContentTitle>
-        <ImageUpload
-          name="representativeImage"
-          control={control}
-          imageLength={1}
-          previews={previews}
-          setPreviews={setPreviews}
+        <Popover
+          popoverList={popoverList}
+          popoverOpen={popoverOpen}
+          setPopoverOpen={setPopoverOpen}
+        >
+          {preview ? (
+            <S.AddImageLabel>
+              <S.PreviewImage src={preview} />
+            </S.AddImageLabel>
+          ) : (
+            <S.AddImageLabel>
+              <PlusIcon />
+            </S.AddImageLabel>
+          )}
+        </Popover>
+        <S.Input
+          type="file"
+          ref={fileInputRef}
+          accept="image/*"
+          onChange={handleFileChange}
         />
       </S.ContentWrapper>
       <ButtonFooter

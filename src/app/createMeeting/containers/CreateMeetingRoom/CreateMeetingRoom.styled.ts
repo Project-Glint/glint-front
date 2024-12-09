@@ -32,3 +32,30 @@ export const MeetingContentInputWrapper = styled.div`
   flex-direction: column;
   gap: 12px;
 `;
+
+export const AddImageLabel = styled.label`
+  ${({ theme }) => css`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid ${theme.colors.gray30};
+    cursor: pointer;
+    aspect-ratio: 1;
+    width: 100px;
+    border-radius: 12px;
+  `}
+`;
+export const Input = styled.input`
+  display: none;
+`;
+
+export const PreviewImage = styled.img`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    // border: 1px solid ${theme.colors.gray30};
+    border-radius: 12px;
+  `}
+`;

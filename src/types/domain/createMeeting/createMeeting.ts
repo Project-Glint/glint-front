@@ -6,9 +6,12 @@ export interface CreateMeetingForm {
   peopleNumber: number;
   // 미팅 희망 지역
   activityRegionName: string;
-  activityRegionId: number;
+  activityRegionId?: number;
   // 태그
   hashtags?: string[];
   // 대표 사진
   representativeImage?: File | string;
+  // 친구
+  withFriends?: 'Y' | 'N' | null;
+  inviteFriends?: string[];
 }

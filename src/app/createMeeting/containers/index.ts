@@ -1,1 +1,3 @@
-export * from './CreateMeetingRoom';
+export * from './createMeetingRoom';
+export * from './inviteFriends';
+export * from './defaultImage';
