@@ -6,15 +6,18 @@ import { LeftIcon } from 'assets';
 interface BackLayoutProps {
   title?: string;
   children?: React.ReactNode;
-  step?: number;
-  setStep?: React.Dispatch<React.SetStateAction<number>>;
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const BackLayout = ({ title, children, step, setStep }: BackLayoutProps) => {
   const router = useRouter();
+
   const onClickBack = (): void => {
-    if (step && setStep && step > 0) {
+    if (step > 0 && step !== 999) {
       setStep(step - 1);
+    } else if (step === 999) {
+      setStep(0);
     } else {
       router.back();
     }
