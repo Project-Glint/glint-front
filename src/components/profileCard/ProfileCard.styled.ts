@@ -1,14 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const CardContainer = styled.div<{ isSelected?: boolean }>`
-  ${({ theme, isSelected }) => css`
+export const CardContainer = styled.div`
+  ${({ theme }) => css`
     height: 70px;
     display: flex;
     flex-direction: row;
     gap: 12px;
-    padding: 0 16px;
-    background-color: ${isSelected && theme.colors.primary5};
   `}
 `;
 

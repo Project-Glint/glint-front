@@ -15,7 +15,6 @@ interface ProfileCardProps {
   };
   control: Control<any>;
   name: string;
-  selectedProfile?: string[];
   isCheck?: boolean;
 }
 
@@ -25,13 +24,12 @@ const ProfileCard = ({
   img,
   info,
   control,
-  selectedProfile,
+  name,
   isCheck,
 }: ProfileCardProps) => {
   const checkboxList = [{ key: userName, label: userName }];
-  const isSelected = selectedProfile?.includes(userName);
   return (
-    <S.CardContainer isSelected={isSelected}>
+    <S.CardContainer>
       <S.Avatar src={img} />
       <S.InfoWrapper>
         <S.NameAgeWrapper>
@@ -39,16 +37,16 @@ const ProfileCard = ({
           {age}세
         </S.NameAgeWrapper>
         <S.JobWrapper>
-          {info.companyName}
+          {info.companyName ? info.companyName : info.universityName}
           <SmallLineIcon />
-          {info.occupation}
+          {info.occupation ? info.occupation : info.departmentName}
         </S.JobWrapper>
       </S.InfoWrapper>
       {isCheck && (
         <Checkbox
           css={S.checkIcon}
           control={control}
-          name="selectedProfile"
+          name={name}
           checkboxList={checkboxList}
         />
       )}
