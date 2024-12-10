@@ -1,8 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { SignupForm } from 'types';
 import * as S from './SignupRegion.styled';
-import { Chip, RegionModal, SignupFooter } from 'components';
-import { WhiteXIcon } from 'assets';
+import { RegionModal, SignupFooter } from 'components';
 import { usePostRegion } from 'hooks';
 
 interface SignupRegionProps {
@@ -52,13 +51,6 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
     setPage(page - 1);
   };
 
-  const badge = (key: any) => {
-    return {
-      key: key,
-      label: key,
-      icon: <WhiteXIcon />,
-    };
-  };
   return (
     <>
       <S.InputBadgeWrapper>
@@ -66,42 +58,24 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
           <S.InputLabel>거주지</S.InputLabel>
           <RegionModal
             name="residenceRegionName"
-            css={S.button}
             buttonName="선택하기"
             title="거주지를 선택해 주세요"
             onSelect={handleRegionSelect('residenceRegion')}
+            initialValue={residenceRegionName}
           />
         </S.InputWrapper>
-        {residenceRegionName && (
-          <Chip
-            items={badge(residenceRegionName)}
-            key={residenceRegionName}
-            selectedKeys={[residenceRegionName]}
-            handleClick={() => setValue('residenceRegionName', '')}
-            size="md"
-          />
-        )}
       </S.InputBadgeWrapper>
       <S.InputBadgeWrapper>
         <S.InputWrapper>
           <S.InputLabel>활동 지역</S.InputLabel>
           <RegionModal
             name="activityRegionName"
-            css={S.button}
             buttonName="선택하기"
             title="활동 지역을 선택해 주세요"
             onSelect={handleRegionSelect('activityRegion')}
+            initialValue={activityRegionName}
           />
         </S.InputWrapper>
-        {activityRegionName && (
-          <Chip
-            items={badge(activityRegionName)}
-            key={activityRegionName}
-            selectedKeys={[activityRegionName]}
-            handleClick={() => setValue('activityRegionName', '')}
-            size="md"
-          />
-        )}
       </S.InputBadgeWrapper>
       <SignupFooter
         page={page}

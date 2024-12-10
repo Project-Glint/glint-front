@@ -31,7 +31,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     ref
   ) => {
     const [isFocused, setIsFocused] = useState(false);
-    console.log(isFocused);
     const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       handleChange?.(e);
     };

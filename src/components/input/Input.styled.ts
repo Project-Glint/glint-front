@@ -16,11 +16,11 @@ export const InputWrapper = styled.div`
 
 export const Input = styled.input<{ hasError?: boolean }>`
   ${({ hasError, theme }) => css`
-    ${theme.fonts.body_12_R}
+    ${theme.fonts.body_14_M}
     width: 100%;
     height: 48px;
     background-color: ${hasError ? 'white' : theme.colors.gray5};
-    color: ${theme.colors.gray60};
+    color: ${theme.colors.gray90};
     border: 0;
     border-radius: 12px;
     border: 1px solid ${hasError ? theme.colors.danger70 : theme.colors.gray5};
@@ -28,7 +28,7 @@ export const Input = styled.input<{ hasError?: boolean }>`
     padding-right: 40px;
 
     &::placeholder {
-      color: ${theme.colors.gray60};
+      color: ${theme.colors.gray50};
     }
   `}
 `;
@@ -64,6 +64,6 @@ export const HelperText = styled.div<{ hasError?: boolean }>`
   ${({ hasError, theme }) => css`
     ${theme.fonts.body_12_M}
     margin-top: 4px;
-    color: ${hasError ? theme.colors.danger80 : theme.colors.gray40};
+    color: ${hasError ? theme.colors.danger80 : theme.colors.gray50};
   `}
 `;
