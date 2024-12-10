@@ -1,4 +1,4 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
+echo "🔍 Starting TypeScript type checking with 'tsc --noEmit'..."
+pnpm tsc --noEmit -p tsconfig.json
+echo "✅ TypeScript type checking passed."
 npx lint-staged

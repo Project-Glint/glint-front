@@ -16,7 +16,7 @@ const Popover = ({
   return (
     <PopoverComponent.Root
       open={popoverOpen}
-      onOpenChange={(open) => setPopoverOpen(open)}
+      onOpenChange={(open: any) => setPopoverOpen(open)}
     >
       <PopoverComponent.Trigger asChild>{children}</PopoverComponent.Trigger>
       <PopoverComponent.Portal>
