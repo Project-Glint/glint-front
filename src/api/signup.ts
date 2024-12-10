@@ -4,8 +4,8 @@ import {
   CertifyCodeReq,
   CertifyImageReq,
   CommonResp,
-  CompanyInfo,
-  DepartmentInfo,
+  CompanyResp,
+  DepartmentResp,
   GenderReq,
   HashtagsReq,
   HeightReq,
@@ -17,8 +17,8 @@ import {
   SelfIntroduceReq,
   SendEmailReq,
   SmokingDrinkingTypeReq,
-  UniversityInfo,
-  WorkThroughStep,
+  UniversityResp,
+  WorkThroughStepResp,
 } from 'types/api/signup';
 import { httpClient } from './axios';
 
@@ -29,10 +29,10 @@ const SIGNUP_API = '/api/v1/work-through';
  * @request GET:/api/v1/user/work-through/step
  */
 export async function getWorkThroughStepAPI() {
-  const response = await httpClient.get<CommonResp<WorkThroughStep>>(
+  const { data } = await httpClient.get<CommonResp<WorkThroughStepResp>>(
     `/api/v1/user/work-through-step`
   );
-  return response.data;
+  return data;
 }
 
 /**
@@ -40,13 +40,13 @@ export async function getWorkThroughStepAPI() {
  * @request GET:/api/v1/company/name
  */
 export async function getCompanyNameAPI(companyName: string) {
-  const response = await httpClient.get<CommonResp<CompanyInfo[]>>(
+  const { data } = await httpClient.get<CommonResp<CompanyResp[]>>(
     `/api/v1/company/name`,
     {
       params: { companyName },
     }
   );
-  return response.data;
+  return data;
 }
 
 /**
@@ -54,10 +54,10 @@ export async function getCompanyNameAPI(companyName: string) {
  * @request GET:/api/v1/company/:id
  */
 export async function getCompanyIdAPI(companyId: number) {
-  const response = await httpClient.get<CommonResp<CompanyInfo>>(
+  const { data } = await httpClient.get<CommonResp<CompanyResp>>(
     `/api/v1/company/${companyId}`
   );
-  return response.data;
+  return data;
 }
 
 /**
@@ -65,11 +65,11 @@ export async function getCompanyIdAPI(companyId: number) {
  * @request GET:/api/v1/university/name
  */
 export async function getUniversityNameAPI(universityName: string) {
-  const response = await httpClient.get<CommonResp<UniversityInfo[]>>(
+  const { data } = await httpClient.get<CommonResp<UniversityResp[]>>(
     `/api/v1/university/name`,
     { params: { universityName } }
   );
-  return response.data;
+  return data;
 }
 
 /**
@@ -77,10 +77,10 @@ export async function getUniversityNameAPI(universityName: string) {
  * @request GET:/api/v1/university/:id
  */
 export async function getUniversityIdAPI(universityId: number) {
-  const response = await httpClient.get<CommonResp<UniversityInfo>>(
+  const { data } = await httpClient.get<CommonResp<UniversityResp>>(
     `/api/v1/university/${universityId}`
   );
-  return response.data;
+  return data;
 }
 
 /**
@@ -88,11 +88,11 @@ export async function getUniversityIdAPI(universityId: number) {
  * @request GET:/api/v1/department/name
  */
 export async function getDepartmentNameAPI(departmentName: string) {
-  const response = await httpClient.get<CommonResp<DepartmentInfo[]>>(
+  const { data } = await httpClient.get<CommonResp<DepartmentResp[]>>(
     `/api/v1/department/name`,
     { params: { departmentName } }
   );
-  return response.data;
+  return data;
 }
 
 /**
@@ -100,18 +100,18 @@ export async function getDepartmentNameAPI(departmentName: string) {
  * @request GET:/api/v1/department/:id
  */
 export async function getDepartmentIdAPI(departmentId: number) {
-  const response = await httpClient.get<CommonResp<UniversityInfo>>(
+  const { data } = await httpClient.get<CommonResp<UniversityResp>>(
     `/api/v1/department/${departmentId}`
   );
-  return response.data;
+  return data;
 }
 
 /**
  * @summary 유저 Occupation 저장
  * @request POST:/api/v1/work-through/occupation
  */
-export async function postOccupationAPI(payload: OccupationReq) {
-  const { data } = await httpClient.post(`${SIGNUP_API}/occupation`, payload);
+export async function postOccupationAPI(req: OccupationReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/occupation`, req);
 
   return data;
 }
@@ -120,8 +120,8 @@ export async function postOccupationAPI(payload: OccupationReq) {
  * @summary 인증 이메일 발송
  * @request POST:/api/v1/work-through/certify
  */
-export async function postSendEmail(payload: SendEmailReq) {
-  const { data } = await httpClient.post(`${SIGNUP_API}/certify`, payload);
+export async function postSendEmail(req: SendEmailReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify`, req);
   return data;
 }
 
@@ -129,9 +129,9 @@ export async function postSendEmail(payload: SendEmailReq) {
  * @summary 인증 이메일 코드 확인
  * @request POST:/api/v1/work-through/certify/code
  */
-export async function postCertifyCode(payload: CertifyCodeReq) {
-  const response = await httpClient.post(`${SIGNUP_API}/certify/code`, payload);
-  return response;
+export async function postCertifyCode(req: CertifyCodeReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify/code`, req);
+  return data;
 }
 
 /**

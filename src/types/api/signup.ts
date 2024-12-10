@@ -4,24 +4,24 @@ export interface CommonResp<T> {
   data: T;
 }
 
-export interface CompanyInfo {
+export interface CompanyResp {
   companyId: number;
   companyName: string;
   companyDomain: string;
 }
 
-export interface UniversityInfo {
+export interface UniversityResp {
   universityId: number;
   universityName: string;
   universityDomain: string;
 }
 
-export interface DepartmentInfo {
+export interface DepartmentResp {
   departmentId: number;
   departmentName: string;
 }
 
-export interface WorkThroughStep {
+export interface WorkThroughStepResp {
   id: number;
   email: string;
   workThroughStep: string;
