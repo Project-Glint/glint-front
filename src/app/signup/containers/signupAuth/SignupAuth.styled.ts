@@ -21,11 +21,10 @@ export const WithButtonWrapper = styled.div`
 
 export const AuthImageContainer = styled.div`
   ${({ theme }) => css`
-    height: 122px;
+    min-height: 122px;
     border: 1px solid ${theme.colors.gray30};
     border-radius: 12px;
     padding: 24px 16px;
-    cursor: pointer;
   `}
 `;
 
