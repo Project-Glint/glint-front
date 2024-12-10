@@ -50,7 +50,7 @@ export const Textarea = styled.textarea<{
     }
 
     &::placeholder {
-      color: ${theme.colors.gray60};
+      color: ${theme.colors.gray50};
     }
   `}
 `;
