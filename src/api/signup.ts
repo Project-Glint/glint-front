@@ -110,8 +110,8 @@ export async function getDepartmentIdAPI(departmentId: number) {
  * @summary 유저 Occupation 저장
  * @request POST:/api/v1/work-through/occupation
  */
-export async function postOccupationAPI(req: OccupationReq) {
-  const { data } = await httpClient.post(`${SIGNUP_API}/occupation`, req);
+export async function postOccupationAPI(payload: OccupationReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/occupation`, payload);
 
   return data;
 }
@@ -120,8 +120,8 @@ export async function postOccupationAPI(req: OccupationReq) {
  * @summary 인증 이메일 발송
  * @request POST:/api/v1/work-through/certify
  */
-export async function postSendEmail(req: SendEmailReq) {
-  const { data } = await httpClient.post(`${SIGNUP_API}/certify`, req);
+export async function postSendEmail(payload: SendEmailReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify`, payload);
   return data;
 }
 
@@ -129,8 +129,8 @@ export async function postSendEmail(req: SendEmailReq) {
  * @summary 인증 이메일 코드 확인
  * @request POST:/api/v1/work-through/certify/code
  */
-export async function postCertifyCode(req: CertifyCodeReq) {
-  const { data } = await httpClient.post(`${SIGNUP_API}/certify/code`, req);
+export async function postCertifyCode(payload: CertifyCodeReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify/code`, payload);
   return data;
 }
 
@@ -158,8 +158,8 @@ export async function postCertifyImage(payload: CertifyImageReq) {
  * @summary 유저 nickname 저장
  * @request POST:/api/v1/work-through/nickname
  */
-export const postNicknameAPI = async (req: NicknameReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/nickname`, req);
+export const postNicknameAPI = async (payload: NicknameReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/nickname`, payload);
 
   return data;
 };
@@ -168,8 +168,8 @@ export const postNicknameAPI = async (req: NicknameReq) => {
  * @summary 유저 gender 저장
  * @request POST:/api/v1/work-through/gender
  */
-export const postGenderAPI = async (req: GenderReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/gender`, req);
+export const postGenderAPI = async (payload: GenderReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/gender`, payload);
 
   return data;
 };
@@ -178,8 +178,8 @@ export const postGenderAPI = async (req: GenderReq) => {
  * @summary 유저 birthdate 저장
  * @request POST:/api/v1/work-through/birthdate
  */
-export const postBirthdateAPI = async (req: BirthdateReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/birthdate`, req);
+export const postBirthdateAPI = async (payload: BirthdateReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/birthdate`, payload);
 
   return data;
 };
@@ -188,8 +188,8 @@ export const postBirthdateAPI = async (req: BirthdateReq) => {
  * @summary 유저 height 저장
  * @request POST:/api/v1/work-through/height
  */
-export const postHeightAPI = async (req: HeightReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/height`, req);
+export const postHeightAPI = async (payload: HeightReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/height`, payload);
 
   return data;
 };
@@ -198,8 +198,8 @@ export const postHeightAPI = async (req: HeightReq) => {
  * @summary 유저 body-type 저장
  * @request POST:/api/v1/work-through/body-type
  */
-export const postBodyTypeAPI = async (req: BodyTypeReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/body-type`, req);
+export const postBodyTypeAPI = async (payload: BodyTypeReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/body-type`, payload);
 
   return data;
 };
@@ -209,11 +209,11 @@ export const postBodyTypeAPI = async (req: BodyTypeReq) => {
  * @request POST:/api/v1/work-through/smoking-drinking-type
  */
 export const postSmokingDrinkingTypeAPI = async (
-  req: SmokingDrinkingTypeReq
+  payload: SmokingDrinkingTypeReq
 ) => {
   const { data } = await httpClient.post(
     `${SIGNUP_API}/smoking-drinking-type`,
-    req
+    payload
   );
 
   return data;
@@ -223,8 +223,8 @@ export const postSmokingDrinkingTypeAPI = async (
  * @summary 유저 Religion 저장
  * @request POST:/api/v1/work-through/religion
  */
-export const postReligionAPI = async (req: ReligionReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/religion`, req);
+export const postReligionAPI = async (payload: ReligionReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/religion`, payload);
 
   return data;
 };
@@ -233,8 +233,8 @@ export const postReligionAPI = async (req: ReligionReq) => {
  * @summary 유저 region 저장
  * @request POST:/api/v1/work-through/region
  */
-export const postRegionAPI = async (req: RegionReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/region`, req);
+export const postRegionAPI = async (payload: RegionReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/region`, payload);
 
   return data;
 };
@@ -243,8 +243,8 @@ export const postRegionAPI = async (req: RegionReq) => {
  * @summary 유저 hashtags 저장
  * @request POST:/api/v1/work-through/hashtags
  */
-export const postHashtagsAPI = async (req: HashtagsReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/hashtags`, req);
+export const postHashtagsAPI = async (payload: HashtagsReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/hashtags`, payload);
 
   return data;
 };
@@ -253,10 +253,10 @@ export const postHashtagsAPI = async (req: HashtagsReq) => {
  * @summary 유저 selfIntroduce 저장
  * @request POST:/api/v1/work-through/self-introduction
  */
-export const postSelfIntroduceAPI = async (req: SelfIntroduceReq) => {
+export const postSelfIntroduceAPI = async (payload: SelfIntroduceReq) => {
   const { data } = await httpClient.post(
     `${SIGNUP_API}/self-introduction`,
-    req
+    payload
   );
 
   return data;
