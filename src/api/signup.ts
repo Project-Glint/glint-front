@@ -1,8 +1,11 @@
 import {
   BirthdateReq,
   BodyTypeReq,
+  CertifyCodeReq,
+  CertifyImageReq,
   CommonResp,
-  CompanyInfo,
+  CompanyResp,
+  DepartmentResp,
   GenderReq,
   HashtagsReq,
   HeightReq,
@@ -12,8 +15,10 @@ import {
   RegionReq,
   ReligionReq,
   SelfIntroduceReq,
+  SendEmailReq,
   SmokingDrinkingTypeReq,
-  WorkThroughStep,
+  UniversityResp,
+  WorkThroughStepResp,
 } from 'types/api/signup';
 import { httpClient } from './axios';
 
@@ -24,35 +29,81 @@ const SIGNUP_API = '/api/v1/work-through';
  * @request GET:/api/v1/user/work-through/step
  */
 export async function getWorkThroughStepAPI() {
-  const response = await httpClient.get<CommonResp<WorkThroughStep>>(
+  const { data } = await httpClient.get<CommonResp<WorkThroughStepResp>>(
     `/api/v1/user/work-through-step`
   );
-  return response.data;
+  return data;
 }
 
 /**
  * @summary 기업명 이름 검색
  * @request GET:/api/v1/company/name
  */
-export async function searchCompanyName(companyName: string) {
-  const response = await httpClient.get<CommonResp<CompanyInfo[]>>(
+export async function getCompanyNameAPI(companyName: string) {
+  const { data } = await httpClient.get<CommonResp<CompanyResp[]>>(
     `/api/v1/company/name`,
     {
       params: { companyName },
     }
   );
-  return response.data;
+  return data;
 }
 
 /**
  * @summary 기업명 id 검색
  * @request GET:/api/v1/company/:id
  */
-export async function searchCompanyId(companyId: number) {
-  const response = await httpClient.get<CommonResp<CompanyInfo>>(
+export async function getCompanyIdAPI(companyId: number) {
+  const { data } = await httpClient.get<CommonResp<CompanyResp>>(
     `/api/v1/company/${companyId}`
   );
-  return response.data;
+  return data;
+}
+
+/**
+ * @summary 학교명 이름 검색
+ * @request GET:/api/v1/university/name
+ */
+export async function getUniversityNameAPI(universityName: string) {
+  const { data } = await httpClient.get<CommonResp<UniversityResp[]>>(
+    `/api/v1/university/name`,
+    { params: { universityName } }
+  );
+  return data;
+}
+
+/**
+ * @summary 학교명 id 검색
+ * @request GET:/api/v1/university/:id
+ */
+export async function getUniversityIdAPI(universityId: number) {
+  const { data } = await httpClient.get<CommonResp<UniversityResp>>(
+    `/api/v1/university/${universityId}`
+  );
+  return data;
+}
+
+/**
+ * @summary 학과명 검색
+ * @request GET:/api/v1/department/name
+ */
+export async function getDepartmentNameAPI(departmentName: string) {
+  const { data } = await httpClient.get<CommonResp<DepartmentResp[]>>(
+    `/api/v1/department/name`,
+    { params: { departmentName } }
+  );
+  return data;
+}
+
+/**
+ * @summary 학과 id 검색
+ * @request GET:/api/v1/department/:id
+ */
+export async function getDepartmentIdAPI(departmentId: number) {
+  const { data } = await httpClient.get<CommonResp<UniversityResp>>(
+    `/api/v1/department/${departmentId}`
+  );
+  return data;
 }
 
 /**
@@ -66,11 +117,49 @@ export async function postOccupationAPI(payload: OccupationReq) {
 }
 
 /**
+ * @summary 인증 이메일 발송
+ * @request POST:/api/v1/work-through/certify
+ */
+export async function postSendEmail(payload: SendEmailReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify`, payload);
+  return data;
+}
+
+/**
+ * @summary 인증 이메일 코드 확인
+ * @request POST:/api/v1/work-through/certify/code
+ */
+export async function postCertifyCode(payload: CertifyCodeReq) {
+  const { data } = await httpClient.post(`${SIGNUP_API}/certify/code`, payload);
+  return data;
+}
+
+/**
+ * @summary 인증 이미지 전송
+ * @request POST:/api/v1/work-through/certify/image
+ */
+export async function postCertifyImage(payload: CertifyImageReq) {
+  const formData = new FormData();
+  formData.append('certifyImage', payload.certifyImage);
+
+  const { data } = await httpClient.post(
+    `${SIGNUP_API}/certify/image`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+  return data;
+}
+
+/**
  * @summary 유저 nickname 저장
  * @request POST:/api/v1/work-through/nickname
  */
-export const postNicknameAPI = async (req: NicknameReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/nickname`, req);
+export const postNicknameAPI = async (payload: NicknameReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/nickname`, payload);
 
   return data;
 };
@@ -79,8 +168,8 @@ export const postNicknameAPI = async (req: NicknameReq) => {
  * @summary 유저 gender 저장
  * @request POST:/api/v1/work-through/gender
  */
-export const postGenderAPI = async (req: GenderReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/gender`, req);
+export const postGenderAPI = async (payload: GenderReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/gender`, payload);
 
   return data;
 };
@@ -89,8 +178,8 @@ export const postGenderAPI = async (req: GenderReq) => {
  * @summary 유저 birthdate 저장
  * @request POST:/api/v1/work-through/birthdate
  */
-export const postBirthdateAPI = async (req: BirthdateReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/birthdate`, req);
+export const postBirthdateAPI = async (payload: BirthdateReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/birthdate`, payload);
 
   return data;
 };
@@ -99,8 +188,8 @@ export const postBirthdateAPI = async (req: BirthdateReq) => {
  * @summary 유저 height 저장
  * @request POST:/api/v1/work-through/height
  */
-export const postHeightAPI = async (req: HeightReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/height`, req);
+export const postHeightAPI = async (payload: HeightReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/height`, payload);
 
   return data;
 };
@@ -109,8 +198,8 @@ export const postHeightAPI = async (req: HeightReq) => {
  * @summary 유저 body-type 저장
  * @request POST:/api/v1/work-through/body-type
  */
-export const postBodyTypeAPI = async (req: BodyTypeReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/body-type`, req);
+export const postBodyTypeAPI = async (payload: BodyTypeReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/body-type`, payload);
 
   return data;
 };
@@ -120,11 +209,11 @@ export const postBodyTypeAPI = async (req: BodyTypeReq) => {
  * @request POST:/api/v1/work-through/smoking-drinking-type
  */
 export const postSmokingDrinkingTypeAPI = async (
-  req: SmokingDrinkingTypeReq
+  payload: SmokingDrinkingTypeReq
 ) => {
   const { data } = await httpClient.post(
     `${SIGNUP_API}/smoking-drinking-type`,
-    req
+    payload
   );
 
   return data;
@@ -134,8 +223,8 @@ export const postSmokingDrinkingTypeAPI = async (
  * @summary 유저 Religion 저장
  * @request POST:/api/v1/work-through/religion
  */
-export const postReligionAPI = async (req: ReligionReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/religion`, req);
+export const postReligionAPI = async (payload: ReligionReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/religion`, payload);
 
   return data;
 };
@@ -144,8 +233,8 @@ export const postReligionAPI = async (req: ReligionReq) => {
  * @summary 유저 region 저장
  * @request POST:/api/v1/work-through/region
  */
-export const postRegionAPI = async (req: RegionReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/region`, req);
+export const postRegionAPI = async (payload: RegionReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/region`, payload);
 
   return data;
 };
@@ -154,8 +243,8 @@ export const postRegionAPI = async (req: RegionReq) => {
  * @summary 유저 hashtags 저장
  * @request POST:/api/v1/work-through/hashtags
  */
-export const postHashtagsAPI = async (req: HashtagsReq) => {
-  const { data } = await httpClient.post(`${SIGNUP_API}/hashtags`, req);
+export const postHashtagsAPI = async (payload: HashtagsReq) => {
+  const { data } = await httpClient.post(`${SIGNUP_API}/hashtags`, payload);
 
   return data;
 };
@@ -164,10 +253,10 @@ export const postHashtagsAPI = async (req: HashtagsReq) => {
  * @summary 유저 selfIntroduce 저장
  * @request POST:/api/v1/work-through/self-introduction
  */
-export const postSelfIntroduceAPI = async (req: SelfIntroduceReq) => {
+export const postSelfIntroduceAPI = async (payload: SelfIntroduceReq) => {
   const { data } = await httpClient.post(
     `${SIGNUP_API}/self-introduction`,
-    req
+    payload
   );
 
   return data;

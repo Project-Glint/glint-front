@@ -4,12 +4,24 @@ export interface CommonResp<T> {
   data: T;
 }
 
-export interface CompanyInfo {
+export interface CompanyResp {
   companyId: number;
   companyName: string;
+  companyDomain: string;
 }
 
-export interface WorkThroughStep {
+export interface UniversityResp {
+  universityId: number;
+  universityName: string;
+  universityDomain: string;
+}
+
+export interface DepartmentResp {
+  departmentId: number;
+  departmentName: string;
+}
+
+export interface WorkThroughStepResp {
   id: number;
   email: string;
   workThroughStep: string;
@@ -23,6 +35,21 @@ export interface OccupationReq {
   departmentId?: number;
   companyId?: number;
   occupation?: string;
+}
+
+export interface SendEmailReq {
+  certType: CertType;
+  email: string;
+}
+
+export interface CertifyCodeReq {
+  certType: CertType;
+  email: string;
+  code: string;
+}
+
+export interface CertifyImageReq {
+  certifyImage: File | string;
 }
 
 export interface NicknameReq {
