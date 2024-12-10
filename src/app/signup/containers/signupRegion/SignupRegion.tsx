@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { SignupForm } from 'types';
 import * as S from './SignupRegion.styled';
-import { Badge, RegionModal, SignupFooter } from 'components';
+import { Chip, RegionModal, SignupFooter } from 'components';
 import { WhiteXIcon } from 'assets';
 import { usePostRegion } from 'hooks';
 
@@ -73,12 +73,12 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
           />
         </S.InputWrapper>
         {residenceRegionName && (
-          <Badge
+          <Chip
             items={badge(residenceRegionName)}
             key={residenceRegionName}
-            isClickable
             selectedKeys={[residenceRegionName]}
             handleClick={() => setValue('residenceRegionName', '')}
+            size="md"
           />
         )}
       </S.InputBadgeWrapper>
@@ -94,12 +94,12 @@ const SignupRegion = ({ page, setPage, MAX_PAGE }: SignupRegionProps) => {
           />
         </S.InputWrapper>
         {activityRegionName && (
-          <Badge
+          <Chip
             items={badge(activityRegionName)}
             key={activityRegionName}
-            isClickable
             selectedKeys={[activityRegionName]}
             handleClick={() => setValue('activityRegionName', '')}
+            size="md"
           />
         )}
       </S.InputBadgeWrapper>

@@ -3,7 +3,7 @@ import { SignupFooter, Tabs, TextController } from 'components';
 import * as S from './SignupJob.styled';
 import { useFormContext } from 'react-hook-form';
 import { useState, useEffect, useRef } from 'react';
-import { CompanyInfo, DepartmentInfo, SignupForm, UniversityInfo } from 'types';
+import { CompanyResp, DepartmentResp, SignupForm, UniversityResp } from 'types';
 import {
   useGetCompanyName,
   useGetDepartmentName,
@@ -173,7 +173,7 @@ const SignupJob = ({ page, setPage, MAX_PAGE }: SignupJobProps) => {
     setPage(page - 1);
   };
 
-  const handleFirstItem = (selectedItem: CompanyInfo | UniversityInfo) => {
+  const handleFirstItem = (selectedItem: CompanyResp | UniversityResp) => {
     setValue(
       nameMapping.first,
       'companyName' in selectedItem
@@ -183,18 +183,18 @@ const SignupJob = ({ page, setPage, MAX_PAGE }: SignupJobProps) => {
     if (isActiveWorker) {
       setOccupationId((prev) => ({
         ...prev,
-        companyId: (selectedItem as CompanyInfo).companyId,
+        companyId: (selectedItem as CompanyResp).companyId,
       }));
     } else {
       setOccupationId((prev) => ({
         ...prev,
-        universityId: (selectedItem as UniversityInfo).universityId,
+        universityId: (selectedItem as UniversityResp).universityId,
       }));
     }
     setShowSearchList((prev) => ({ ...prev, first: false }));
   };
 
-  const handleSecondItem = (selectedItem: DepartmentInfo) => {
+  const handleSecondItem = (selectedItem: DepartmentResp) => {
     setValue('departmentName', selectedItem.departmentName);
     setOccupationId((prev) => ({
       ...prev,
