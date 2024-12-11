@@ -28,8 +28,6 @@ const MeetingDetail = () => {
   return (
     <BackLayout
       isImageHeader={step === 0 ? true : false}
-      step={step}
-      setStep={setStep}
       title={step === 1 ? '참가 신청' : ''}
     >
       <FormProvider {...methods}>

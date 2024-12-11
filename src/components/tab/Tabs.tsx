@@ -3,16 +3,17 @@ import * as S from './Tabs.styled';
 interface TabsProps {
   tabList: readonly { key: string; label: string }[];
   onChange?: (key: string) => void;
+  type?: 'primary' | 'outline';
 }
-const Tabs = ({ tabList, onChange }: TabsProps) => {
+const Tabs = ({ tabList, onChange, type = 'primary' }: TabsProps) => {
   return (
     <S.TabsRoot
       defaultValue={tabList[0].key}
       onValueChange={(value) => onChange?.(value)}
     >
-      <S.TabsList>
+      <S.TabsList type={type}>
         {tabList.map((tab) => (
-          <S.TabsTrigger key={tab.key} value={tab.key}>
+          <S.TabsTrigger triggerType={type} key={tab.key} value={tab.key}>
             {tab.label}
           </S.TabsTrigger>
         ))}
