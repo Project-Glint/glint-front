@@ -7,17 +7,28 @@ export const TabsRoot = styled(Tabs.Root)`
   flex-direction: column;
 `;
 
-export const TabsList = styled(Tabs.List)`
-  ${({ theme }) => css`
+export const TabsList = styled(Tabs.List)<{ type: 'primary' | 'outline' }>`
+  ${({ theme, type }) => css`
     flex-shrink: 0;
     display: flex;
-    background-color: ${theme.colors.gray20};
-    border-radius: 12px;
+
+    ${type === 'primary' &&
+    css`
+      background-color: ${theme.colors.gray20};
+      border-radius: 12px;
+    `}
+
+    ${type === 'outline' &&
+    css`
+      border-bottom: 1.5px solid ${theme.colors.gray20};
+    `}
   `}
 `;
 
-export const TabsTrigger = styled(Tabs.Trigger)`
-  ${({ theme }) => css`
+export const TabsTrigger = styled(Tabs.Trigger)<{
+  triggerType: 'primary' | 'outline';
+}>`
+  ${({ theme, triggerType }) => css`
     ${theme.fonts.body_14_B};
     background-color: transparent;
     padding: 10px 20px;
@@ -27,14 +38,27 @@ export const TabsTrigger = styled(Tabs.Trigger)`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${theme.colors.gray40};
-    border-radius: 12px;
 
-    &[data-state='active'] {
-      ${theme.fonts.body_14_B};
-      background-color: ${theme.colors.primary60};
-      color: ${theme.colors.gray0};
-    }
+    ${triggerType === 'primary' &&
+    css`
+      color: ${theme.colors.gray40};
+      border-radius: 12px;
+      &[data-state='active'] {
+        ${theme.fonts.body_14_B};
+        background-color: ${theme.colors.primary60};
+        color: ${theme.colors.gray0};
+      }
+    `}
+
+    ${triggerType === 'outline' &&
+    css`
+      color: ${theme.colors.gray40};
+      &[data-state='active'] {
+        ${theme.fonts.body_14_B};
+        border-bottom: 2px solid ${theme.colors.primary60};
+        color: ${theme.colors.primary40};
+      }
+    `}
   `}
 `;
 

@@ -8,28 +8,14 @@ import testImg from '../../../assets/statics/testImg.jpg';
 interface BackLayoutProps {
   title?: string;
   children?: React.ReactNode;
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
   isImageHeader?: boolean;
 }
 
-const BackLayout = ({
-  title,
-  children,
-  step,
-  setStep,
-  isImageHeader,
-}: BackLayoutProps) => {
+const BackLayout = ({ title, children, isImageHeader }: BackLayoutProps) => {
   const router = useRouter();
 
   const onClickBack = (): void => {
-    if (step > 0 && step !== 999) {
-      setStep(step - 1);
-    } else if (step === 999) {
-      setStep(0);
-    } else {
-      router.back();
-    }
+    router.back();
   };
 
   return isImageHeader ? (
