@@ -1,34 +1,26 @@
-import { badgeVariant } from 'types';
 import * as S from './Badge.styled';
 
 interface BadgeProps {
-  className?: string;
-  label: string;
-  variant?: badgeVariant;
-  icon?: React.ReactNode;
-  isSelected?: boolean;
-  handleClick?: (e: React.MouseEvent) => void;
+  label?: string | number;
+  type: 'NEW' | 'NUMBER' | 'DOT' | 'CONTENT';
+  size?: 'md' | 'lg';
+  outline?: boolean;
+  color?: 'RED' | 'PRIMARY' | 'LIGHT_PRIMARY' | 'LIGHT_MONO' | 'MONO'; // PRIMARY = Indigo, Brand (default)
 }
 
-const Badge = ({
-  className,
-  label,
-  variant,
-  icon,
-  isSelected,
-  handleClick,
-}: BadgeProps) => {
+const Badge = ({ label, type, size, outline, color }: BadgeProps) => {
   return (
-    <S.Badge
-      className={className}
-      variant={variant}
-      isSelected={isSelected}
-      isClickable={!!handleClick}
-      onClick={handleClick}
-    >
-      {label}
-      {icon && icon}
-    </S.Badge>
+    <>
+      {type !== 'CONTENT' ? (
+        <S.Circle type={type} color={color}>
+          {type === 'NEW' ? 'N' : label}
+        </S.Circle>
+      ) : (
+        <S.Badge size={size} outline={outline} color={color}>
+          {label}
+        </S.Badge>
+      )}
+    </>
   );
 };
 

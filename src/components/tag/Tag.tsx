@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Control, useController } from 'react-hook-form';
-import { Badge, TextController } from 'components';
+import { Control } from 'react-hook-form';
+import { Chip, TextController } from 'components';
 import * as S from './Tag.styled';
+import { WhiteXIcon } from 'assets';
 
 interface TagProps {
   name: string;
   control: Control<any>;
   initialTags?: string[];
+  maxLength?: number;
+  handleChange: (value: string[]) => void;
 }
 
-const Tag = ({ name, control, initialTags = [] }: TagProps) => {
+const Tag = ({
+  name,
+  control,
+  initialTags = [],
+  maxLength,
+  handleChange,
+}: TagProps) => {
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState<string[]>([]);
-  const { field } = useController({
-    name,
-    control,
-    defaultValue: initialTags,
-  });
 
   useEffect(() => {
     if (initialTags?.length > 0) {
@@ -44,15 +48,15 @@ const Tag = ({ name, control, initialTags = [] }: TagProps) => {
       }
       const newTagList = [...tagList, tagItem.trim()];
       setTagList(newTagList);
-      field.onChange(newTagList);
       setTagItem('');
+      handleChange(newTagList);
     }
   };
 
   const handleDelete = (index: number) => {
     const newTagList = tagList.filter((_: string, i: number) => i !== index);
     setTagList(newTagList);
-    field.onChange(newTagList);
+    handleChange(newTagList);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,17 +68,25 @@ const Tag = ({ name, control, initialTags = [] }: TagProps) => {
       <TextController
         name={name}
         control={control}
-        rules={{ required: false, minLength: 1, maxLength: 15 }}
-        placeholder="키워드 입력 후 엔터를 쳐주세요."
-        handleKeyDown={handleKeyDown}
         value={tagItem}
+        placeholder="키워드 입력 후 엔터를 쳐주세요."
+        cancelIcon
+        onCancelClick={() => setTagItem('')}
+        onKeyDown={handleKeyDown}
         onChange={handleInputChange}
+        maxLength={maxLength}
       />
       {tagList?.map((tag: string, index: number) => (
-        <Badge
-          label={tag}
+        <Chip
+          items={{
+            key: tag,
+            label: tag,
+          }}
           key={index}
-          icon={<button onClick={() => handleDelete(index)}>X</button>}
+          handleClick={() => handleDelete(index)}
+          size="lg"
+          selectedKeys={tagList}
+          icon={<WhiteXIcon />}
         />
       ))}
     </S.TagContainer>

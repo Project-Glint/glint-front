@@ -1,17 +1,21 @@
 'use client';
 
-import { Global } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { globalStyle } from 'styles';
+import { DialogProvider } from 'components/Dialog';
+import { globalStyle, theme } from 'styles';
 
 const ClientProviders = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* TODO: ThemeProvider 추가 */}
-      <Global styles={globalStyle} />
-      {children}
+      <ThemeProvider theme={theme}>
+        <DialogProvider>
+          <Global styles={globalStyle} />
+          {children}
+        </DialogProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

@@ -128,15 +128,16 @@ jobs:
             echo "Deploy Start!"
             cd /home/ubuntu/glint
 
-            if [ ! -d ".git" ]; then
+            if [ ! -d ".glint-front" ]; then
                 echo "Directory is not a Git repository. Cloning repository..."
                 git clone https://github.com/Project-Glint/glint-front.git
-            else
-                echo "Directory is a Git repository. Pulling latest changes..."
-                git pull origin main
             fi
 
-            pnpm install --frozen-lockfile
+            cd glint-front
+            git pull origin main
+            git checkout main
+
+            pnpm install
             pnpm build
 
             if ! command -v pm2 &> /dev/null
