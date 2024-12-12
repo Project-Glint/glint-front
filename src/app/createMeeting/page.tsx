@@ -31,11 +31,7 @@ const CreateMeeting = () => {
   };
 
   return (
-    <BackLayout
-      title={step === 999 ? '기본 이미지 선택' : '미팅 만들기'}
-      step={step}
-      setStep={setStep}
-    >
+    <BackLayout title={step === 999 ? '기본 이미지 선택' : '미팅 만들기'}>
       <FormProvider {...methods}>
         <S.Container>{renderPage(step)}</S.Container>
       </FormProvider>

@@ -13,8 +13,8 @@ interface ProfileCardProps {
     universityName?: string;
     departmentName?: string;
   };
-  control: Control<any>;
-  name: string;
+  control?: Control<any>;
+  name?: string;
   isCheck?: boolean;
 }
 
@@ -42,7 +42,7 @@ const ProfileCard = ({
           {info.occupation ? info.occupation : info.departmentName}
         </S.JobWrapper>
       </S.InfoWrapper>
-      {isCheck && (
+      {isCheck && control && name && (
         <Checkbox
           css={S.checkIcon}
           control={control}
