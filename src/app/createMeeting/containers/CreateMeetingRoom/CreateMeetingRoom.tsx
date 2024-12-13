@@ -12,6 +12,7 @@ import { useFormContext } from 'react-hook-form';
 import { CreateMeetingForm } from 'types';
 import { peopleNumberList, PlusIcon } from 'assets';
 import { useRef, useState } from 'react';
+import { usePostCreateMeeting } from 'hooks';
 
 interface CreateMeetingRoomProps {
   step: number;
@@ -22,18 +23,19 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
   const { control, watch, handleSubmit, setValue } =
     useFormContext<CreateMeetingForm>();
   const title = watch('title');
-  const description = watch('description');
-  const peopleNumber = watch('peopleNumber');
-  const activityRegionName = watch('activityRegionName');
-  // const activityRegionId = watch('activityRegionId');
-  // const hashtags = watch('hashtags');
-  // const representativeImage = watch('representativeImage');
-  const isNextButtonEnabled =
-    !!title && !!description && !!peopleNumber && !!activityRegionName;
+  const content = watch('content');
+  const type = watch('type'); // 사람 수
+  const regionName = watch('regionName');
+  const regionId = watch('regionId');
+  const hashtags = watch('hashtags');
+  const image = watch('image');
+  const isNextButtonEnabled = !!title && !!content && !!type && !!regionName;
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [preview, setPreview] = useState<string | null>(null);
   const [popoverOpen, setPopoverOpen] = useState(false);
+
+  const { mutate: postCreateMeeting } = usePostCreateMeeting();
 
   const handleAlbumSelect = () => {
     fileInputRef.current?.click();
@@ -42,7 +44,7 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValue('representativeImage', file);
+      setValue('image', file);
       const fileURL = URL.createObjectURL(file);
       setPreview(fileURL);
       setPopoverOpen(false);
@@ -56,14 +58,33 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
   };
 
   const handleRegionSelect =
-    (fieldPrefix: 'activityRegion') => (name: string, id: number) => {
+    (fieldPrefix: 'region') => (name: string, id: number) => {
       setValue(`${fieldPrefix}Name`, name);
       setValue(`${fieldPrefix}Id`, id);
     };
 
   const handleClickNext = () => {
     if (isNextButtonEnabled) {
-      setStep(step + 1);
+      postCreateMeeting(
+        {
+          meetingCreateRequestDto: {
+            title: title,
+            content: content,
+            type: type,
+            regionId: regionId,
+            hashtags: hashtags,
+          },
+          image: image,
+        },
+        {
+          onSuccess: () => {
+            setStep(step + 1);
+          },
+          onError: (error) => {
+            console.log(error);
+          },
+        }
+      );
     }
   };
 
@@ -102,9 +123,9 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
             }}
           />
           <TextareaController
-            name="description"
+            name="content"
             control={control}
-            value={description}
+            value={content}
             placeholder="간단한 자기소개나 만나고 싶은 이성, 미팅의 주제 등에 대해 적어주세요"
             showCharacterCount
             maxLength={500}
@@ -123,7 +144,7 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
         </S.ContentTitle>
         <Tabs
           tabList={peopleNumberList}
-          onChange={(value) => setValue('peopleNumber', Number(value))}
+          onChange={(value) => setValue('type', value)}
         />
       </S.ContentWrapper>
       <S.ContentWrapper>
@@ -131,10 +152,10 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
           미팅 희망 지역<S.Required>*</S.Required>
         </S.ContentTitle>
         <RegionModal
-          name="activityRegionName"
+          name="regionName"
           buttonName="선택하기"
           title="미팅 희망 지역을 선택해 주세요"
-          onSelect={handleRegionSelect('activityRegion')}
+          onSelect={handleRegionSelect('region')}
         />
       </S.ContentWrapper>
       <S.ContentWrapper>
@@ -163,6 +184,7 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
           )}
         </Popover>
         <S.Input
+          name="image"
           type="file"
           ref={fileInputRef}
           accept="image/*"
