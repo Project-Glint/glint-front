@@ -4,7 +4,7 @@ import { SignupForm } from 'types';
 import { ImageUpload, SignupFooter } from 'components';
 import { useState } from 'react';
 import { usePostProfileImage } from 'hooks';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface SignupProfileProps {
   page: number;
@@ -15,7 +15,7 @@ interface SignupProfileProps {
 const SignupProfile = ({ page, setPage, MAX_PAGE }: SignupProfileProps) => {
   const { control, watch, handleSubmit } = useFormContext<SignupForm>();
   const [previews, setPreviews] = useState<string[]>([]);
-  // const router = useRouter();
+  const router = useRouter();
 
   const images = watch('images');
   const isNextButtonEnabled = previews.length >= 3;
@@ -31,8 +31,7 @@ const SignupProfile = ({ page, setPage, MAX_PAGE }: SignupProfileProps) => {
         },
         {
           onSuccess: () => {
-            console.log('Signup Complete');
-            // router.push('/main');
+            router.push('/main');
           },
         }
       );
