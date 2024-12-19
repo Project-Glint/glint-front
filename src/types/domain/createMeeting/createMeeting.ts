@@ -1,16 +1,16 @@
 export interface CreateMeetingForm {
   // 미팅 내용
   title: string;
-  description: string;
+  content: string;
   // 인원수
-  peopleNumber: number;
+  type: 'DOUBLE' | 'TRIPLE' | 'QUADRUPLE' | string;
   // 미팅 희망 지역
-  activityRegionName: string;
-  activityRegionId?: number;
+  regionName: string;
+  regionId?: number;
   // 태그
   hashtags?: string[];
   // 대표 사진
-  representativeImage?: File | string;
+  image?: File | string;
   // 친구
   withFriends?: 'Y' | 'N' | null;
   inviteFriends?: string[];

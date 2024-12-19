@@ -1,18 +1,18 @@
 export const createMeetingDefaultValues = {
   title: '',
-  description: '',
-  peopleNumber: 2,
-  activityRegionName: '',
-  activityRegionId: 0,
+  content: '',
+  type: 'DOUBLE',
+  regionName: '',
+  regionId: 0,
   hashtags: [],
-  representativeImage: '',
-  inviteFriends: [],
+  image: '',
+  // inviteFriends: [],
 };
 
 export const peopleNumberList = [
-  { key: '2', label: '2:2' },
-  { key: '3', label: '3:3' },
-  { key: '4', label: '4:4' },
+  { key: 'DOUBLE', label: '2:2' },
+  { key: 'TRIPLE', label: '3:3' },
+  { key: 'QUADRUPLE', label: '4:4' },
 ];
 
 export const inviteFriendsRadioList = [
