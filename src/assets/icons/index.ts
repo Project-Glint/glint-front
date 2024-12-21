@@ -12,6 +12,7 @@ export { default as MaleIcon } from './ic_male.svg';
 export { default as MapPinPlusICon } from './ic_mapPinPlus.svg';
 export { default as PlusIcon } from './ic_plus.svg';
 export { default as ShareNetworkIcon } from './ic_shareNetwork.svg';
+export { default as SimpleMagnifyingGlassIcon } from './ic_magnifyingGlassSimple.svg';
 export { default as SmallLineIcon } from './ic_smallLine.svg';
 export { default as UserListIcon } from './ic_userList.svg';
 export { default as UsersThreeIcon } from './ic_usersThree.svg';
