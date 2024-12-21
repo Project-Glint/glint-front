@@ -16,6 +16,7 @@ interface ProfileCardProps {
   control?: Control<any>;
   name?: string;
   isCheck?: boolean;
+  profileEnd?: React.ReactNode;
 }
 
 const ProfileCard = ({
@@ -26,31 +27,35 @@ const ProfileCard = ({
   control,
   name,
   isCheck,
+  profileEnd,
 }: ProfileCardProps) => {
   const checkboxList = [{ key: userName, label: userName }];
   return (
-    <S.CardContainer>
-      <S.Avatar src={img} />
-      <S.InfoWrapper>
-        <S.NameAgeWrapper>
-          <S.Name>{userName}</S.Name>
-          {age}세
-        </S.NameAgeWrapper>
-        <S.JobWrapper>
-          {info.companyName ? info.companyName : info.universityName}
-          <SmallLineIcon />
-          {info.occupation ? info.occupation : info.departmentName}
-        </S.JobWrapper>
-      </S.InfoWrapper>
-      {isCheck && control && name && (
-        <Checkbox
-          css={S.checkIcon}
-          control={control}
-          name={name}
-          checkboxList={checkboxList}
-        />
-      )}
-    </S.CardContainer>
+    <S.CardWrapper>
+      <S.CardContainer>
+        <S.Avatar src={img} />
+        <S.InfoWrapper>
+          <S.NameAgeWrapper>
+            <S.Name>{userName}</S.Name>
+            {age}세
+          </S.NameAgeWrapper>
+          <S.JobWrapper>
+            {info.companyName ? info.companyName : info.universityName}
+            <SmallLineIcon />
+            {info.occupation ? info.occupation : info.departmentName}
+          </S.JobWrapper>
+        </S.InfoWrapper>
+        {isCheck && control && name && (
+          <Checkbox
+            css={S.checkIcon}
+            control={control}
+            name={name}
+            checkboxList={checkboxList}
+          />
+        )}
+      </S.CardContainer>
+      {profileEnd}
+    </S.CardWrapper>
   );
 };
 export default ProfileCard;

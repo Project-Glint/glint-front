@@ -1,6 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+export const CardWrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const CardContainer = styled.div`
   ${({ theme }) => css`
     height: 70px;

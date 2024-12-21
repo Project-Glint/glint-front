@@ -1,22 +1,21 @@
 'use client';
 import { BackLayout } from 'components';
-import * as S from './page.styled';
+import * as S from '../../page.styled';
 import { useState } from 'react';
 import {
   CreateMeetingRoom,
   DefaultImageSelect,
   InviteFriends,
-} from './containers';
+} from '../../containers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CreateMeetingForm } from 'types';
-import { createMeetingDefaultValues } from 'assets';
 
 const CreateMeeting = () => {
   const [step, setStep] = useState(0);
   const [meetingId, setMeetingId] = useState<number>(0);
 
   const methods = useForm<CreateMeetingForm>({
-    defaultValues: createMeetingDefaultValues,
+    defaultValues: {},
   });
 
   const renderPage = (step: number) => {

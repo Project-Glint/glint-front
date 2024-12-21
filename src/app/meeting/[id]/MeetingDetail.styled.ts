@@ -71,10 +71,21 @@ export const ParticipantGroup = styled.div`
   gap: 24px;
 `;
 
-export const Label = styled.span`
-  ${({ theme }) => css`
-    ${theme.fonts.body_12_M}
+export const LabelContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Label = styled.span<{ group?: boolean }>`
+  ${({ theme, group }) => css`
+    ${group ? theme.fonts.body_16_B : theme.fonts.body_12_M}
     color: ${theme.colors.gray90};
     margin-bottom: 8px;
   `}
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 8px;
 `;

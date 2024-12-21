@@ -67,6 +67,7 @@ export const Button = styled.button<{
       padding: ${sizeStyle.padding};
       height: ${sizeStyle.height};
       width: 100%;
+      white-space: nowrap;
       border-radius: 12px;
       cursor: pointer;
       color: ${outline

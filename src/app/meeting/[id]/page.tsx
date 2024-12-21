@@ -1,5 +1,12 @@
 'use client';
-import { BackLayout, ButtonFooter, ProfileCard, Tabs } from 'components';
+import { useState } from 'react';
+import {
+  BackLayout,
+  Button,
+  ButtonFooter,
+  ProfileCard,
+  Tabs,
+} from 'components';
 import * as S from './MeetingDetail.styled';
 
 const men = [
@@ -8,7 +15,50 @@ const men = [
 ];
 const women = [{ name: '윤서진', age: 29, company: 'LG전자', job: 'MD' }];
 
+const groups = [
+  [
+    { name: '김다은', age: 29, company: '두산', job: '기계 엔지니어' },
+    { name: '하지안', age: 29, company: '이랜드', job: '패션 디자이너' },
+    { name: '오시은', age: 29, company: 'CJ', job: '브랜드 매니저' },
+  ],
+  [
+    { name: '이서연', age: 29, company: '롯데', job: '마케팅 매니저' },
+    { name: '진소율', age: 29, company: '카카오', job: '서비스 기획자' },
+  ],
+];
+
+const attendant = { men, women, groups: [] };
+const participant = { men, women, groups };
+
+interface DecideParticipateProps {
+  refuse: () => void;
+  approve: () => void;
+}
+
+const DecideParticipate = ({ refuse, approve }: DecideParticipateProps) => {
+  // key 값 내려받기
+  const clickRefuse = () => {
+    refuse();
+  };
+  const clickApprove = () => {
+    approve();
+  };
+  return (
+    <S.ButtonContainer>
+      <Button onClick={clickRefuse} outline size="sm">
+        거절
+      </Button>
+      <Button onClick={clickApprove} size="sm">
+        수락
+      </Button>
+    </S.ButtonContainer>
+  );
+};
+
 const MeetingDetail = () => {
+  const [status, setStatus] = useState('participant');
+  const data = status === 'participant' ? attendant : participant;
+  console.log(data);
   return (
     <BackLayout isImageHeader>
       <S.MeetingHeader>
@@ -38,37 +88,78 @@ const MeetingDetail = () => {
               label: '참가자',
             },
             {
-              key: 'applicant',
+              key: 'attendant',
               label: '참가자 신청자',
             },
           ]}
           type="outline"
+          onChange={(key) => setStatus(key)}
         />
         <S.ParticipantGroup>
-          <div>
-            <S.Label>남자</S.Label>
-            {men.map((person) => (
-              <ProfileCard
-                key={person.name}
-                userName={person.name}
-                age={person.age}
-                img=""
-                info={{ companyName: person.company, occupation: person.job }}
-              />
+          {Object.hasOwn(data, 'men') && data.men.length > 0 && (
+            <div>
+              <S.Label>남자</S.Label>
+              {data.men.map((person) => (
+                <ProfileCard
+                  key={`male-${person.name}`}
+                  userName={person.name}
+                  age={person.age}
+                  img=""
+                  info={{ companyName: person.company, occupation: person.job }}
+                  profileEnd={
+                    status !== 'participant' && (
+                      <DecideParticipate refuse={() => {}} approve={() => {}} />
+                    )
+                  }
+                />
+              ))}
+            </div>
+          )}
+          {Object.hasOwn(data, 'women') && data.women.length > 0 && (
+            <div>
+              <S.Label>여자</S.Label>
+              {data.women.map((person) => (
+                <ProfileCard
+                  key={`female-${person.name}`}
+                  userName={person.name}
+                  age={person.age}
+                  img=""
+                  info={{ companyName: person.company, occupation: person.job }}
+                  profileEnd={
+                    status !== 'participant' && (
+                      <DecideParticipate refuse={() => {}} approve={() => {}} />
+                    )
+                  }
+                />
+              ))}
+            </div>
+          )}
+          {Object.hasOwn(data, 'groups') &&
+            data.groups.length > 0 &&
+            data.groups.map((group, index) => (
+              <div key={`group-${index}`}>
+                <S.LabelContainer>
+                  <S.Label
+                    group
+                  >{`${group[0].name} 외 ${group.length}명`}</S.Label>
+                  {status !== 'participant' && (
+                    <DecideParticipate refuse={() => {}} approve={() => {}} />
+                  )}
+                </S.LabelContainer>
+                {group.map((person, personIndex) => (
+                  <ProfileCard
+                    key={`group-${person.name}-${index}-${personIndex}`}
+                    userName={person.name}
+                    age={person.age}
+                    img=""
+                    info={{
+                      companyName: person.company,
+                      occupation: person.job,
+                    }}
+                  />
+                ))}
+              </div>
             ))}
-          </div>
-          <div>
-            <S.Label>여자</S.Label>
-            {women.map((person) => (
-              <ProfileCard
-                key={person.name}
-                userName={person.name}
-                age={person.age}
-                img=""
-                info={{ companyName: person.company, occupation: person.job }}
-              />
-            ))}
-          </div>
         </S.ParticipantGroup>
       </S.ParticipantList>
       <ButtonFooter
