@@ -29,17 +29,54 @@ export const DefaultLayout = styled.section`
 export const Header = styled.div<{ isImageHeader?: boolean }>`
   ${({ isImageHeader, theme }) => css`
     padding: 0 16px;
-    padding-top: ${isImageHeader ? '44px' : '0'};
     position: relative;
-    height: ${isImageHeader ? '92px' : '48px'};
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     svg {
       & path {
-        fill: ${isImageHeader && theme.colors.gray0};
+        fill: ${isImageHeader && theme.colors.gray100};
       }
+      cursor: pointer;
+    }
+  `}
+`;
+
+export const InfoContainer = styled.div`
+  position: relative;
+`;
+
+export const MoreList = styled.ul`
+  ${({ theme }) => css`
+    ${theme.fonts.body_14_M};
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    min-width: 130px;
+    background-color: ${theme.colors.gray0};
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  `}
+`;
+
+export const MoreItem = styled.li`
+  ${({ theme }) => css`
+    cursor: pointer;
+    padding: 12px 16px;
+    &:hover {
+      background-color: ${theme.colors.gray40};
+    }
+
+    &:first-child {
+      padding-bottom: 6px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    &:last-child {
+      padding-top: 6px;
+      border-radius: 0 0 12px 12px;
     }
   `}
 `;
