@@ -4,8 +4,13 @@ import * as S from './InviteFriends.styled';
 import { ButtonFooter, ProfileCard, RadioCard } from 'components';
 import { inviteFriendsRadioList } from 'assets';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-const InviteFriends = () => {
+interface InviteFriendsProps {
+  meetingId: number;
+}
+
+const InviteFriends = ({ meetingId }: InviteFriendsProps) => {
   const { control, watch, setValue, handleSubmit } =
     useFormContext<CreateMeetingForm>();
   const withFriends = watch('withFriends');
@@ -13,6 +18,7 @@ const InviteFriends = () => {
   const isNextButtonEnabled =
     withFriends === 'N' ||
     (inviteFriends !== undefined && inviteFriends?.length > 0);
+  const router = useRouter();
 
   useEffect(() => {
     if (withFriends === 'N') {
@@ -20,9 +26,9 @@ const InviteFriends = () => {
     }
   }, [withFriends]);
 
-  const handleClickNext = (data: CreateMeetingForm) => {
-    console.log('data', data);
-    if (isNextButtonEnabled) {
+  const handleClickNext = () => {
+    if (isNextButtonEnabled && meetingId) {
+      router.push(`/meeting/${meetingId}`);
       console.log('완료');
     }
   };
