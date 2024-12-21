@@ -5,6 +5,7 @@ import { ButtonFooter, ProfileCard, RadioCard } from 'components';
 import { inviteFriendsRadioList } from 'assets';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import useToastStore from 'store/toastStore';
 
 interface InviteFriendsProps {
   meetingId: number;
@@ -13,6 +14,7 @@ interface InviteFriendsProps {
 const InviteFriends = ({ meetingId }: InviteFriendsProps) => {
   const { control, watch, setValue, handleSubmit } =
     useFormContext<CreateMeetingForm>();
+  const { setToast } = useToastStore();
   const withFriends = watch('withFriends');
   const inviteFriends = watch('inviteFriends');
   const isNextButtonEnabled =
@@ -29,6 +31,8 @@ const InviteFriends = ({ meetingId }: InviteFriendsProps) => {
   const handleClickNext = () => {
     if (isNextButtonEnabled && meetingId) {
       router.push(`/meeting/${meetingId}`);
+      // TODO: test 필요
+      setToast('미팅 방이 성공적으로 생성되었습니다.');
       console.log('완료');
     }
   };

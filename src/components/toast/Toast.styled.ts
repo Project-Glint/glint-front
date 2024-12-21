@@ -1,35 +1,48 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import * as Toast from '@radix-ui/react-toast';
 
+export const ToastWrapper = styled.div`
+  position: fixed;
+  bottom: 104px;
+  min-height: 44px;
+  pointer-events: none;
+  min-width: 328px;
+  z-index: 10000000;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
+`;
+
 // Toast Root
 export const ToastRoot = styled(Toast.Root)`
-  background-color: #333;
-  color: white;
-  border-radius: 8px;
-  padding: 16px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  animation: fadeIn 300ms ease-out;
+  ${({ theme }) => css`
+    background-color: ${theme.colors.gray80};
+    color: ${theme.colors.gray0};
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    animation: fadeIn 300ms ease-out;
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  `}
 `;
 
 // Toast Title
 export const ToastTitle = styled(Toast.Title)`
-  font-weight: bold;
-  margin-right: 8px;
+  ${({ theme }) => css`
+    ${theme.fonts.body_14_M}
+  `}
 `;
 
 // Toast Description (optional)
