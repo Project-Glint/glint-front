@@ -13,6 +13,7 @@ import { createMeetingDefaultValues } from 'assets';
 
 const CreateMeeting = () => {
   const [step, setStep] = useState(0);
+  const [meetingId, setMeetingId] = useState<number>(0);
 
   const methods = useForm<CreateMeetingForm>({
     defaultValues: createMeetingDefaultValues,
@@ -21,9 +22,15 @@ const CreateMeeting = () => {
   const renderPage = (step: number) => {
     switch (step) {
       case 0:
-        return <CreateMeetingRoom step={step} setStep={setStep} />;
+        return (
+          <CreateMeetingRoom
+            step={step}
+            setStep={setStep}
+            setMeetingId={setMeetingId}
+          />
+        );
       case 1:
-        return <InviteFriends />;
+        return <InviteFriends meetingId={meetingId} />;
       // TODO: 다른 방법 있나 생각해보기
       case 999:
         return <DefaultImageSelect setStep={setStep} />;

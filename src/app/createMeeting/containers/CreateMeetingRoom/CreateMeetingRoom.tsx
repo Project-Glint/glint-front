@@ -17,9 +17,14 @@ import { usePostCreateMeeting } from 'hooks';
 interface CreateMeetingRoomProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setMeetingId: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
+const CreateMeetingRoom = ({
+  step,
+  setStep,
+  setMeetingId,
+}: CreateMeetingRoomProps) => {
   const { control, watch, handleSubmit, setValue } =
     useFormContext<CreateMeetingForm>();
   const title = watch('title');
@@ -77,7 +82,8 @@ const CreateMeetingRoom = ({ step, setStep }: CreateMeetingRoomProps) => {
           image: image,
         },
         {
-          onSuccess: () => {
+          onSuccess: (res) => {
+            setMeetingId(res.data.meetingId);
             setStep(step + 1);
           },
           onError: (error) => {
