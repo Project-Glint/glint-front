@@ -14,6 +14,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onCancelClick?: () => void;
   timer?: boolean;
   timerDuration?: number;
+  searchIcon?: boolean;
 }
 
 export default function TextController({
@@ -29,6 +30,7 @@ export default function TextController({
   onCancelClick,
   timer,
   timerDuration,
+  searchIcon,
   ...rest
 }: Props) {
   return (
@@ -60,6 +62,7 @@ export default function TextController({
             }}
             timer={timer}
             timerDuration={timerDuration}
+            searchIcon={searchIcon}
             {...rest}
           />
         );

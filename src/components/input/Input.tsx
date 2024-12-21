@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './Input.styled';
-import { CancelIcon } from 'assets';
+import { CancelIcon, SimpleMagnifyingGlassIcon } from 'assets';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -14,6 +14,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onCancelClick?: () => void;
   timer?: boolean;
   timerDuration?: number;
+  searchIcon?: boolean;
 }
 
 const Input = React.forwardRef(
@@ -30,6 +31,7 @@ const Input = React.forwardRef(
       onCancelClick,
       timer = false,
       timerDuration = 30,
+      searchIcon,
       ...rest
     }: InputProps,
     ref: React.ForwardedRef<HTMLInputElement | null>
@@ -84,6 +86,7 @@ const Input = React.forwardRef(
             onChange={handleChange}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
+            searchIcon={searchIcon}
             {...rest}
           />
           {timer && (
@@ -92,9 +95,14 @@ const Input = React.forwardRef(
             </S.Timer>
           )}
           {cancelIcon && (
-            <S.Icon onClick={handleCancel}>
+            <S.CancelIcon onClick={handleCancel}>
               <CancelIcon />
-            </S.Icon>
+            </S.CancelIcon>
+          )}
+          {searchIcon && (
+            <S.SearchIcon>
+              <SimpleMagnifyingGlassIcon />
+            </S.SearchIcon>
           )}
         </S.InputWrapper>
         {helperText && (

@@ -14,8 +14,8 @@ export const InputWrapper = styled.div`
   width: 100%;
 `;
 
-export const Input = styled.input<{ hasError?: boolean }>`
-  ${({ hasError, theme }) => css`
+export const Input = styled.input<{ hasError?: boolean; searchIcon?: boolean }>`
+  ${({ hasError, theme, searchIcon }) => css`
     ${theme.fonts.body_14_M}
     width: 100%;
     height: 48px;
@@ -24,8 +24,8 @@ export const Input = styled.input<{ hasError?: boolean }>`
     border: 0;
     border-radius: 12px;
     border: 1px solid ${hasError ? theme.colors.danger70 : theme.colors.gray5};
-    padding: 6px 16px;
-    padding-right: 40px;
+    padding: ${searchIcon ? '6px 52px' : '6px 16px'};
+    padding-right: ${searchIcon ? '16px' : '40px'};
 
     &::placeholder {
       color: ${theme.colors.gray50};
@@ -46,7 +46,7 @@ export const Timer = styled.div`
   pointer-events: none;
 `;
 
-export const Icon = styled.div`
+export const CancelIcon = styled.div`
   position: absolute;
   right: 16px;
   height: 100%;
@@ -58,6 +58,14 @@ export const Icon = styled.div`
     width: 24px;
     height: 24px;
   }
+`;
+
+export const SearchIcon = styled.div`
+  position: absolute;
+  left: 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const HelperText = styled.div<{ hasError?: boolean }>`
