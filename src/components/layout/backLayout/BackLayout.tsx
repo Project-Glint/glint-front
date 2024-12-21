@@ -9,9 +9,15 @@ interface BackLayoutProps {
   title?: string;
   children?: React.ReactNode;
   isImageHeader?: boolean;
+  searchChildren?: React.ReactNode;
 }
 
-const BackLayout = ({ title, children, isImageHeader }: BackLayoutProps) => {
+const BackLayout = ({
+  title,
+  children,
+  isImageHeader,
+  searchChildren,
+}: BackLayoutProps) => {
   const router = useRouter();
 
   const onClickBack = (): void => {
@@ -35,9 +41,10 @@ const BackLayout = ({ title, children, isImageHeader }: BackLayoutProps) => {
     </S.DefaultLayout>
   ) : (
     <DefaultLayout>
-      <S.Header>
+      <S.Header searchChildren={searchChildren}>
         <LeftIcon onClick={onClickBack} />
         {title && <S.Title>{title}</S.Title>}
+        {searchChildren && searchChildren}
       </S.Header>
       <S.Context>{children}</S.Context>
     </DefaultLayout>

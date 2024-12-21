@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import React from 'react';
 
 export const DefaultLayout = styled.section`
   width: 100%;
@@ -26,13 +27,18 @@ export const DefaultLayout = styled.section`
   }
 `;
 
-export const Header = styled.div<{ isImageHeader?: boolean }>`
-  ${({ isImageHeader, theme }) => css`
+export const Header = styled.div<{
+  isImageHeader?: boolean;
+  searchChildren?: React.ReactNode;
+}>`
+  ${({ isImageHeader, theme, searchChildren }) => css`
     padding: 0 16px;
     padding-top: ${isImageHeader ? '44px' : '0'};
     position: relative;
-    height: ${isImageHeader ? '92px' : '48px'};
+    height: ${isImageHeader ? '92px' : searchChildren ? '72px' : '48px'};
     display: flex;
+    flex-direction: row;
+    gap: 12px;
     align-items: center;
     justify-content: space-between;
 
