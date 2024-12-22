@@ -1,5 +1,6 @@
 export { default as AddFileIcon } from './ic_addFile.svg';
 export { default as BlackXIcon } from './ic_blackX.svg';
+export { default as CaretDownIcon } from './ic_caretDown.svg';
 export { default as CancelIcon } from './ic_xcircle.svg';
 export { default as CheckCircleIcon } from './ic_checkCircle.svg';
 export { default as DotsThreeVerticalIcon } from './ic_dotsThreeVertical.svg';

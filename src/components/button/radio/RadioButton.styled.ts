@@ -18,12 +18,14 @@ export const RadioWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
 export const RadioItemWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   align-items: center;
 `;
+
 export const RadioItem = styled(RadioGroupItem)`
   ${({ theme }) => css`
     width: 20px;
@@ -57,8 +59,8 @@ export const RadioIndicator = styled(RadioGroupIndicator)`
   `}
 `;
 
-export const Label = styled.label`
-  ${({ theme }) => css`
-    ${theme.fonts.body_16_M};
+export const Label = styled.label<{ name: string }>`
+  ${({ theme, name }) => css`
+    ${name === 'gender' ? theme.fonts.body_16_M : theme.fonts.body_14_M};
   `}
 `;

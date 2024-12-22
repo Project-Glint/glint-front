@@ -16,6 +16,7 @@ export const Chip = styled.button<{
     ${size === 'lg' ? theme.fonts.body_14_M : theme.fonts.body_12_M}
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: ${icon ? '4px' : 0};
     padding: ${size === 'lg'
       ? '8px 12px'
@@ -43,5 +44,8 @@ export const Chip = styled.button<{
 `;
 
 export const Icon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 `;

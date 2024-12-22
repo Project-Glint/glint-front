@@ -9,7 +9,7 @@ interface ChipProps {
   className?: string;
   items: ChipItem | ChipItem[];
   selectedKeys?: string[];
-  handleClick: (key: string) => void;
+  handleClick?: (key: string) => void;
   size: 'sm' | 'md' | 'lg';
   icon?: React.ReactNode;
 }
@@ -29,16 +29,20 @@ const Chip = ({
       isSelected={selectedKeys?.includes(item.key)}
       icon={!!icon}
       size={size}
-      onClick={!icon ? () => handleClick(item.key) : undefined}
+      onClick={!icon && handleClick ? () => handleClick(item.key) : undefined}
       type="button"
     >
       {item.label}
       {icon && (
         <S.Icon
-          onClick={(e) => {
-            e.stopPropagation();
-            handleClick(item.key);
-          }}
+          onClick={
+            handleClick
+              ? (e) => {
+                  e.stopPropagation();
+                  handleClick(item.key);
+                }
+              : undefined
+          }
         >
           {icon}
         </S.Icon>

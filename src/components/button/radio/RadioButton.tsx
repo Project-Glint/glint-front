@@ -32,10 +32,12 @@ const RadioButton = ({
       {radioList.map((radio) => (
         <S.RadioWrapper key={radio.key}>
           <S.RadioItemWrapper>
-            <S.Label htmlFor={radio.key}>{radio.label}</S.Label>
             <S.RadioItem value={radio.key} id={radio.key}>
               <S.RadioIndicator forceMount />
             </S.RadioItem>
+            <S.Label htmlFor={radio.key} name={name}>
+              {radio.label}
+            </S.Label>
           </S.RadioItemWrapper>
         </S.RadioWrapper>
       ))}

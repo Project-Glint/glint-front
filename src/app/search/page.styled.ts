@@ -68,3 +68,22 @@ export const Keyword = styled.span`
     color: ${theme.colors.gray90};
   `}
 `;
+
+export const ResultContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 16px;
+`;
+
+export const ResultTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const FilterWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+`;
