@@ -17,3 +17,5 @@ export * from './chip';
 export * from './profileCard';
 export * from './checkbox';
 export * from './popover';
+export * from './meetingCard';
+export * from './avatar';
