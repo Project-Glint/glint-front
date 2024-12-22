@@ -1,24 +1,22 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import * as S from './BottomBaseModal.styled';
-import { SelectButton } from 'components/button';
 import { BlackXIcon, HandlebarIcon } from 'assets';
 
 interface BottomBaseModalProps {
-  buttonName?: string;
   title?: string;
-  selectValue?: string;
   children: React.ReactNode;
+  buttonChildren: React.ReactNode;
 }
 const BottomBaseModal = ({
-  buttonName,
   title,
   children,
-  selectValue,
+  buttonChildren,
 }: BottomBaseModalProps) => {
+  console.log('buttonChildren', buttonChildren);
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <SelectButton selectValue={selectValue} buttonName={buttonName} />
+        <div>{buttonChildren}</div>
       </Dialog.Trigger>
       <Dialog.Portal>
         <S.ModalOverlay />

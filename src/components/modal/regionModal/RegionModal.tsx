@@ -3,6 +3,7 @@ import * as S from './RegionModal.styled';
 import { useGetRegionCity, useGetRegionState } from 'hooks';
 import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import { SelectButton } from 'components/button';
 
 interface RegionModalProps {
   buttonName?: string;
@@ -46,9 +47,10 @@ const RegionModal = ({
 
   return (
     <BottomBaseModal
-      buttonName={buttonName}
       title={title}
-      selectValue={regionFullName}
+      buttonChildren={
+        <SelectButton selectValue={regionFullName} buttonName={buttonName} />
+      }
     >
       <S.RegionContainer>
         <S.RegionTitleWrapper>

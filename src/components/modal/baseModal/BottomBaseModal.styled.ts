@@ -44,7 +44,7 @@ export const ModalContainer = styled(DialogContent)`
     position: fixed;
     top: auto;
     bottom: 0;
-    min-height: 666px;
+    // min-height: 666px;
     width: 100%;
   `}
 `;
@@ -63,6 +63,7 @@ export const HeaderWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+
 export const ModalTitle = styled(DialogTitle)`
   ${({ theme }) => css`
     ${theme.fonts.title_18_B};
@@ -71,5 +72,5 @@ export const ModalTitle = styled(DialogTitle)`
 `;
 
 export const ModalContent = styled.div`
-  min-height: 572px;
+  min-height: 108px;
 `;
