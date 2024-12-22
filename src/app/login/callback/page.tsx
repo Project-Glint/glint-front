@@ -4,7 +4,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { getWorkThroughStepAPI } from 'api/signup';
 import useUserStore from 'store/userStore';
 import { getUserInfo } from 'api/user';
-import { useDialog } from 'components/Dialog';
+import { useDialog } from 'components/dialog';
 
 export default function LoginCallback() {
   const searchParams = useSearchParams();
