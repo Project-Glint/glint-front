@@ -12,7 +12,6 @@ const BottomBaseModal = ({
   children,
   buttonChildren,
 }: BottomBaseModalProps) => {
-  console.log('buttonChildren', buttonChildren);
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -30,7 +29,7 @@ const BottomBaseModal = ({
               <BlackXIcon />
             </Dialog.Close>
           </S.HeaderWrapper>
-          <S.ModalContent>{children}</S.ModalContent>
+          {children}
         </S.ModalContainer>
       </Dialog.Portal>
     </Dialog.Root>

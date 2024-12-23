@@ -26,11 +26,12 @@ export const Chip = styled.button<{
     border-radius: 19px;
     cursor: ${icon ? 'default' : 'pointer'};
     height: ${size === 'lg' ? '40px' : size === 'md' ? '32px' : '24px'};
-    width: fit-content;
+    width: max-content;
     box-shadow: inset 0 0 0 1px
       ${!isSelected ? theme.colors.gray30 : theme.colors.primary60};
     color: ${isSelected ? theme.colors.gray0 : theme.colors.gray90};
     background-color: ${isSelected && theme.colors.primary60};
+    flex-shrink: 0;
 
     svg {
       overflow: visible;

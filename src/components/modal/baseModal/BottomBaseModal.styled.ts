@@ -6,29 +6,6 @@ import {
   DialogTitle,
 } from '@radix-ui/react-dialog';
 
-export const ModalWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  overflow: hidden;
-`;
-export const BottomModalContainer = styled.dialog`
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  position: fixed;
-  top: 134px;
-  bottom: 0;
-  max-height: 666px;
-  width: 100%;
-  transform: translateX(-50%);
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-`;
-
 export const ModalOverlay = styled(DialogOverlay)`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -37,15 +14,17 @@ export const ModalOverlay = styled(DialogOverlay)`
 
 export const ModalContainer = styled(DialogContent)`
   ${({ theme }) => css`
-    background-color: white;
+    background-color: ${theme.colors.gray0};
     border-radius: 12px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    // min-height: 666px;
-    width: 100%;
+    max-height: calc(100vh - 134px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   `}
 `;
 
@@ -69,8 +48,4 @@ export const ModalTitle = styled(DialogTitle)`
     ${theme.fonts.title_18_B};
     color: ${theme.colors.gray90};
   `}
-`;
-
-export const ModalContent = styled.div`
-  min-height: 108px;
 `;

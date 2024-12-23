@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as S from './page.styled';
 import { useState } from 'react';
 import { CaretDownIcon } from 'assets';
-import { ConditionFilter } from './containers';
+import { ConditionFilter, MeetingRoomFilter } from './containers';
 const keywordList = [
   { rankId: 1, keyword: '롯데제과' },
   { rankId: 2, keyword: '삼성SDI' },
@@ -37,9 +37,9 @@ const Search = () => {
     setActiveFilter(key);
   };
 
-  console.log('activeFilter', activeFilter);
-
-  return (
+  return activeFilter === 'meetingRoom' ? (
+    <MeetingRoomFilter setActiveFilter={setActiveFilter} />
+  ) : (
     <BackLayout
       searchChildren={
         <TextController
@@ -59,7 +59,7 @@ const Search = () => {
             <S.FilterWrapper>
               <Chip
                 size="md"
-                items={{ key: 'meeting', label: '미팅방' }}
+                items={{ key: 'meetingRoom', label: '미팅방' }}
                 icon={<CaretDownIcon />}
                 handleClick={() => handleFilterClick('meetingRoom')}
               />

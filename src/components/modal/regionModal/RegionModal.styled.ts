@@ -3,7 +3,11 @@ import styled from '@emotion/styled';
 
 export const RegionContainer = styled.div`
   flex: 1;
-  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: calc(100vh - 144px);
 `;
 
 export const RegionTitleWrapper = styled.div`
@@ -43,23 +47,22 @@ export const RegionTitleWrapper = styled.div`
   `}
 `;
 
-export const RegionListWrapper = styled.div`
-  ${({ theme }) => css`
+export const RegionListWrapper = styled.div<{ isMultiple?: boolean }>`
+  ${({ theme, isMultiple }) => css`
     ${theme.fonts.body_14_M};
-    color: ${theme.colors.gray70};
     display: flex;
     justify-content: space-between;
-    max-height: 528px;
-    cursor: pointer;
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: ${isMultiple && '144px'};
+    border-bottom: 1px solid ${theme.colors.gray30};
   `}
 `;
 
 export const StateList = styled.div`
-  ${({ theme }) => css`
-    width: 39.2%;
-    overflow-y: auto;
-    flex-direction: column;
-  `}
+  width: 39.2%;
+  overflow-y: auto;
+  flex-direction: column;
 `;
 
 export const CityList = styled.div`
@@ -79,8 +82,50 @@ export const RegionItem = styled.div<{ isSelected: boolean }>`
     background-color: ${isSelected
       ? theme.colors.primary5
       : theme.colors.gray0};
+    height: 44px;
+    align-content: center;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    svg {
+      & path {
+        fill: ${isSelected && theme.colors.primary80};
+      }
+    }
   `}
-  height: 44px;
-  align-content: center;
-  padding: 12px 16px;
+`;
+
+export const SelectedRegionsWrapper = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 64px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    background-color: ${theme.colors.gray0};
+    position: fixed;
+    bottom: 80px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  `}
+`;
+
+export const Footer = styled.div`
+  ${({ theme }) => css`
+    height: 80px;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    padding: 16px;
+    background-color: ${theme.colors.gray0};
+    border-top: 1px solid ${theme.colors.gray30};
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  `}
 `;
