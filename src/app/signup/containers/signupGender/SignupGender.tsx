@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import * as S from './SignupGender.styled';
 import { RadioButton, SignupFooter } from 'components';
-import { FemaleIcon, GENDER_RADIOS, MaleIcon } from 'assets';
+import { FemaleIcon, genderRadioList, MaleIcon } from 'assets';
 import { SignupForm } from 'types';
 import { usePostGender } from 'hooks';
 
@@ -49,7 +49,7 @@ const SignupGender = ({ page, setPage, MAX_PAGE }: SignupGenderProps) => {
         </S.CardWrapper>
         <RadioButton
           css={S.radioButton}
-          radioList={GENDER_RADIOS}
+          radioList={genderRadioList}
           name="gender"
           control={control}
         />

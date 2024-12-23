@@ -160,7 +160,7 @@ const CreateMeetingRoom = ({
         <RegionModal
           name="regionName"
           buttonName="선택하기"
-          title="미팅 희망 지역을 선택해 주세요"
+          title="지역을 선택해 주세요"
           onSelect={handleRegionSelect('region')}
         />
       </S.ContentWrapper>
